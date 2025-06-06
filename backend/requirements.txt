@@ -1,0 +1,7 @@
+fastf1
+pandas
+numpy
+matplotlib
+fastapi
+httpx
+uvicorn

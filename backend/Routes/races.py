@@ -16,3 +16,15 @@ def race_schedule(year: int, round: int):
 @router.get("/result/{year}/{round}")
 def race_result(year: int, round: int): 
     return get_race_result(year, round)
+
+@router.get("/qualifying/result/{year}/{round}")
+def qualifying_result(year: int, round: int): 
+    return get_qualifying_results(year, round)
+
+@router.get("/sprint/result/{year}/{round}")
+def sprint_result(year: int, round: int): 
+    return get_sprint_results(year, round)
+
+@router.get("/pitstops/{year}/{round}")
+def race_pitstops(year: int, round: int): 
+    return get_pitstops_for_race(year, round)

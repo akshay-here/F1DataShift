@@ -12,3 +12,7 @@ def season_schedule(year: int):
 @router.get("/{year}/{round}")
 def race_schedule(year: int, round: int): 
     return get_race_schedule(year, round)
+
+@router.get("/result/{year}/{round}")
+def race_result(year: int, round: int): 
+    return get_race_result(year, round)

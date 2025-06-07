@@ -1,11 +1,13 @@
 import React from 'react'
+import DriverStandings from '../components/DriverStandings'
+import ConstructorStandings from '../components/ConstructorStandings'
 
 function Standings() {
-  return (
-    <div>
-        <h1>Standings Page</h1>
-    </div>
-  )
+    return (
+        <div>
+            Standings Page
+        </div>
+    )
 }
 
 export default Standings

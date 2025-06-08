@@ -6,4 +6,6 @@ constructor standings end of the aseason => https://api.jolpi.ca/ergast/f1/{year
 driver standings after x rounds => https://api.jolpi.ca/ergast/f1/{year}/{round}/driverstandings
 constructor standings after x rounds => https://api.jolpi.ca/ergast/f1/{year}/{round}/constructorstandings
 
+Qualifying results only available from 1994 onwards
+
 All other Race/Session and telemetry data - FastF1

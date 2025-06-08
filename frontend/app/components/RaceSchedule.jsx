@@ -8,8 +8,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Link from 'next/link'
 
-async function RaceSchedule({year}) {
+async function RaceSchedule({ year }) {
 
     const res = await fetch(`http://localhost:8000/races/${year}`)
     const data = await res.json()
@@ -34,7 +35,11 @@ async function RaceSchedule({year}) {
                     {data.map((race => (
                         <TableRow key={race.round}>
                             <TableCell>{race.round}</TableCell>
-                            <TableCell>{race.season} {race.raceName}</TableCell>
+                            <TableCell>
+                                <Link href={`/races/${year}/${race.round}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                    {race.season} {race.raceName}
+                                </Link>
+                            </TableCell>
                             <TableCell>{race.Circuit.circuitName}</TableCell>
                             <TableCell>{race.date}</TableCell>
                             <TableCell>{race.Circuit.Location.locality}</TableCell>

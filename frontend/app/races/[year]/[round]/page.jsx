@@ -1,9 +1,11 @@
 import React from 'react'
 import RaceResult from '@/app/components/RaceResult'
+import DriverStandings from '@/app/components/DriverStandings';
+import ConstructorStandings from '@/app/components/ConstructorStandings';
 
 async function RaceDetailsPage({ params }) {
 
-    console.log(params)
+    // console.log(params)
 
     const { year, round } = await params;
     const yearInt = parseInt(year)
@@ -11,7 +13,16 @@ async function RaceDetailsPage({ params }) {
 
     return (
         <div>
-            <RaceResult year={yearInt} round={roundInt} />
+
+            <h1 className='font-bold text-center text-xl'>Race Result after Round {round}</h1>
+
+            <div className='p-10'>
+                <RaceResult year={yearInt} round={roundInt} />
+            </div>
+            <div className='p-10 space-y-10'>
+                <DriverStandings year={yearInt} round={roundInt} />
+                <ConstructorStandings year={yearInt} round={roundInt} />
+            </div>
         </div>
     )
 }

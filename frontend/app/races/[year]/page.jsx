@@ -13,10 +13,12 @@ async function RaceScheduleYear({ params }) {
             <h1 className='text-center font-bold text-xl'>Race Schedule for {yearInt}</h1>
 
             <div className="p-10">
-                <YearSelect currentYear={yearInt} endpoint={"races"}/>
+                <YearSelect currentYear={yearInt} endpoint={"races"} />
             </div>
 
-            <RaceSchedule year={yearInt} />
+            <div className="p-10">
+                <RaceSchedule year={yearInt} />
+            </div>
         </div>
     )
 }

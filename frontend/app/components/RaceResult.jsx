@@ -17,7 +17,7 @@ async function RaceResult({ year, round }) {
     return (
         <div>
 
-            <Table className="w-full border mx-auto">
+            <Table className="w-full border">
                 <TableCaption>Race Results</TableCaption>
                 <TableHeader>
                     <TableRow>

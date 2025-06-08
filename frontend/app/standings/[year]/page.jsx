@@ -18,9 +18,9 @@ async function StandingsYearPage({ params }) {
             <div className="p-10">
                 <YearSelect currentYear={yearInt} endpoint={"standings"}/>
             </div>
-            <div className="flex flex-row p-10 space-x-40">
-                <DriverStandings year={yearInt} />
-                <ConstructorStandings year={yearInt} />
+            <div className="p-10 space-y-20">
+                <DriverStandings year={yearInt} round={null}/>
+                <ConstructorStandings year={yearInt} round={null}/>
             </div>
         </div>
     )

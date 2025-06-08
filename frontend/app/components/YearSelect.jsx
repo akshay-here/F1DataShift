@@ -11,13 +11,13 @@ import {
 
 import React from 'react'
 
-function YearSelect({ currentYear }) {
+function YearSelect({ currentYear, endpoint }) {
 
     const router = useRouter();
     const years = Array.from({ length: 2025 - 1950 + 1 }, (_, i) => 1950 + i).reverse();
 
     const handleYearChange = (year) => {
-        router.push(`/standings/${year}`);
+        router.push(`/${endpoint}/${year}`);            // ex: standings/20205 or races/2025
     }
 
     return (

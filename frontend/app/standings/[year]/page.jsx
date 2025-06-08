@@ -16,7 +16,7 @@ async function StandingsYearPage({ params }) {
             <h1 className="font-bold text-center text-xl">F1 {year} Season</h1>
 
             <div className="p-10">
-                <YearSelect currentYear={yearInt} />
+                <YearSelect currentYear={yearInt} endpoint={"standings"}/>
             </div>
             <div className="flex flex-row p-10 space-x-40">
                 <DriverStandings year={yearInt} />

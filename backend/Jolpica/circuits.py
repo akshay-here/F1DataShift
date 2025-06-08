@@ -4,33 +4,32 @@ import httpx
 
 BASE_URL = "https://api.jolpi.ca/ergast/f1"
 
-def get_circuits_in_season(year: int): 
+async def get_circuits_in_season(year: int): 
     url = f"{BASE_URL}/{year}/circuits/"
-    res = httpx.get(url)
-    data = res.json()
-    # print(data["MRData"]['CircuitTable']["Circuits"])
-    return (data["MRData"]['CircuitTable']["Circuits"])
-
-
-def get_all_circuits(): 
-    url = f"{BASE_URL}/circuits/"
-    res = httpx.get(url)
-    data = res.json()
-
-    limit = int(data["MRData"]["limit"])
-    total = int(data["MRData"]["total"])
-    final = []
-
-    offset = 0
-    while offset < total:
-        url_with_offset = f"{BASE_URL}/circuits/?offset={offset}"
-        res = httpx.get(url_with_offset)
+    async with httpx.AsyncClient() as client:
+        res = await client.get(url)
         data = res.json()
-        intermed = data["MRData"]["CircuitTable"]["Circuits"]
+    return data["MRData"]['CircuitTable']["Circuits"]
 
-        final.extend(intermed)
-        offset += limit
+async def get_all_circuits(): 
+    url = f"{BASE_URL}/circuits/"
+    async with httpx.AsyncClient() as client:
+        res = await client.get(url)
+        data = res.json()
 
-    # print(final)
+        limit = int(data["MRData"]["limit"])
+        total = int(data["MRData"]["total"])
+        final = []
+
+        offset = 0
+        while offset < total:
+            url_with_offset = f"{BASE_URL}/circuits/?offset={offset}"
+            res = await client.get(url_with_offset)
+            data = res.json()
+            intermed = data["MRData"]["CircuitTable"]["Circuits"]
+
+            final.extend(intermed)
+            offset += limit
+
     return final
 

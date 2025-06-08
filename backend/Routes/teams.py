@@ -6,5 +6,5 @@ from Jolpica.teams import get_teams_in_season
 router = APIRouter()
 
 @router.get("/{year}")
-def teams_in_year(year: int): 
-    return get_teams_in_season(year)
+async def teams_in_year(year: int): 
+    return await get_teams_in_season(year)

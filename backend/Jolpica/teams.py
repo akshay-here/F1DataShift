@@ -5,10 +5,11 @@ import httpx
 BASE_URL = "https://api.jolpi.ca/ergast/f1"
 
 
-def get_teams_in_season(year: int): 
+async def get_teams_in_season(year: int): 
     url = f"{BASE_URL}/{year}/constructors/"
-    res = httpx.get(url)
-    data = res.json()
-    # print(data["MRData"]["ConstructorTable"]["Constructors"])
-    return (data["MRData"]["ConstructorTable"]["Constructors"])
+    async with httpx.AsyncClient() as client:
+        res = await client.get(url)
+        data = res.json()
+        # print(data["MRData"]["ConstructorTable"]["Constructors"])
+        return (data["MRData"]["ConstructorTable"]["Constructors"])
 

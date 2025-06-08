@@ -5,7 +5,8 @@ import ConstructorStandings from '../components/ConstructorStandings'
 function Standings() {
     return (
         <div>
-            Standings Page
+            <DriverStandings />
+            <ConstructorStandings />
         </div>
     )
 }

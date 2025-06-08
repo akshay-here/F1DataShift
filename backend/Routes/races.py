@@ -6,25 +6,25 @@ from Jolpica.races import get_season_schedule, get_race_schedule, get_race_resul
 router = APIRouter()
 
 @router.get("/{year}")
-def season_schedule(year: int): 
-    return get_season_schedule(year)
+async def season_schedule(year: int): 
+    return await get_season_schedule(year)
 
 @router.get("/{year}/{round}")
-def race_schedule(year: int, round: int): 
-    return get_race_schedule(year, round)
+async def race_schedule(year: int, round: int): 
+    return await get_race_schedule(year, round)
 
 @router.get("/result/{year}/{round}")
-def race_result(year: int, round: int): 
-    return get_race_result(year, round)
+async def race_result(year: int, round: int): 
+    return await get_race_result(year, round)
 
 @router.get("/qualifying/result/{year}/{round}")
-def qualifying_result(year: int, round: int): 
-    return get_qualifying_results(year, round)
+async def qualifying_result(year: int, round: int): 
+    return await get_qualifying_results(year, round)
 
 @router.get("/sprint/result/{year}/{round}")
-def sprint_result(year: int, round: int): 
-    return get_sprint_results(year, round)
+async def sprint_result(year: int, round: int): 
+    return await get_sprint_results(year, round)
 
 @router.get("/pitstops/{year}/{round}")
-def race_pitstops(year: int, round: int): 
-    return get_pitstops_for_race(year, round)
+async def race_pitstops(year: int, round: int): 
+    return await get_pitstops_for_race(year, round)

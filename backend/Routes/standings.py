@@ -7,17 +7,17 @@ from Jolpica.standings import get_drivers_standings, get_drivers_standings_after
 router = APIRouter()
 
 @router.get("/drivers/{year}")
-def driver_standings(year: int): 
-    return get_drivers_standings(year)
+async def driver_standings(year: int): 
+    return await get_drivers_standings(year)
 
 @router.get("/drivers/{year}/{round}")
-def driver_standings_round(year: int, round: int): 
-    return get_drivers_standings_after_round(year, round)
+async def driver_standings_round(year: int, round: int): 
+    return await get_drivers_standings_after_round(year, round)
 
 @router.get("/constructors/{year}")
-def constructor_standings(year: int): 
-    return get_constructors_standings(year)
+async def constructor_standings(year: int): 
+    return await get_constructors_standings(year)
 
 @router.get("/constructors/{year}/{round}")
-def constructor_standings_round(year: int, round: int): 
-    return get_constructors_standings_after_round(year, round)
+async def constructor_standings_round(year: int, round: int): 
+    return await get_constructors_standings_after_round(year, round)

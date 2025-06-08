@@ -11,7 +11,7 @@ import {
 
 async function ConstructorStandings() {
 
-    const res = await fetch("http://localhost:8000/standings/constructors/2025")
+    const res = await fetch(`http://localhost:8000/standings/constructors/year`)
     const data = await res.json()
     // console.log(data)
 

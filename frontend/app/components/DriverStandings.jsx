@@ -11,7 +11,7 @@ import {
 
 async function DriverStandings() {
 
-    const res = await fetch("http://localhost:8000/standings/drivers/2025")
+    const res = await fetch(`http://localhost:8000/standings/drivers/year`)
     const data = await res.json()
     // console.log(data)
 

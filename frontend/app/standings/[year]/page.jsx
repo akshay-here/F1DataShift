@@ -12,6 +12,9 @@ async function StandingsYearPage({ params }) {
 
     return (
         <div>
+
+            <h1 className="font-bold text-center text-xl">F1 {year} Season</h1>
+
             <div className="p-10">
                 <YearSelect currentYear={yearInt} />
             </div>

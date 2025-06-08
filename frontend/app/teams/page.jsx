@@ -1,11 +1,7 @@
-import React from 'react'
+import { redirect } from 'next/navigation';
 
 function TeamsPage() {
-    return (
-        <div>
-            This is the teams page
-        </div>
-    )
+    redirect('/teams/2025');
 }
 
-export default TeamsPage
+export default TeamsPage;

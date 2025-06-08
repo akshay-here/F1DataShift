@@ -1,0 +1,42 @@
+import React from 'react'
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
+
+async function TeamsList({ year }) {
+
+    const res = await fetch(`http://localhost:8000/teams/${year}`)
+    const data = await res.json()
+
+    return (
+        <div>
+
+            <Table className="w-full border">
+                <TableCaption>Teams in {year}</TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="font-bold text-lg">Team Name</TableHead>
+                        <TableHead className="font-bold text-lg">Nationality</TableHead>
+                    </TableRow>
+                </TableHeader>
+
+                <TableBody>
+                    {data.map((team => (
+                        <TableRow key={team.constructorId}>
+                            <TableCell>{team.name}</TableCell>
+                            <TableCell>{team.nationality}</TableCell>
+                        </TableRow>
+                    )))}
+                </TableBody>
+            </Table>
+        </div>
+    )
+}
+
+export default TeamsList

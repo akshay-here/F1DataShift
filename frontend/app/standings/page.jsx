@@ -1,14 +1,7 @@
-import React from 'react'
-import DriverStandings from '../components/DriverStandings'
-import ConstructorStandings from '../components/ConstructorStandings'
+import { redirect } from 'next/navigation';
 
-function Standings() {
-    return (
-        <div>
-            <DriverStandings />
-            <ConstructorStandings />
-        </div>
-    )
+function StandingsPage() {
+    redirect('/standings/2025');
 }
 
-export default Standings
+export default StandingsPage;

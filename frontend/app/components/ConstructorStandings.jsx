@@ -9,16 +9,16 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-async function ConstructorStandings() {
+async function ConstructorStandings({year}) {
 
-    const res = await fetch(`http://localhost:8000/standings/constructors/year`)
+    const res = await fetch(`http://localhost:8000/standings/constructors/${year}`)
     const data = await res.json()
     // console.log(data)
 
     return (
         <div>
 
-            <h1>Constructor Standings</h1>
+            <h1>Constructor Standings {year}</h1>
 
             <Table className="w-fit border">
                 <TableCaption>Constructor Standings</TableCaption>

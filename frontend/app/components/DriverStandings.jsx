@@ -16,8 +16,14 @@ async function DriverStandings({ year, round }) {
         : `http://localhost:8000/standings/drivers/${year}/${round}`
 
     const res = await fetch(endpoint)
+    if (res.status === 500) {
+        return (
+            <div className='p-10'>
+                <h1 className='font-bold text-center text-xl'>No Driver Standings Available for {year} and {round}!</h1>
+            </div>
+        )
+    }
     const data = await res.json()
-    // console.log(data)
 
     return (
         <div>

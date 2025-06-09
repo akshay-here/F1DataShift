@@ -12,6 +12,13 @@ import {
 async function DriversList({ year }) {
 
     const res = await fetch(`http://localhost:8000/drivers/${year}`)
+    if (res.status === 500) {
+        return (
+            <div className='p-10'>
+                <h1 className='font-bold text-center text-xl'>No Drivers Available for {year}!</h1>
+            </div>
+        )
+    }
     const data = await res.json()
 
     return (

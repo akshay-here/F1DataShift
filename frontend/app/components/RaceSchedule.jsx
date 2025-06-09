@@ -13,6 +13,13 @@ import Link from 'next/link'
 async function RaceSchedule({ year }) {
 
     const res = await fetch(`http://localhost:8000/races/${year}`)
+    if (res.status === 500) {
+        return (
+            <div className='p-10'>
+                <h1 className='font-bold text-center text-xl'>No Race Schedule found for the year {year}!</h1>
+            </div>
+        )
+    }
     const data = await res.json()
 
     return (

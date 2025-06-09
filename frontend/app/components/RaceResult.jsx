@@ -12,6 +12,13 @@ import {
 async function RaceResult({ year, round }) {
 
     const res = await fetch(`http://localhost:8000/races/result/${year}/${round}`)
+    if (res.status === 500) {
+        return (
+            <div className='p-10'>
+                <h1 className='font-bold text-center text-xl'>No Race Result for {year} and {round}!</h1>
+            </div>
+        )
+    }
     const data = await res.json()
 
     return (

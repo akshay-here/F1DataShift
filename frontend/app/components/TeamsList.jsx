@@ -12,6 +12,13 @@ import {
 async function TeamsList({ year }) {
 
     const res = await fetch(`http://localhost:8000/teams/${year}`)
+    if (res.status === 500) {
+        return (
+            <div className='p-10'>
+                <h1 className='font-bold text-center text-xl'>No Teams Availabale for {year}!</h1>
+            </div>
+        )
+    }
     const data = await res.json()
 
     return (

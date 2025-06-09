@@ -32,6 +32,7 @@ async def get_race_result(year: int, round: int):
     return data["MRData"]["RaceTable"]["Races"][0]["Results"]
 
 
+# qualifying data only available from 1994 onwards. 1994 to 2005 only Q1. 2005 only Q1 and Q2. 2006 onwards Q1, Q2, Q3
 async def get_qualifying_results(year: int, round: int): 
     url = f"{BASE_URL}/{year}/{round}/qualifying/"
     async with httpx.AsyncClient() as client:
@@ -40,6 +41,7 @@ async def get_qualifying_results(year: int, round: int):
     return data["MRData"]["RaceTable"]["Races"][0]["QualifyingResults"]
 
 
+# sprint results only available from 2021 onwards and not in every single round
 async def get_sprint_results(year: int, round: int): 
     url = f"{BASE_URL}/{year}/{round}/sprint/"
     async with httpx.AsyncClient() as client:
@@ -48,6 +50,7 @@ async def get_sprint_results(year: int, round: int):
     return data["MRData"]["RaceTable"]["Races"][0]["SprintResults"]
 
 
+# pitstop data available only from 2011 onwards
 async def get_pitstops_for_race(year: int, round: int): 
     url = f"{BASE_URL}/{year}/{round}/pitstops/"
     async with httpx.AsyncClient() as client:
@@ -65,4 +68,27 @@ async def get_pitstops_for_race(year: int, round: int):
             intermed = data["MRData"]["RaceTable"]["Races"][0]["PitStops"]
             final.extend(intermed)
             offset += limit
-    return final
+    
+    # Group pitstops by driverId
+    drivers_dict = {}  # Dictionary to store driver pitstop data
+    for pitstop in final:
+        driver_id = pitstop.get("driverId")
+        if not driver_id:
+            continue  # Skip invalid pitstop entries
+        
+        if driver_id not in drivers_dict:
+            drivers_dict[driver_id] = {
+                "driverId": driver_id,
+                "stops": 0,
+                "lap": [],
+                "duration": []
+            }
+        
+        # Append pitstop data
+        drivers_dict[driver_id]["stops"] += 1
+        drivers_dict[driver_id]["lap"].append(pitstop.get("lap", ""))
+        drivers_dict[driver_id]["duration"].append(pitstop.get("duration", ""))
+
+    # Convert dictionary to list for response
+    pitstops = list(drivers_dict.values())
+    return pitstops 

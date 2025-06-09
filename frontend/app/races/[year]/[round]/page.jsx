@@ -4,6 +4,7 @@ import DriverStandings from '@/app/components/DriverStandings';
 import ConstructorStandings from '@/app/components/ConstructorStandings';
 import QualifyingResult from '@/app/components/QualifyingResult';
 import Sprintresult from '@/app/components/SprintResult';
+import PitstopList from '@/app/components/PitstopList';
 
 async function RaceDetailsPage({ params }) {
 
@@ -26,6 +27,7 @@ async function RaceDetailsPage({ params }) {
                 <QualifyingResult year={yearInt} round={roundInt} />
                 <DriverStandings year={yearInt} round={roundInt} />
                 <ConstructorStandings year={yearInt} round={roundInt} />
+                <PitstopList year={yearInt} round={round} />
             </div>
         </div>
     )

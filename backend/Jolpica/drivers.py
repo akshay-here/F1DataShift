@@ -185,7 +185,7 @@ async def get_driver_profile(driver: str):
             res = await client.get(url)
             res.raise_for_status()
             data = res.json()
-            driver_profile = data.get("MRData", {}).get("DriverTable", {}).get("Drivers", [])
+            driver_profile = data.get("MRData", {}).get("DriverTable", {}).get("Drivers", [])[0]
             if not driver_profile:
                 raise HTTPException(status_code=404, detail=f"No data found for {driver}")
             return driver_profile
@@ -197,20 +197,9 @@ async def get_driver_profile(driver: str):
 
 
 async def get_driver_stats(driver: str): 
-    driver_profile = await get_driver_profile(driver)
     races_overall = await get_driver_races(driver)
     qualifying_overall = await get_driver_qualifying(driver)
     sprints_overall = await get_driver_sprints(driver)
-
-    # Extract profile
-    profile = {
-        "driverId": driver_profile[0].get("driverId"),
-        "givenName": driver_profile[0].get("givenName"),
-        "familyName": driver_profile[0].get("familyName"),
-        "nationality": driver_profile[0].get("nationality"),
-        "dateOfBirth": driver_profile[0].get("dateOfBirth"),
-        "url": driver_profile[0].get("url", "")
-    }
 
     # Wins: Races where position=1
     wins = sum(1 for race in races_overall if race.get("Results", [{}])[0].get("position") == "1")
@@ -282,7 +271,6 @@ async def get_driver_stats(driver: str):
 
     # Combine response
     return {
-        "profile": profile,
         "careerStats": career_stats,
         "yearlyStandings": yearly_standings
     }

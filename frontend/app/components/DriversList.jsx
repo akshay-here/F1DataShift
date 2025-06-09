@@ -8,6 +8,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Link from 'next/link'
 
 async function DriversList({ year }) {
 
@@ -39,7 +40,11 @@ async function DriversList({ year }) {
                 <TableBody>
                     {data.map((driver => (
                         <TableRow key={driver.driverId}>
-                            <TableCell>{driver.givenName} {driver.familyName}</TableCell>
+                            <TableCell>
+                                <Link href={`/drivers/driver/${driver.driverId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                    {driver.givenName} {driver.familyName}
+                                </Link>
+                            </TableCell>
                             <TableCell>{driver.code || driver.familyName.slice(0, 3).toUpperCase()}</TableCell>
                             <TableCell>{driver.permanentNumber || ""}</TableCell>
                             <TableCell>{driver.nationality}</TableCell>

@@ -6,7 +6,7 @@ from Jolpica.drivers import get_drivers_in_season, get_driver_races_year, get_dr
 router = APIRouter()
 
 @router.get("/{year}")
-async def drivers_in_year(year: int): 
+async def drivers_in_season(year: int): 
     return await get_drivers_in_season(year)
 
 

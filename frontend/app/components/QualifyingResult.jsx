@@ -12,6 +12,7 @@ import {
 async function QualifyingResult({ year, round }) {
 
     const res = await fetch(`http:localhost:8000/races/qualifying/result/${year}/${round}`)
+    // Have to change this logic when i add error checks in the backend helper functions and routes
     if (res.status == 500) {
         return (
             <div className='p-10'>

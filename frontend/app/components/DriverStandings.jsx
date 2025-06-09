@@ -21,7 +21,10 @@ async function DriverStandings({ year, round }) {
 
     return (
         <div>
-            {round == null ? <h1>Driver Standings {year}</h1> : <h1>Driver Standings after Round {round}</h1>}
+            {round == null
+                ? <h1 className='text-center font-bold text-xl p-10'>Driver Standings {year}</h1>
+                : <h1 className='text-center font-bold text-xl p-10'>Driver Standings after Round {round}</h1>
+            }
 
             <Table className="w-full border">
                 <TableCaption>{round == null ? <h1>Driver Standings {year}</h1> : <h1>Driver Standings after Round {round}</h1>}</TableCaption>

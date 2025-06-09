@@ -22,7 +22,10 @@ async function ConstructorStandings({ year, round }) {
     return (
         <div>
 
-            {round == null ? <h1>Constructor Standings {year}</h1> : <h1>Constructor Standings after Round {round}</h1>}
+            {round == null
+                ? <h1 className='text-center font-bold text-xl p-10'>Constructor Standings {year}</h1>
+                : <h1 className='text-center font-bold text-xl p-10'>Constructor Standings after Round {round}</h1>
+            }
 
             <Table className="w-full border">
                 <TableCaption>{round == null ? <h1>Cosntructor Standings {year}</h1> : <h1>Constructor Standings after Round {round}</h1>}</TableCaption>

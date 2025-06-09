@@ -10,9 +10,9 @@ function page() {
       <div>
           <h1 className='font-bold text-center text-xl'>F1 2025 Season</h1>
 
-          <div className='flex p-10 space-x-10'>
-            <DriverStandings year={currYear} />
-            <ConstructorStandings year={currYear} />
+          <div className='p-10 space-y-10'>
+            <DriverStandings year={currYear} round={null}/>
+            <ConstructorStandings year={currYear} round={null}/>
           </div>
       </div>
     )

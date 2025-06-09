@@ -11,7 +11,7 @@ import {
 
 async function DriverStats({ driverId }) {
 
-    const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/stats/`)
+    const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/stats`)
     if (driverRes.status === 500) {
         return (
             <div>

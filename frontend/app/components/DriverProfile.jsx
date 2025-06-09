@@ -2,7 +2,7 @@ import React from 'react'
 
 async function DriverProfile({ driverId }) {
 
-    const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/profile/`)
+    const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/profile`)
     if (driverRes.status === 500) {
         return (
             <div>

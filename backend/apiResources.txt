@@ -1,11 +1,35 @@
 Drivers and Constructors Standings, driver and constructor info, FP, Q, R details - Jolpica API (1950 - present)
 
-driver standings end of the season => https://api.jolpi.ca/ergast/f1/{year}/driverstandings
-constructor standings end of the aseason => https://api.jolpi.ca/ergast/f1/{year}/constructorstandings
+driver standings end of the season => https://api.jolpi.ca/ergast/f1/year/driverstandings
+constructor standings end of the aseason => https://api.jolpi.ca/ergast/f1/year/constructorstandings
 
-driver standings after x rounds => https://api.jolpi.ca/ergast/f1/{year}/{round}/driverstandings
-constructor standings after x rounds => https://api.jolpi.ca/ergast/f1/{year}/{round}/constructorstandings
+driver standings after x rounds => https://api.jolpi.ca/ergast/f1/year/round/driverstandings
+constructor standings after x rounds => https://api.jolpi.ca/ergast/f1/year/round/constructorstandings
 
 Qualifying results only available from 1994 onwards
+
+Driver Stats:
+
+https://api.jolpi.ca/ergast/f1/drivers/driverId/results/ => gives all the race results of that driver
+https://api.jolpi.ca/ergast/f1/year/drivers/driverId/results/ => gives all the rae results of the driver in that year
+
+https://api.jolpi.ca/ergast/f1/drivers/driverId/qualifying/ => gives all the qualifying results of that driver
+https://api.jolpi.ca/ergast/f1/year/drivers/driverId/qualifying/ => gives all the qualifying results of the driver in that year
+
+https://api.jolpi.ca/ergast/f1/drivers/driverId/sprint/ => gives all the sprint results of that driver
+https://api.jolpi.ca/ergast/f1/year/drivers/driverId/sprint/ => gives all the sprint results of the driver in that year
+
+Same for the team stats also
+
+https://api.jolpi.ca/ergast/f1/year/round/drivers/driverId/pitstops/ => gives all the pitstops made by that driver in that year
+https://api.jolpi.ca/ergast/f1/year/round/connstructor/constructorId/pitstops/ => gives all the pitstops made by the team in that year and that round
+
+https://api.jolpi.ca/ergast/f1/year/drivers/driverId/driverstandings/ => gives that driver's standings in that year along with wins, points, rounds
+https://api.jolpi.ca/ergast/f1/year/constructors/constructorId/constructorstandings/ => gives the team's standings in that year along with wins, points, rounds
+
+
+
+
+
 
 All other Race/Session and telemetry data - FastF1

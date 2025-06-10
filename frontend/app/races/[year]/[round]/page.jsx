@@ -5,6 +5,7 @@ import ConstructorStandings from '@/app/components/ConstructorStandings';
 import QualifyingResult from '@/app/components/QualifyingResult';
 import Sprintresult from '@/app/components/SprintResult';
 import PitstopList from '@/app/components/PitstopList';
+import RaceTimings from '@/app/components/RaceTimings';
 
 async function RaceDetailsPage({ params }) {
 
@@ -17,7 +18,7 @@ async function RaceDetailsPage({ params }) {
     return (
         <div>
 
-            <h1 className='font-bold text-center text-xl'>Race Result after Round {round}</h1>
+            <h1 className='font-bold text-center text-xl'>Race Results after Round {round}</h1>
 
             <div className='p-10'>
                 <RaceResult year={yearInt} round={roundInt} />
@@ -25,6 +26,7 @@ async function RaceDetailsPage({ params }) {
             <div className='p-10 space-y-10'>
                 <Sprintresult year={yearInt} round={roundInt} />
                 <QualifyingResult year={yearInt} round={roundInt} />
+                <RaceTimings year={yearInt} round={roundInt} />
                 <DriverStandings year={yearInt} round={roundInt} />
                 <ConstructorStandings year={yearInt} round={roundInt} />
                 <PitstopList year={yearInt} round={round} />

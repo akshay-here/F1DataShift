@@ -31,7 +31,7 @@ async def get_race_schedule(year: int, round: int):
         try:
             res = await client.get(url)
             data = res.json()
-            race_schedule = data["MRData"]["RaceTable"]["Races"]
+            race_schedule = data["MRData"]["RaceTable"]["Races"][0]
             if not race_schedule:
                 raise HTTPException(status_code=404, detail=f"No race data found for year {year} and round {round}")
             return race_schedule

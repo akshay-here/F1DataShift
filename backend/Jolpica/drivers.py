@@ -100,7 +100,7 @@ async def get_driver_qualifying(driver: str):
 async def get_driver_qualifying_year(driver: str, year: int):
     try:
         async with httpx.AsyncClient() as client:
-            url = f"{BASE_URL}/{year}/drivers/{driver}/results/"
+            url = f"{BASE_URL}/{year}/drivers/{driver}/qualifying/"
             res = await client.get(url)
             res.raise_for_status()
             data = res.json()

@@ -8,6 +8,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Link from 'next/link'
 
 async function DriverStats({ driverId }) {
 
@@ -16,6 +17,13 @@ async function DriverStats({ driverId }) {
         return (
             <div>
                 <h1 className='text-center font-bold text-xl'>No Data found for driver {driverId}</h1>
+            </div>
+        )
+    }
+    if (driverRes.status === 429) {
+        return (
+            <div className='p-10'>
+                <h1 className='text-center font-bold text-xl'>Too Many Requests Being Sent. Please Try Again Later</h1>
             </div>
         )
     }
@@ -57,7 +65,11 @@ async function DriverStats({ driverId }) {
                     <TableBody>
                         {data.yearlyStandings.map((year => (
                             <TableRow key={year.year}>
-                                <TableCell>{year.year}</TableCell>
+                                <TableCell>
+                                    <Link href={`/driver/${driverId}/${year.year}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                        {year.year}
+                                    </Link>
+                                </TableCell>
                                 <TableCell>{year.position}</TableCell>
                                 <TableCell>{year.points}</TableCell>
                                 <TableCell>{year.wins}</TableCell>

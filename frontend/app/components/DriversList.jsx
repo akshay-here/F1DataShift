@@ -41,7 +41,7 @@ async function DriversList({ year }) {
                     {data.map((driver => (
                         <TableRow key={driver.driverId}>
                             <TableCell>
-                                <Link href={`/drivers/driver/${driver.driverId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                <Link href={`http://localhost:3000/driver/${driver.driverId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
                                     {driver.givenName} {driver.familyName}
                                 </Link>
                             </TableCell>

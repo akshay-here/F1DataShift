@@ -10,31 +10,31 @@ import {
 } from "@/components/ui/table"
 import Link from 'next/link'
 
-async function DriverStats({ driverId }) {
+async function TeamStats({ constructorId }) {
 
-    const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/stats`)
-    if (driverRes.status === 500) {
+    const teamRes = await fetch(`http://localhost:8000/teams/${constructorId}/stats`)
+    if (teamRes.status === 500) {
         return (
             <div>
-                <h1 className='text-center font-bold text-xl'>No Data found for driver {driverId}</h1>
+                <h1 className='text-center font-bold text-xl'>No Data found for team {constructorId}</h1>
             </div>
         )
     }
-    if (driverRes.status === 429) {
+    if (teamRes.status === 429) {
         return (
             <div className='p-10'>
                 <h1 className='text-center font-bold text-xl'>Too Many Requests Being Sent. Please Try Again Later</h1>
             </div>
         )
     }
-    const data = await driverRes.json()
+    const data = await teamRes.json()
 
     return (
         <div>
 
             <div className='p-10'>
-                <h1 className='text-center font-bold text-xl pb-5'>Driver Stats</h1>
-                <h1>Season Driven: {data.careerStats.seasonsDriven}</h1>
+                <h1 className='text-center font-bold text-xl pb-5'>Team Stats</h1>
+                <h1>Years Raced: {data.careerStats.yearsRaced}</h1>
                 <h2>Championships: {data.careerStats.championships}</h2>
                 <h2>Wins: {data.careerStats.wins}</h2>
                 <h2>Poles: {data.careerStats.poles}</h2>
@@ -43,22 +43,19 @@ async function DriverStats({ driverId }) {
                 <h2>Total Points: {data.careerStats.totalPoints}</h2>
                 <h2>Sprint Wins: {data.careerStats.sprintWins || 0}</h2>
                 <h2>Fastest Laps: {data.careerStats.fastestLaps || 0}</h2>
-                <h2>Points Finishes: {data.careerStats.pointsFinishes}</h2>
-                <h2>Outside Points Finishes: {data.careerStats.outsidePoints}</h2>
             </div>
 
             <div className='p-10'>
-                <h1 className='text-center font-bold text-xl pb-5'>Driver Seasons</h1>
+                <h1 className='text-center font-bold text-xl pb-5'>Team Seasons</h1>
 
                 <Table className="w-full border">
-                    <TableCaption>Driver Seasons</TableCaption>
+                    <TableCaption>Team Seasons</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="font-bold text-lg">Year</TableHead>
                             <TableHead className="font-bold text-lg">Championshoip Position</TableHead>
                             <TableHead className="font-bold text-lg">Points</TableHead>
                             <TableHead className="font-bold text-lg">Wins</TableHead>
-                            <TableHead className="font-bold text-lg">Constructor</TableHead>
                             <TableHead className="font-bold text-lg">Rounds</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -67,14 +64,13 @@ async function DriverStats({ driverId }) {
                         {data.yearlyStandings.map((year => (
                             <TableRow key={year.year}>
                                 <TableCell>
-                                    <Link href={`/driver/${driverId}/${year.year}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                    <Link href={`/team/${constructorId}/${year.year}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
                                         {year.year}
                                     </Link>
                                 </TableCell>
                                 <TableCell>{year.position}</TableCell>
                                 <TableCell>{year.points}</TableCell>
                                 <TableCell>{year.wins}</TableCell>
-                                <TableCell>{year.constructor}</TableCell>
                                 <TableCell>{year.rounds}</TableCell>
                             </TableRow>
                         )))}
@@ -87,4 +83,4 @@ async function DriverStats({ driverId }) {
     )
 }
 
-export default DriverStats
+export default TeamStats

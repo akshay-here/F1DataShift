@@ -181,7 +181,7 @@ async def get_team_profile(team: str):
             res = await client.get(url)
             res.raise_for_status()
             data = res.json()
-            team_profile = data.get("MRData", {}).get("ConstructorTable", {}).get("Constructors", [])
+            team_profile = data.get("MRData", {}).get("ConstructorTable", {}).get("Constructors", [])[0]
             if not team_profile:
                 raise HTTPException(status_code=404, detail=f"No data found for {team}")
             return team_profile
@@ -197,14 +197,6 @@ async def get_team_stats(team: str):
     races_overall = await get_team_races(team)
     qualifying_overall = await get_team_qualifying(team)
     sprints_overall = await get_team_sprints(team)
-
-    # Extract profile
-    profile = {
-        "constructorId": team_profile[0].get("constructorId"),
-        "name": team_profile[0].get("name"),
-        "nationality": team_profile[0].get("nationality"),
-        "url": team_profile[0].get("url", "")
-    }
 
     # Wins: Races where any driver finished P1
     wins = sum(1 for race in races_overall for result in race.get("Results", []) if result.get("position") == "1")
@@ -267,7 +259,6 @@ async def get_team_stats(team: str):
 
     # Combine response
     return {
-        "profile": profile,
         "careerStats": career_stats,
         "yearlyStandings": yearly_standings
     }

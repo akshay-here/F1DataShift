@@ -8,6 +8,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Link from 'next/link'
 
 async function TeamsList({ year }) {
 
@@ -36,7 +37,11 @@ async function TeamsList({ year }) {
                 <TableBody>
                     {data.map((team => (
                         <TableRow key={team.constructorId}>
-                            <TableCell>{team.name}</TableCell>
+                            <TableCell>
+                                <Link href={`/team/${team.constructorId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                    {team.name}
+                                </Link>
+                            </TableCell>
                             <TableCell>{team.nationality}</TableCell>
                         </TableRow>
                     )))}

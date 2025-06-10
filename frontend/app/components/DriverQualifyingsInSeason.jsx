@@ -14,8 +14,8 @@ async function DriverQualifyingsInSeason({ driverId, year }) {
     const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/qualifying/${year}`)
     if (driverRes.status === 500) {
         return (
-            <div>
-                <h1 className='text-center font-bold text-xl'>No Qualifyings Data found in {year}</h1>
+            <div className='p-10'>
+                <h1 className='text-center font-bold text-xl'>No Qualifying Data found in {year}</h1>
             </div>
         )
     }

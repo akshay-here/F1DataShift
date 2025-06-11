@@ -22,32 +22,45 @@ async def get_circuits_in_season(year: int):
 
 
 async def get_all_circuits(): 
-    url = f"{BASE_URL}/circuits/"
+    url = f"{BASE_URL}/circuits/?limit=100"
+    async with httpx.AsyncClient() as client:
+        try:
+            res = await client.get(url)
+            data = res.json()
+            circuits = data["MRData"]["CircuitTable"]["Circuits"]
+            if not circuits:
+                raise HTTPException(status_code=404, detail=f"No circuits found")
+            return circuits
+        except httpx.HTTPStatusError as e:
+            raise HTTPException(status_code=e.response.status_code, detail=f"Failed to fetch Data: {e}")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Invalid Year: {e}")
+        
+
+async def get_circuit_races(circuitId: str): 
+    url = f"{BASE_URL}/circuits/{circuitId}/results/?limit=100"
     async with httpx.AsyncClient() as client:
         try:
             res = await client.get(url)
             data = res.json()
 
-            limit = int(data["MRData"]["limit"])
             total = int(data["MRData"]["total"])
+            limit = 100
             final = []
 
             offset = 0
             while offset < total:
-                url_with_offset = f"{BASE_URL}/circuits/?offset={offset}"
-                res = await client.get(url_with_offset)
+                newurl = f"{BASE_URL}/circuits/{circuitId}/results/?limit={limit}&offset={offset}"
+                res = await client.get(newurl)
                 data = res.json()
-                intermed = data["MRData"]["CircuitTable"]["Circuits"]
-
+                intermed = data["MRData"]["RaceTable"]["Races"]
                 final.extend(intermed)
                 offset += limit
 
             if not final:
-                raise HTTPException(status_code=404, detail=f"No circuits found")
+                raise HTTPException(status_code=404, detail=f"No Race results found for this circuit")
             return final
         except httpx.HTTPStatusError as e:
             raise HTTPException(status_code=e.response.status_code, detail=f"Failed to fetch Data: {e}")
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Invalid Year: {e}")
-
-

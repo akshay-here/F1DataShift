@@ -8,6 +8,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Link from 'next/link'
 
 async function CircuitsList() {
 
@@ -23,14 +24,18 @@ async function CircuitsList() {
                     <TableRow>
                         <TableHead className="font-bold text-lg">Circuit Name</TableHead>
                         <TableHead className="font-bold text-lg">Locality</TableHead>
-                        <TableHead className="font-bold text-lg">Countyr</TableHead>
+                        <TableHead className="font-bold text-lg">Country</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody>
                     {data.map((circuit => (
                         <TableRow key={circuit.circuitId}>
-                            <TableCell>{circuit.circuitName}</TableCell>
+                            <TableCell>
+                                <Link href={`/circuits/${circuit.circuitId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                    {circuit.circuitName}
+                                </Link>
+                            </TableCell>
                             <TableCell>{circuit.Location.locality}</TableCell>
                             <TableCell>{circuit.Location.country}</TableCell>
                         </TableRow>

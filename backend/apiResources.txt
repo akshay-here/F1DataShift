@@ -28,7 +28,7 @@ https://api.jolpi.ca/ergast/f1/year/drivers/driverId/driverstandings/ => gives t
 https://api.jolpi.ca/ergast/f1/year/constructors/constructorId/constructorstandings/ => gives the team's standings in that year along with wins, points, rounds
 
 
-
+https://api.jolpi.ca/ergast/f1/circuits/circuitId/results/?limit=100 => gives the race results for all the races that have ever taken place in the circuit
 
 
 

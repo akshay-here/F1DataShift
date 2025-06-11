@@ -23,11 +23,11 @@ async def get_teams_in_season(year: int):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Invalid year: {str(e)}")
 
-
+# used only for calculating the stats
 async def get_team_races(team: str):
     try:
         async with httpx.AsyncClient() as client:
-            url = f"{BASE_URL}/constructors/{team}/results/"
+            url = f"{BASE_URL}/constructors/{team}/results/?limit=100"
             res = await client.get(url)
             res.raise_for_status()
             data = res.json()
@@ -69,10 +69,11 @@ async def get_team_races_year(team: str, year: int):
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
+# used only for calculating the stats
 async def get_team_qualifying(team: str):
     try:
         async with httpx.AsyncClient() as client:
-            url = f"{BASE_URL}/constructors/{team}/qualifying/"
+            url = f"{BASE_URL}/constructors/{team}/qualifying/?limit=100"
             res = await client.get(url)
             res.raise_for_status()
             data = res.json()
@@ -114,6 +115,7 @@ async def get_team_qualifying_year(team: str, year: int):
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
+# used only for calculating the stats
 async def get_team_sprints(team: str):
     try:
         async with httpx.AsyncClient() as client:
@@ -148,6 +150,7 @@ async def get_team_sprints_year(team: str, year: int):
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
+# used only for calculating the stats
 async def get_team_standings_year(team: str, year: int):
     try:
         async with httpx.AsyncClient() as client:

@@ -1,7 +1,7 @@
 # this file is for creating all the routes for all the functions in the circuits file present in Jolpica/circuits.py
 
 from fastapi import APIRouter
-from Jolpica.circuits import get_circuits_in_season, get_all_circuits
+from Jolpica.circuits import get_circuits_in_season, get_all_circuits, get_circuit_races
 
 router = APIRouter()
 
@@ -15,3 +15,8 @@ async def all_circuits():
 @router.get("/{year}")
 async def circuits_in_season(year: int): 
     return await get_circuits_in_season(year)
+
+
+@router.get("/{circuitId}/races")
+async def circuit_races(circuitId: str): 
+    return await get_circuit_races(circuitId)

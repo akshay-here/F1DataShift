@@ -148,3 +148,5 @@ async def get_pitstops_for_race(year: int, round: int):
             raise HTTPException(status_code=e.response.status_code, detail=f"Failed to fetch Data: {e}")
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Invalid Year: {e}")
+        
+

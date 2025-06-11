@@ -12,7 +12,7 @@ import Link from 'next/link'
 
 async function RaceSchedule({ year }) {
 
-    const res = await fetch(`http://localhost:8000/races/${year}`)
+    const res = await fetch(`http://localhost:8000/races/schedule/${year}`)
     if (res.status === 500) {
         return (
             <div className='p-10'>

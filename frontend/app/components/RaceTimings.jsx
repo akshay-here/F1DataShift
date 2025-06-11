@@ -11,7 +11,7 @@ import {
 
 async function RaceTimings({ year, round }) {
 
-    const timingsRes = await fetch(`http://localhost:8000/races/${year}/${round}`)
+    const timingsRes = await fetch(`http://localhost:8000/races/schedule/${year}/${round}`)
     if (timingsRes.status === 500) {
         return (
             <div>

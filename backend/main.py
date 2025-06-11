@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from Routes import standings, races, drivers, teams, circuits
+from Routes import standings, races, drivers, teams, circuits, heatmap
 
 app = FastAPI()
 
@@ -22,4 +22,5 @@ app.include_router(races.router, prefix="/races")
 app.include_router(drivers.router, prefix="/drivers")
 app.include_router(teams.router, prefix="/teams")
 app.include_router(circuits.router, prefix="/circuits")
+app.include_router(heatmap.router, prefix="/heatmap")
 

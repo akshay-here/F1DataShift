@@ -182,3 +182,132 @@ async def get_driver_standings_heatmap(year: int):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+    
+
+# to get the constructors heatmap
+async def get_constructor_standings_heatmap(year: int):
+    try:
+        # Fetch race and sprint results
+        race_results = await get_all_race_results(year)
+        sprint_results = await get_all_sprint_results(year)
+
+        # Process race results
+        race_data = []
+        for race in race_results:
+            round_num = int(race["round"])
+            race_name = race["raceName"].replace(" Grand Prix", "")
+            for result in race["Results"]:
+                race_data.append({
+                    "round": round_num,
+                    "race": race_name,
+                    "constructorId": result["Constructor"]["constructorId"],
+                    "constructorName": result["Constructor"]["name"],
+                    "points": float(result["points"])
+                })
+        
+        # Process sprint results
+        sprint_data = []
+        for sprint in sprint_results:
+            round_num = int(sprint["round"])
+            race_name = sprint["raceName"].replace(" Grand Prix", "")
+            for result in sprint["SprintResults"]:
+                sprint_data.append({
+                    "round": round_num,
+                    "race": race_name,
+                    "constructorId": result["Constructor"]["constructorId"],
+                    "constructorName": result["Constructor"]["name"],
+                    "points": float(result["points"])
+                })
+
+        # Convert to DataFrames
+        race_df = pd.DataFrame(race_data)
+        sprint_df = pd.DataFrame(sprint_data)
+
+        # Aggregate points by constructor for races
+        if not race_df.empty:
+            race_agg = race_df.groupby(["round", "race", "constructorId", "constructorName"])["points"].sum().reset_index()
+        else:
+            race_agg = pd.DataFrame(columns=["round", "race", "constructorId", "constructorName", "points"])
+
+        # Aggregate points by constructor for sprints
+        if not sprint_df.empty:
+            sprint_agg = sprint_df.groupby(["round", "race", "constructorId", "constructorName"])["points"].sum().reset_index()
+        else:
+            sprint_agg = pd.DataFrame(columns=["round", "race", "constructorId", "constructorName", "points"])
+
+        # Merge race and sprint points
+        if not sprint_agg.empty:
+            merged_df = pd.merge(
+                race_agg,
+                sprint_agg,
+                on=["round", "race", "constructorId", "constructorName"],
+                how="outer",
+                suffixes=("_race", "_sprint")
+            )
+            merged_df["points"] = merged_df["points_race"].fillna(0) + merged_df["points_sprint"].fillna(0)
+            merged_df = merged_df[["round", "race", "constructorId", "constructorName", "points"]]
+        else:
+            merged_df = race_agg
+
+        if merged_df.empty:
+            raise HTTPException(status_code=404, detail=f"No data available for year {year}")
+
+        # Pivot for heatmap
+        pivot = merged_df.pivot_table(
+            values="points",
+            index="constructorName",
+            columns="race",
+            fill_value=0,
+            aggfunc="sum"
+        )
+        # Sort races by round
+        race_order = merged_df[["race", "round"]].drop_duplicates().sort_values("round")["race"].tolist()
+        pivot = pivot[race_order]
+
+        # Generate heatmap image
+        fig = px.imshow(
+            pivot,
+            text_auto=True,
+            aspect='auto',
+            color_continuous_scale=[
+                [0, 'rgb(198, 219, 239)'],
+                [0.25, 'rgb(107, 174, 214)'],
+                [0.5, 'rgb(33, 113, 181)'],
+                [0.75, 'rgb(8, 81, 156)'],
+                [1, 'rgb(8, 48, 107)']
+            ],
+            labels={'x': 'Race', 'y': 'Constructor', 'color': 'Points'}
+        )
+        fig.update_xaxes(
+            title_text='',
+            side='top',
+            tickangle=45,
+            showticklabels=True,
+            tickfont=dict(size=10)
+        )
+        fig.update_yaxes(
+            title_text='',
+            tickmode='linear',
+            showgrid=True,
+            gridwidth=1,
+            gridcolor='LightGrey',
+            showline=False,
+            tickson='boundaries',
+            showticklabels=True,
+            tickfont=dict(size=10)
+        )
+        fig.update_layout(
+            plot_bgcolor='rgba(0,0,0,0)',
+            coloraxis_showscale=False,
+            margin=dict(l=60, r=20, t=80, b=20),
+            height=max(400, len(pivot.index) * 20 + 100)
+        )
+
+        # Convert to PNG bytes
+        img_bytes = fig.to_image(format="png")
+        img_buffer = BytesIO(img_bytes)
+        return img_buffer
+    except HTTPException as e:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")

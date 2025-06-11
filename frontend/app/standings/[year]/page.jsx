@@ -2,6 +2,7 @@ import DriverStandings from "@/app/components/DriverStandings";
 import ConstructorStandings from "@/app/components/ConstructorStandings";
 import YearSelect from "@/app/components/YearSelect";
 import DriverStandingsHeatmap from "@/app/components/DriverStandingsHeatmap";
+import ConstructorStandingsHeatmap from "@/app/components/ConstructorStandingsHeatmap";
 
 
 import React from 'react'
@@ -23,6 +24,7 @@ async function StandingsYearPage({ params }) {
                 <DriverStandings year={yearInt} round={null}/>
                 <DriverStandingsHeatmap year={yearInt} />
                 <ConstructorStandings year={yearInt} round={null}/>
+                <ConstructorStandingsHeatmap year={yearInt} />
             </div>
         </div>
     )

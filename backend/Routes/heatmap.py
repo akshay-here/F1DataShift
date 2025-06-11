@@ -3,7 +3,7 @@
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 from io import BytesIO
-from FastF1.heatmap import get_driver_standings_heatmap
+from FastF1.heatmap import get_driver_standings_heatmap, get_constructor_standings_heatmap
 
 router = APIRouter()
 
@@ -14,6 +14,14 @@ router = APIRouter()
 @router.get("/drivers/{year}")
 async def driver_standings_heatmap(year: int): 
     img_buffer = await get_driver_standings_heatmap(year)
+    return StreamingResponse(
+        content=BytesIO(img_buffer.getvalue()),
+        media_type="image/png"
+    )
+
+@router.get("/constructors/{year}")
+async def team_standings_heatmap(year: int): 
+    img_buffer = await get_constructor_standings_heatmap(year)
     return StreamingResponse(
         content=BytesIO(img_buffer.getvalue()),
         media_type="image/png"

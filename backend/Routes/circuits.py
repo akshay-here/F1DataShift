@@ -1,10 +1,9 @@
 # this file is for creating all the routes for all the functions in the circuits file present in Jolpica/circuits.py
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from Jolpica.circuits import get_circuits_in_season, get_all_circuits, get_circuit_races
 from FastF1.circuitPlots import get_circuit_layout, get_circuit_speed_layout, get_circuit_gearshifts_layout
 from fastapi.responses import StreamingResponse
-from io import BytesIO
 
 router = APIRouter()
 

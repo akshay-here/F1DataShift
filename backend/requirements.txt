@@ -8,3 +8,4 @@ uvicorn
 asyncio
 plotly
 kaleido # for plotly
+seaborn

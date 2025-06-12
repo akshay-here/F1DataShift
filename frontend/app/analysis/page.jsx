@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 function AnalysisHomePage() {
     return (
@@ -9,7 +10,9 @@ function AnalysisHomePage() {
             <div className='p-10 space-y-10'>
                 <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
                     See Driver and Constructor Heatmap
-                    <Button variant="outline">Go To Heatmaps</Button>
+                    <Link href={"/analysis/heatmaps/2025"}>
+                        <Button variant="outline">Go To Heatmaps</Button>
+                    </Link>
                 </div>
 
                 <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>

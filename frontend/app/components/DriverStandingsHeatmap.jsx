@@ -39,7 +39,7 @@ function DriverStandingsHeatmap({ year }) {
     }, [year]);
 
     if (loading) {
-        return <div className="text-center p-10 text-font-bold text-xl">Loading heatmap...</div>;
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Driver Standings heatmap...</div>;
     }
 
     if (error) {

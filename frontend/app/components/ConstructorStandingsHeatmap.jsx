@@ -39,7 +39,7 @@ function ConstructorStandingsHeatmap({ year }) {
     }, [year]);
 
     if (loading) {
-        return <div className="text-center p-10 text-font-bold text-xl">Loading heatmap...</div>;
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Constructor Standings heatmap...</div>;
     }
 
     if (error) {

@@ -22,6 +22,12 @@ import CircuitLayout from './CircuitLayout';
 import CircuitSpeedLayout from './CircuitSpeedLayout';
 import CircuitGearShiftsLayout from './CircuitGearShiftsLayout';
 
+import PositionChangesPlot from './PositionChangesPlot';
+import TeamPaceComparisonPlot from './TeamPaceComparisonPlot';
+import TyreStratsPlot from './TyreStratsPlot';
+import QualiDeltaPlot from './QualiDeltaPlot';
+import LapTimesDistribPlot from './LaptimesDistribPlot';
+
 function RaceAnalysisSelectors() {
 
     const [year, setYear] = useState("")                        // keep track of the year
@@ -70,6 +76,12 @@ function RaceAnalysisSelectors() {
 
     }, [year])
 
+    // selecting a year
+    const handleYearSelect = (year) => {
+        setYear(year)
+        setSelectedRace("")
+    }
+
     // selecting a race
     const handleRaceSelect = (raceId) => {
         setSelectedRace(raceId)
@@ -83,7 +95,7 @@ function RaceAnalysisSelectors() {
 
             <div className='flex space-x-10'>
                 <div>
-                    <Select onValueChange={setYear} value={year}>
+                    <Select onValueChange={handleYearSelect} value={year}>
                         <SelectTrigger>
                             <SelectValue placeholder="Select Year" />
                         </SelectTrigger>
@@ -154,7 +166,49 @@ function RaceAnalysisSelectors() {
             )}
 
             {/* Components to display position changes of that race, team pace comparison, quali delta and results, tyre strats, driver laptimes distrib */}
+            {selectedRace && selectedRaceData && (
+                <div>
 
+                    <h1 className='pt-20 text-xl'>Race Analysis: </h1>
+
+                    <Carousel className="w-full max-w-2xl mx-auto pt-10" opts={{ align: "start", loop: true }}>
+                        <CarouselContent>
+                            <CarouselItem>
+                                <div>
+                                    <PositionChangesPlot year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Position Changes In Race</p>
+                                </div>
+                            </CarouselItem>
+                            <CarouselItem>
+                                <div>
+                                    <TeamPaceComparisonPlot year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Team Race Pace Comparison In Race</p>
+                                </div>
+                            </CarouselItem>
+                            <CarouselItem>
+                                <div>
+                                    <TyreStratsPlot year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Different Tyre Strategies In Race</p>
+                                </div>
+                            </CarouselItem>
+                            <CarouselItem>
+                                <div>
+                                    <QualiDeltaPlot year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Qualifying Delta and Performance</p>
+                                </div>
+                            </CarouselItem>
+                            <CarouselItem>
+                                <div>
+                                    <LapTimesDistribPlot year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Laptime Distribution Of Point Scorers In Race</p>
+                                </div>
+                            </CarouselItem>
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                </div>
+            )}
 
         </div>
     )

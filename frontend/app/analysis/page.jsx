@@ -33,12 +33,13 @@ function AnalysisHomePage() {
                 <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
                     <ul>
                         <li className='font-bold'>Perform analysis on Driver Performance in a race like: </li>
-                        <li>Speed traces (Speed vs Distance)</li>
+                        <li>Driver Qualifying (Speed vs Distance or Laps)</li>
                         <li>Driver Laptimes Scatterplot</li>
                         <li>Driver Race Pace (Laptime vs Laps)</li>
-                        <li>Speed Traces with corner annotations</li>
                     </ul>
-                    <Button variant="outline">Driver Analysis</Button>
+                    <Link href={"/analysis/driver/"}>
+                        <Button variant="outline">Go To Driver Analysis</Button>
+                    </Link>
                 </div>
 
                 <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>

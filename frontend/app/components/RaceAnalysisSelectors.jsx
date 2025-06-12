@@ -62,7 +62,10 @@ function RaceAnalysisSelectors() {
                 }
 
                 const data = await raceRes.json()
-                setRaces(data)
+                const now = new Date()
+                const pastRaces = data.filter(race => new Date(race.date) <= now)                   // to prevent selecting future races
+                console.log(`Fetched ${pastRaces.length} past races for ${year}:`, pastRaces)
+                setRaces(pastRaces)
                 setError(null)
             } catch (err) {
                 console.error(`Fetch error for year ${year}:`, err.message);
@@ -76,17 +79,6 @@ function RaceAnalysisSelectors() {
 
     }, [year])
 
-    // selecting a year
-    const handleYearSelect = (year) => {
-        setYear(year)
-        setSelectedRace("")
-    }
-
-    // selecting a race
-    const handleRaceSelect = (raceId) => {
-        setSelectedRace(raceId)
-    }
-
     // get selected race details
     const selectedRaceData = races.find(race => `${race.season}-${race.round}` === selectedRace)
 
@@ -95,7 +87,7 @@ function RaceAnalysisSelectors() {
 
             <div className='flex space-x-10'>
                 <div>
-                    <Select onValueChange={handleYearSelect} value={year}>
+                    <Select onValueChange={setYear} value={year}>
                         <SelectTrigger>
                             <SelectValue placeholder="Select Year" />
                         </SelectTrigger>
@@ -110,7 +102,7 @@ function RaceAnalysisSelectors() {
                 </div>
 
                 <div>
-                    <Select onValueChange={handleRaceSelect} value={selectedRace} disabled={!year || loading || races.length === 0}>
+                    <Select onValueChange={setSelectedRace} value={selectedRace} disabled={!year || loading || races.length === 0}>
                         <SelectTrigger>
                             <SelectValue placeholder={year ? "Select Race" : "Select a year first"} />
                         </SelectTrigger>

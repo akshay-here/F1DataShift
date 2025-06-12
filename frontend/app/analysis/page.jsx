@@ -25,7 +25,9 @@ function AnalysisHomePage() {
                         <li>Qualifying Results and Delta</li>
                         <li>Driver Laptimes Distribution</li>
                     </ul>
-                    <Button variant="outline">Race Analysis</Button>
+                    <Link href={"/analysis/race/"}>
+                        <Button variant="outline">Go To Race Analysis</Button>
+                    </Link>
                 </div>
 
                 <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
@@ -45,7 +47,7 @@ function AnalysisHomePage() {
                         <li>Overlaying Speed Traces - Pick any lap and Compare their telemetry data</li>
                         <li>Driver Race Pace Comparison</li>
                     </ul>
-                    <Button variant="outline">Comppare Driver</Button>
+                    <Button variant="outline">Compare Driver</Button>
                 </div>
 
             </div>

@@ -160,7 +160,7 @@ function DriverAnalysisSelectors() {
                 </div>
             )}
 
-            {/* To dispplay the selected driver */}
+            {/* To display the selected driver */}
             {selectedDriver && selectedDriverData && (
                 <div className="pt-5">
                     <h1 className="text-xl font-bold">Selected Driver: {selectedDriverData.givenName} {selectedDriverData.familyName} ({selectedDriverData.code || selectedDriverData.driverId})</h1>

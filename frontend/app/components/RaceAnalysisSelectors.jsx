@@ -10,6 +10,18 @@ import {
     SelectValue
 } from "@/components/ui/select";
 
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
+
+import CircuitLayout from './CircuitLayout';
+import CircuitSpeedLayout from './CircuitSpeedLayout';
+import CircuitGearShiftsLayout from './CircuitGearShiftsLayout';
+
 function RaceAnalysisSelectors() {
 
     const [year, setYear] = useState("")                        // keep track of the year
@@ -104,11 +116,42 @@ function RaceAnalysisSelectors() {
             {/* To display the selected race */}
             {selectedRace && selectedRaceData && (
                 <div className="pt-10">
-                    <p>Selected Race: {selectedRaceData.raceName} (Round {selectedRaceData.round})</p>
+                    <h1 className='text-xl font-bold'>Selected Race: {selectedRaceData.raceName} (Round {selectedRaceData.round})</h1>
                 </div>
             )}
 
             {/* Components To display the circuit info - track layout, track speed vis, track gear shifts */}
+            {selectedRace && selectedRaceData && (
+                <div>
+
+                    <h1 className='pt-20 text-xl'>Circuit Layouts and Visualizations: </h1>
+
+                    <Carousel className="w-full max-w-2xl mx-auto pt-10" opts={{ align: "start", loop: true }}>
+                        <CarouselContent>
+                            <CarouselItem>
+                                <div>
+                                    <CircuitLayout year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Circuit Layout With Corner Annotations</p>
+                                </div>
+                            </CarouselItem>
+                            <CarouselItem>
+                                <div>
+                                    <CircuitSpeedLayout year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Circuit Speed Visuaization</p>
+                                </div>
+                            </CarouselItem>
+                            <CarouselItem>
+                                <div>
+                                    <CircuitGearShiftsLayout year={year} round={selectedRaceData.round} />
+                                    <p className='pt-10 text-center'>Circuit Gear Shifts Layout</p>
+                                </div>
+                            </CarouselItem>
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                </div>
+            )}
 
             {/* Components to display position changes of that race, team pace comparison, quali delta and results, tyre strats, driver laptimes distrib */}
 

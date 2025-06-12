@@ -1,7 +1,10 @@
 # this file is for creating all the routes for all the functions in the circuits file present in Jolpica/circuits.py
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from Jolpica.circuits import get_circuits_in_season, get_all_circuits, get_circuit_races
+from FastF1.circuitPlots import get_circuit_layout, get_circuit_speed_layout, get_circuit_gearshifts_layout
+from fastapi.responses import StreamingResponse
+from io import BytesIO
 
 router = APIRouter()
 
@@ -20,3 +23,21 @@ async def circuits_in_season(year: int):
 @router.get("/{circuitId}/races")
 async def circuit_races(circuitId: str): 
     return await get_circuit_races(circuitId)
+
+
+@router.get("/layout/{year}/{round}")
+async def circuit_layout(year: int, round: int): 
+    buffer = await get_circuit_layout(year, round)
+    return StreamingResponse(buffer, media_type="image/png")
+
+
+@router.get("/speedlayout/{year}/{round}")
+async def circuit_speed_layout(year: int, round: int): 
+    buffer = await get_circuit_speed_layout(year, round)
+    return StreamingResponse(buffer, media_type="image/png")
+
+
+@router.get("/gearshiftslayout/{year}/{round}")
+async def circuit_gearshifts_layout(year: int, round: int): 
+    buffer = await get_circuit_gearshifts_layout(year, round)
+    return StreamingResponse(buffer, media_type="image/png")

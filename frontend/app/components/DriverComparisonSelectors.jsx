@@ -123,7 +123,7 @@ function DriverComparisonSelectors({ onSelect }) {
 
     // Handle driver selection
     const handleDriverChange = (driverCode) => {
-        if (selectedDriverCodes.length < 3 && !selectedDriverCodes.includes(driverCode)) {
+        if (selectedDriverCodes.length < 5 && !selectedDriverCodes.includes(driverCode)) {
             setSelectedDriverCodes([...selectedDriverCodes, driverCode])
         }
         setCurrentDriver("") // Reset dropdown after selection
@@ -176,7 +176,7 @@ function DriverComparisonSelectors({ onSelect }) {
                     <Select
                         onValueChange={handleDriverChange}
                         value={currentDriver}
-                        disabled={!selectedRace || loading || drivers.length === 0 || selectedDriverCodes.length >= 3}
+                        disabled={!selectedRace || loading || drivers.length === 0 || selectedDriverCodes.length >= 5}
                     >
                         <SelectTrigger>
                             <SelectValue placeholder={selectedRace ? "Select Driver" : "Select a race first"} />

@@ -10,6 +10,8 @@ import {
     SelectValue
 } from "@/components/ui/select";
 
+import QualifyingSpeedTrace from './QualifyingSpeedTrace';
+
 function DriverAnalysisSelectors() {
 
     const [year, setYear] = useState("")                        // keep track of the year
@@ -165,6 +167,11 @@ function DriverAnalysisSelectors() {
                 <div className="pt-5">
                     <h1 className="text-xl font-bold">Selected Driver: {selectedDriverData.givenName} {selectedDriverData.familyName} ({selectedDriverData.code || selectedDriverData.driverId})</h1>
                 </div>
+            )}
+
+            {/* To display the qualifying speed trace of the driver */}
+            {selectedDriver && selectedDriverData && (
+                <QualifyingSpeedTrace driverCode={selectedDriverData.code} year={year} round={selectedRaceData.round} />
             )}
 
         </div>

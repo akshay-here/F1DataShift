@@ -13,7 +13,7 @@ async def get_qualifying_speed_trace(driverCode: str, year: int, round: int):
         session.load(telemetry=True, laps=True, weather=False)
 
         # get the fastest lap of that driver
-        driver_lap = session.laps.pick_driver(driverCode).pick_fastest()
+        driver_lap = session.laps.pick_drivers(driverCode).pick_fastest()
         if driver_lap is None or driver_lap.empty:
             raise HTTPException(status_code=404, detail=f"No fastest lap data for driver {driverCode} in {year} round {round}.")
         

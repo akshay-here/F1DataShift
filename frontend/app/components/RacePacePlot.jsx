@@ -1,13 +1,17 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts'
+import { Button } from '@/components/ui/button'
+
+import DriverRaceTelemetryPlots from './DriverRaceTelemetryPlots'
 
 function RacePacePlot({ driverCode, year, round }) {
 
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [selectedLap, setSelectedLap] = useState(null)
 
     useEffect(() => {
         async function fetchRacePace() {
@@ -43,6 +47,14 @@ function RacePacePlot({ driverCode, year, round }) {
         }
     }, [driverCode, year, round])
 
+    // Handle click on lap data point
+    const handleLapClick = (data) => {
+        if (data && data.activePayload && data.activePayload[0]) {
+            const lap = data.activePayload[0].payload.lapNumber
+            setSelectedLap(lap === selectedLap ? null : lap) // Toggle selection
+        }
+    }
+
     if (loading) {
         return <div className="text-lg font-medium text-gray-600 text-center pt-10">Loading Race Pace Plot...</div>;
     }
@@ -65,13 +77,22 @@ function RacePacePlot({ driverCode, year, round }) {
         );
     }
 
+    // Calculate min and max lap times for Y-axis domain
+    const lapTimes = data.chartData.map(point => point.lapTime)
+    const minLapTime = Math.min(...lapTimes)
+    const maxLapTime = Math.max(...lapTimes)
+
     return (
         <div className='pt-20'>
 
             <h1 className="text-center font-semibold text-xl">Race Pace Plot for {data.driverCode} ({year}, Round {round})</h1>
 
             <ResponsiveContainer width="100%" height={500}>
-                <LineChart data={data.chartData} margin={{ top: 20, right: 30, left: 0, bottom: 50 }}>
+                <LineChart
+                    data={data.chartData}
+                    margin={{ top: 20, right: 30, left: 0, bottom: 50 }}
+                    onClick={handleLapClick}
+                >
                     <XAxis
                         dataKey="lapNumber"
                         label={{ value: 'Lap Number', position: 'insideBottom', offset: -5 }}
@@ -81,9 +102,12 @@ function RacePacePlot({ driverCode, year, round }) {
                     />
                     <YAxis
                         label={{ value: 'Lap Time (s)', angle: -90, position: 'insideLeft' }}
-                        domain={['auto', data => Math.ceil(data / 10) * 10]}
-                        tickFormatter={value => value.toFixed(1)}
+                        domain={[minLapTime - 0.5, maxLapTime + 0.5]}
+                        tickFormatter={value => value.toFixed(2)}
+                        tickCount={10}
                         interval={0}
+                        minTickGap={20}
+                        tick={{ fontSize: 12 }}
                     />
                     <Tooltip
                         formatter={(value) => `${value.toFixed(3)} s`}
@@ -96,11 +120,31 @@ function RacePacePlot({ driverCode, year, round }) {
                         stroke={data.teamColor}
                         strokeWidth={2}
                         dot={{ r: 4 }}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 6, onClick: (e, payload) => setSelectedLap(payload.payload.lapNumber) }}
                         name={data.driverCode}
                     />
+                    {selectedLap && (
+                        <ReferenceLine x={selectedLap} stroke="red" strokeDasharray="3 3" label={`Lap ${selectedLap}`} />
+                    )}
                 </LineChart>
             </ResponsiveContainer>
+
+            {selectedLap && (
+                <div className="mt-4">
+                    <Button
+                        onClick={() => setSelectedLap(null)}
+                        className="mb-4 bg-gray-200 text-gray-800 hover:bg-gray-300"
+                    >
+                        Deselect Lap
+                    </Button>
+                    <DriverRaceTelemetryPlots
+                        driverCode={driverCode}
+                        year={year}
+                        round={round}
+                        lapNumber={selectedLap}
+                    />
+                </div>
+            )}
 
         </div>
     )

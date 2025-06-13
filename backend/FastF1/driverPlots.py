@@ -142,3 +142,54 @@ async def get_race_pace_plot(driverCode: str, year: int, round: int):
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch race pace for driver: {str(e)}")
+    
+
+# function to send the telemetry data like speed, throttle, brake, rpm ,gear, drs for a given driver, year, round and Lap
+async def get_driver_race_telemetry_data(driverCode: str, year: int, round: int, lapNumber: int): 
+    try:
+        session = fastf1.get_session(year, round, "R")
+        session.load(telemetry=True, laps=True, weather=False)
+
+        # Get specified lap
+        driver_laps = session.laps.pick_drivers(driverCode)
+        lap = driver_laps[driver_laps['LapNumber'] == lapNumber]
+        if lap.empty:
+            raise HTTPException(status_code=404, detail=f"No lap {lapNumber} data for driver {driverCode} in {year} round {round}.")
+
+        # Get telemetry for the lap
+        telemetry = lap.get_car_data().add_distance()
+        if telemetry.empty:
+            raise HTTPException(status_code=404, detail=f"No telemetry data for lap {lapNumber} of driver {driverCode} in {year} round {round}.")
+
+        team_color = fastf1.plotting.get_team_color(lap['Team'].iloc[0], session=session)
+
+        # Extract telemetry data
+        telemetry_data = [
+            {
+                "distance": float(row['Distance']),
+                "speed": float(row['Speed']) if pd.notna(row['Speed']) else None,
+                "throttle": float(row['Throttle']) if pd.notna(row['Throttle']) else None,
+                "brake": float(row['Brake']) if pd.notna(row['Brake']) else None,
+                "rpm": float(row['RPM']) if pd.notna(row['RPM']) else None,
+                "gear": int(row['nGear']) if pd.notna(row['nGear']) else None,
+                "drs": int(row['DRS']) if pd.notna(row['DRS']) else None
+            }
+            for _, row in telemetry.iterrows()
+            if pd.notna(row['Distance'])
+        ]
+
+        if not telemetry_data:
+            raise HTTPException(status_code=404, detail=f"No valid telemetry points for lap {lapNumber} of driver {driverCode} in {year} round {round}.")
+
+        result = {
+            "driverCode": driverCode,
+            "teamColor": team_color,
+            "lapNumber": lapNumber,
+            "telemetry": telemetry_data,
+            "totalPoints": len(telemetry_data)
+        }
+
+        return result
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch race telemetry data for driver: {str(e)}")

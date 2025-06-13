@@ -190,7 +190,7 @@ function DriverAnalysisSelectors() {
 
             {/* to display the race pace plot */}
             {selectedDriver && selectedDriverData && (
-                <RacePacePlot driverCode={selectedDriverData.code} year={year} round={selectedRaceData.round} />
+                <RacePacePlot driverCodes={[selectedDriverData.code]} year={year} round={selectedRaceData.round} />
             )}
 
         </div>

@@ -48,7 +48,9 @@ function AnalysisHomePage() {
                         <li>Overlaying Speed Traces - Pick any lap and Compare their telemetry data</li>
                         <li>Driver Race Pace Comparison</li>
                     </ul>
-                    <Button variant="outline">Compare Driver</Button>
+                    <Link href={"/analysis/comparison/"}>
+                        <Button variant="outline">Go To Driver Comparison</Button>
+                    </Link>
                 </div>
 
             </div>

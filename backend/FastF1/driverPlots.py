@@ -26,11 +26,27 @@ async def get_qualifying_speed_trace(driverCode: str, year: int, round: int):
         
         team_color = fastf1.plotting.get_team_color(driver_lap['Team'], session=session)
         
-        # Extract distance and speed
+        # Extract full telemetry
         telemetry_data = [
-            {"distance": float(dist), "speed": float(speed)}
-            for dist, speed in zip(driver_tel['Distance'], driver_tel['Speed'])
-            if not np.isnan(dist) and not np.isnan(speed)
+            {
+                "distance": float(dist),
+                "speed": float(speed),
+                "throttle": float(throttle),
+                "brake": float(brake),
+                "rpm": float(rpm),
+                "gear": float(gear),
+                "drs": float(drs)
+            }
+            for dist, speed, throttle, brake, rpm, gear, drs in zip(
+                driver_tel['Distance'],
+                driver_tel['Speed'],
+                driver_tel['Throttle'],
+                driver_tel['Brake'],
+                driver_tel['RPM'],
+                driver_tel['nGear'],
+                driver_tel['DRS']
+            )
+            if not any(np.isnan(x) for x in [dist, speed, throttle, brake, rpm, gear, drs])
         ]
 
         if not telemetry_data:

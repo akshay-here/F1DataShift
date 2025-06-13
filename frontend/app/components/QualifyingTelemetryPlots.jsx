@@ -3,20 +3,20 @@
 import React, { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
+function QualifyingTelemetryPlots({ driverCodes, year, round }) {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        async function fetchTelemetry() {
+        async function fetchData() {
             setLoading(true)
             setError(null)
             try {
                 const driverData = await Promise.all(
                     driverCodes.map(async (code) => {
-                        const response = await fetch(`http://localhost:8000/driverplots/racetelemetry/${code}/${year}/${round}/${lapNumber}`, {
-                            headers: { 'Accept': 'application/json' },
+                        const response = await fetch(`http://localhost:8000/driverplots/qualifyingspeedtrace/${code}/${year}/${round}`, {
+                            headers: { 'Accept': 'application/json' }
                         })
                         if (!response.ok) {
                             throw new Error(`HTTP ${response.status}: ${await response.text()}`)
@@ -24,7 +24,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                         return await response.json()
                     })
                 )
-                // Combine telemetry data for Recharts
+                // Combine data for Recharts
                 const maxPoints = Math.max(...driverData.map(d => d.telemetry.length))
                 const combinedData = Array.from({ length: maxPoints }, (_, index) => {
                     const combinedPoint = {}
@@ -45,25 +45,21 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                 setData({ drivers: driverData, combinedData })
                 setError(null)
             } catch (err) {
-                console.error(`Fetch error for telemetry ${driverCodes.join(', ')}/${year}/${round}/Lap ${lapNumber}:`, err.message)
+                console.error(`Error fetching telemetry for ${driverCodes.join(', ')}:`, err.message)
                 setError(err.message)
                 setData(null)
             } finally {
                 setLoading(false)
             }
         }
-        if (driverCodes.length > 0 && year && round && lapNumber) {
-            fetchTelemetry()
+        if (driverCodes.length > 0 && year && round) {
+            fetchData()
         } else {
             setData(null)
             setLoading(false)
             setError(null)
         }
-    }, [driverCodes, year, round, lapNumber])
-
-    if (!lapNumber) {
-        return null
-    }
+    }, [driverCodes, year, round])
 
     if (loading) {
         return <div className="text-lg font-medium text-gray-600 text-center pt-4">Loading Telemetry...</div>
@@ -72,7 +68,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     if (error) {
         return (
             <div className="p-6 text-center">
-                <h2 className="text-lg font-semibold text-gray-800">Race Telemetry Plots</h2>
+                <h2 className="text-lg font-semibold text-gray-800">Qualifying Telemetry Plots</h2>
                 <p className="text-red-500">{error}</p>
             </div>
         )
@@ -81,8 +77,8 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     if (!data || !data.drivers.length) {
         return (
             <div className="p-6 text-center">
-                <h2 className="text-lg font-semibold text-gray-800">Race Telemetry Plots</h2>
-                <p className="text-gray-600">No telemetry data available</p>
+                <h2 className="text-lg font-semibold text-gray-800">Qualifying Telemetry Plots</h2>
+                <p className="text-gray-600">Select drivers to view telemetry</p>
             </div>
         )
     }
@@ -97,13 +93,12 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                         const isStepMetric = ['brake', 'drs', 'gear'].some(m => entry.name.startsWith(`${m}_`))
                         return (
                             <p key={index} style={{ color: entry.color }}>
-                                {`${driverCode}: ${
-                                    entry.value !== null
+                                {`${driverCode}: ${entry.value !== null
                                         ? isStepMetric
                                             ? entry.value.toFixed(0)
                                             : entry.value.toFixed(1)
                                         : 'N/A'
-                                }${entry.name.startsWith('speed_') ? ' km/h' : entry.name.startsWith('throttle_') ? ' %' : ''}`}
+                                    }${entry.name.startsWith('speed_') ? ' km/h' : entry.name.startsWith('throttle_') ? ' %' : ''}`}
                             </p>
                         )
                     })}
@@ -116,7 +111,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     return (
         <div className="p-6 bg-white shadow-md mt-6 space-y-4">
             <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
-                Race Telemetry Plots - Lap {lapNumber} (Year {year}, Round {round})
+                Qualifying Telemetry Plots (Year {year}, Round {round})
             </h2>
 
             {/* Speed Plot */}
@@ -322,4 +317,4 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     )
 }
 
-export default DriverRaceTelemetryPlots
+export default QualifyingTelemetryPlots

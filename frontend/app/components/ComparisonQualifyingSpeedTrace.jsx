@@ -78,6 +78,17 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
         )
     }
 
+    const colorCounts = {}
+    const strokeStyles = data.drivers.map(driver => {
+        const color = driver.teamColor
+        colorCounts[color] = (colorCounts[color] || 0) + 1
+        return {
+            driverCode: driver.driverCode,
+            teamColor: color,
+            strokeDasharray: colorCounts[color] > 1 && colorCounts[color] === 2 ? '5 5' : '0'
+        }
+    })
+
     return (
         <div className="p-6 bg-white shadow-md mt-6">
             <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
@@ -103,15 +114,16 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
                         labelFormatter={value => `Distance: ${value.toFixed(1)} m`}
                     />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={driver.driverCode}
+                            key={style.driverCode}
                             type="monotone"
-                            dataKey={`speed_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`speed_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={false}
-                            name={driver.driverCode}
+                            name={style.driverCode}
                         />
                     ))}
                 </LineChart>

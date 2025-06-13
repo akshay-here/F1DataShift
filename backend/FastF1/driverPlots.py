@@ -1,4 +1,4 @@
-# This file contains all the functions to send plot data over routes which can be accessed by the drontend to plot interactive plots/graphs
+# This file contains all the functions to send plot data over routes which can be accessed by the frontend to plot interactive plots/graphs
 
 from fastapi import HTTPException
 import fastf1
@@ -151,7 +151,8 @@ async def get_race_pace_plot(driverCode: str, year: int, round: int):
             "driverCode": driverCode,
             "teamColor": team_color,
             "lapData": lap_data,
-            "totalLaps": len(lap_data)
+            "totalLaps": len(lap_data), 
+            "actualLaps": int(session.total_laps) if session.total_laps else max(lap['lapNumber'] for lap in lap_data)  # Total race laps
         }
 
         return result

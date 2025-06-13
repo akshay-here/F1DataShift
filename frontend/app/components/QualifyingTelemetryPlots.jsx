@@ -94,10 +94,10 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                         return (
                             <p key={index} style={{ color: entry.color }}>
                                 {`${driverCode}: ${entry.value !== null
-                                        ? isStepMetric
-                                            ? entry.value.toFixed(0)
-                                            : entry.value.toFixed(1)
-                                        : 'N/A'
+                                    ? isStepMetric
+                                        ? entry.value.toFixed(0)
+                                        : entry.value.toFixed(1)
+                                    : 'N/A'
                                     }${entry.name.startsWith('speed_') ? ' km/h' : entry.name.startsWith('throttle_') ? ' %' : ''}`}
                             </p>
                         )
@@ -107,6 +107,18 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
         }
         return null
     }
+
+    // Determine strokeDasharray for each driver based on teamColor duplicates
+    const colorCounts = {}
+    const strokeStyles = data.drivers.map(driver => {
+        const color = driver.teamColor
+        colorCounts[color] = (colorCounts[color] || 0) + 1
+        return {
+            driverCode: driver.driverCode,
+            teamColor: color,
+            strokeDasharray: colorCounts[color] > 1 && colorCounts[color] === 2 ? '5 5' : '0'
+        }
+    })
 
     return (
         <div className="p-6 bg-white shadow-md mt-6 space-y-4">
@@ -133,15 +145,16 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={`speed_${driver.driverCode}`}
+                            key={`speed_${style.driverCode}`}
                             type="monotone"
-                            dataKey={`speed_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`speed_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={false}
-                            name={driver.driverCode}
+                            name={style.driverCode}
                         />
                     ))}
                 </LineChart>
@@ -166,15 +179,16 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={`throttle_${driver.driverCode}`}
+                            key={`throttle_${style.driverCode}`}
                             type="monotone"
-                            dataKey={`throttle_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`throttle_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={false}
-                            name={driver.driverCode}
+                            name={style.driverCode}
                         />
                     ))}
                 </LineChart>
@@ -200,15 +214,16 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={`brake_${driver.driverCode}`}
+                            key={`brake_${style.driverCode}`}
                             type="step"
-                            dataKey={`brake_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`brake_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={false}
-                            name={driver.driverCode}
+                            name={style.driverCode}
                         />
                     ))}
                 </LineChart>
@@ -233,15 +248,16 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={`rpm_${driver.driverCode}`}
+                            key={`rpm_${style.driverCode}`}
                             type="monotone"
-                            dataKey={`rpm_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`rpm_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={false}
-                            name={driver.driverCode}
+                            name={style.driverCode}
                         />
                     ))}
                 </LineChart>
@@ -266,15 +282,16 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={`gear_${driver.driverCode}`}
+                            key={`gear_${style.driverCode}`}
                             type="step"
-                            dataKey={`gear_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`gear_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={false}
-                            name={driver.driverCode}
+                            name={style.driverCode}
                         />
                     ))}
                 </LineChart>
@@ -300,15 +317,16 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={`drs_${driver.driverCode}`}
+                            key={`drs_${style.driverCode}`}
                             type="step"
-                            dataKey={`drs_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`drs_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={false}
-                            name={driver.driverCode}
+                            name={style.driverCode}
                         />
                     ))}
                 </LineChart>

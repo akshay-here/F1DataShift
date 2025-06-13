@@ -27,18 +27,50 @@ function RacePacePlot({ driverCodes, year, round }) {
                         return await response.json()
                     })
                 )
-                // Combine data for Recharts
-                const maxLaps = Math.max(...driverData.map(d => d.lapData.length))
-                const combinedData = Array.from({ length: maxLaps }, (_, index) => {
-                    const combinedPoint = { lapNumber: index + 1 }
-                    driverData.forEach(driver => {
-                        const lap = driver.lapData.find(l => l.lapNumber === index + 1)
-                        if (lap) {
-                            combinedPoint[`lapTime_${driver.driverCode}`] = lap.lapTime
+                // Log raw driver data for debugging
+                console.log('Driver Data:', driverData)
+
+                // Determine total race laps (use actualLaps from first driver, assume consistent)
+                const actualLaps = driverData[0]?.actualLaps || Math.max(...driverData.flatMap(driver => 
+                    driver.lapData.map(lap => Number(lap.lapNumber))
+                ))
+                console.log('Actual Laps:', actualLaps)
+
+                let combinedData;
+                if (driverCodes.length === 1) {
+                    // Single-driver mode: Include all laps from 1 to actualLaps
+                    const driver = driverData[0]
+                    combinedData = Array.from({ length: actualLaps }, (_, index) => {
+                        const lapNumber = index + 1
+                        const lap = driver.lapData.find(l => Number(l.lapNumber) === lapNumber)
+                        const lapTime = lap && typeof lap.lapTime === 'number' && !isNaN(lap.lapTime) ? lap.lapTime : undefined
+                        if (lapTime === undefined && lap) {
+                            console.log(`Invalid lapTime for ${driver.driverCode}, lap ${lapNumber}:`, lap.lapTime)
+                        }
+                        return {
+                            lapNumber,
+                            [`lapTime_${driver.driverCode}`]: lapTime
                         }
                     })
-                    return combinedPoint
-                }).filter(point => Object.keys(point).length > 1) // Remove empty points
+                } else {
+                    // Multi-driver mode: Include all laps from 1 to actualLaps
+                    combinedData = Array.from({ length: actualLaps }, (_, index) => {
+                        const lapNumber = index + 1
+                        const combinedPoint = { lapNumber }
+                        driverData.forEach(driver => {
+                            const lap = driver.lapData.find(l => Number(l.lapNumber) === lapNumber)
+                            const lapTime = lap && typeof lap.lapTime === 'number' && !isNaN(lap.lapTime) ? lap.lapTime : undefined
+                            if (lapTime === undefined && lap) {
+                                console.log(`Invalid lapTime for ${driver.driverCode}, lap ${lapNumber}:`, lap.lapTime)
+                            }
+                            combinedPoint[`lapTime_${driver.driverCode}`] = lapTime
+                        })
+                        return combinedPoint
+                    })
+                }
+
+                // Log combined data for debugging
+                console.log('Combined Data:', combinedData)
                 setData({ drivers: driverData, combinedData })
                 setError(null)
             } catch (err) {
@@ -93,6 +125,18 @@ function RacePacePlot({ driverCodes, year, round }) {
     const minLapTime = Math.min(...lapTimes)
     const maxLapTime = Math.max(...lapTimes)
 
+    // Determine strokeDasharray for each driver based on teamColor duplicates
+    const colorCounts = {}
+    const strokeStyles = data.drivers.map(driver => {
+        const color = driver.teamColor
+        colorCounts[color] = (colorCounts[color] || 0) + 1
+        return {
+            driverCode: driver.driverCode,
+            teamColor: color,
+            strokeDasharray: colorCounts[color] > 1 && colorCounts[color] === 2 ? '5 5' : '0'
+        }
+    })
+
     return (
         <div className="p-6 bg-white shadow-md mt-6">
             <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
@@ -108,8 +152,10 @@ function RacePacePlot({ driverCodes, year, round }) {
                         dataKey="lapNumber"
                         label={{ value: 'Lap Number', position: 'insideBottom', offset: -5 }}
                         tickFormatter={value => Math.round(value)}
-                        interval={0}
                         tick={{ fontSize: 12 }}
+                        domain={[1, 'dataMax']}
+                        interval="preserveStartEnd"
+                        tickCount={10}
                     />
                     <YAxis
                         label={{ value: 'Lap Time (s)', angle: -90, position: 'insideLeft' }}
@@ -119,20 +165,22 @@ function RacePacePlot({ driverCodes, year, round }) {
                         tick={{ fontSize: 12 }}
                     />
                     <Tooltip
-                        formatter={(value, name) => [`${value.toFixed(3)} s`, name.replace('lapTime_', '')]}
+                        formatter={(value, name) => [`${value ? value.toFixed(3) : 'N/A'} s`, name.replace('lapTime_', '')]}
                         labelFormatter={lap => `Lap: ${lap}`}
                     />
                     <Legend />
-                    {data.drivers.map(driver => (
+                    {strokeStyles.map(style => (
                         <Line
-                            key={`lapTime_${driver.driverCode}`}
+                            key={`lapTime_${style.driverCode}`}
                             type="monotone"
-                            dataKey={`lapTime_${driver.driverCode}`}
-                            stroke={driver.teamColor}
+                            dataKey={`lapTime_${style.driverCode}`}
+                            stroke={style.teamColor}
                             strokeWidth={2}
+                            strokeDasharray={style.strokeDasharray}
                             dot={{ r: 4 }}
                             activeDot={{ r: 6 }}
-                            name={driver.driverCode}
+                            name={style.driverCode}
+                            connectNulls={true}
                         />
                     ))}
                     {selectedLap && (
@@ -140,7 +188,6 @@ function RacePacePlot({ driverCodes, year, round }) {
                     )}
                 </LineChart>
             </ResponsiveContainer>
-            
             {selectedLap && (
                 <div className="mt-4">
                     <Button

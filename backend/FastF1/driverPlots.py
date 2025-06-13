@@ -5,6 +5,7 @@ import fastf1
 import fastf1.plotting
 import numpy as np
 from scipy.interpolate import interp1d
+import pandas as pd
 
 
 # this is the function to get the data for the qualifying speed trace vs Distance of a driver in a given year and round
@@ -102,3 +103,42 @@ async def get_qualifying_speed_trace_corners(driverCode: str, year: int, round: 
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch qualifying speed trace vs corner: {str(e)}")
+    
+
+# function to get the race pace plot
+async def get_race_pace_plot(driverCode: str, year: int, round: int): 
+    try:
+        session = fastf1.get_session(year, round, "R")
+        session.load(telemetry=False, laps=True, weather=False)
+
+        # get the laps of the driver
+        laps = session.laps.pick_drivers(driverCode).pick_quicklaps().reset_index()
+        if laps.empty:
+            raise HTTPException(status_code=404, detail=f"No quick laps data for driver {driverCode} in {year} round {round}.")
+
+        # Extract lap data
+        lap_data = [
+            {
+                "lapNumber": int(lap['LapNumber']),
+                "lapTime": float(lap['LapTime'].total_seconds()) if pd.notna(lap['LapTime']) else None
+            }
+            for _, lap in laps.iterrows()
+            if pd.notna(lap['LapNumber']) and pd.notna(lap['LapTime'])
+        ]
+
+        if not lap_data:
+            raise HTTPException(status_code=404, detail=f"No valid lap data for driver {driverCode} in {year} round {round}.")
+
+        team_color = fastf1.plotting.get_team_color(laps['Team'].iloc[0], session=session)
+
+        result = {
+            "driverCode": driverCode,
+            "teamColor": team_color,
+            "lapData": lap_data,
+            "totalLaps": len(lap_data)
+        }
+
+        return result
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch race pace for driver: {str(e)}")

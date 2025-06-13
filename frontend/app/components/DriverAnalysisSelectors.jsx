@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 
 import QualifyingSpeedTrace from './QualifyingSpeedTrace';
+import RacePacePlot from './RacePacePlot';
 
 function DriverAnalysisSelectors() {
 
@@ -185,6 +186,11 @@ function DriverAnalysisSelectors() {
             {/* To display the qualifying speed trace of the driver */}
             {selectedDriver && selectedDriverData && (
                 <QualifyingSpeedTrace driverCode={selectedDriverData.code} year={year} round={selectedRaceData.round} />
+            )}
+
+            {/* to display the race pace plot */}
+            {selectedDriver && selectedDriverData && (
+                <RacePacePlot driverCode={selectedDriverData.code} year={year} round={selectedRaceData.round} />
             )}
 
         </div>

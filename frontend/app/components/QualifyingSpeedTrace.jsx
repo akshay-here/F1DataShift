@@ -2,11 +2,13 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts'
+import { Toggle } from "@/components/ui/toggle"
 
 function QualifyingSpeedTrace({ driverCode, year, round }) {
 
-    const [data, setData] = useState(null)
+    const [view, setView] = useState("distance") // "distance" or "corners"
+    const [data, setData] = useState({ distance: null, corners: null })
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
@@ -15,28 +17,42 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
             setLoading(true)
             setError(null)
             try {
-                const res = await fetch(`http://localhost:8000/driverplots/qualifyingspeedtrace/${driverCode}/${year}/${round}`, {
+                // Fetch distance-based data
+                const distanceRes = await fetch(`http://localhost:8000/driverplots/qualifyingspeedtrace/${driverCode}/${year}/${round}`, {
                     headers: { 'Accept': 'application/json' },
                 })
-                if (!res.ok) {
-                    throw new Error(`HTTP ${res.status}: ${await res.text()}`)
+                if (!distanceRes.ok) {
+                    throw new Error(`Distance data: HTTP ${distanceRes.status}: ${await distanceRes.text()}`)
                 }
+                const distanceData = await distanceRes.json()
+                const distanceChartData = distanceData.telemetry.map(point => ({
+                    distance: point.distance,
+                    speed: point.speed
+                }))
 
-                const telemetryData = await res.json()
+                // Fetch corner-based data
+                const cornersRes = await fetch(`http://localhost:8000/driverplots/qualifyingspeedtrace/corners/${driverCode}/${year}/${round}`, {
+                    headers: { 'Accept': 'application/json' },
+                })
+                if (!cornersRes.ok) {
+                    throw new Error(`Corners data: HTTP ${cornersRes.status}: ${await cornersRes.text()}`)
+                }
+                const cornersData = await cornersRes.json()
+                const cornersChartData = cornersData.cornerData.map(point => ({
+                    corner: point.corner,
+                    speed: point.speed,
+                    distance: point.distance
+                }))
 
-                const chartData = telemetryData.telemetry.map(point => (
-                    {
-                        distance: point.distance,
-                        speed: point.speed
-                    }
-                ))
-
-                setData({ ...telemetryData, chartData })
+                setData({
+                    distance: { ...distanceData, chartData: distanceChartData },
+                    corners: { ...cornersData, chartData: cornersChartData }
+                })
                 setError(null)
             } catch (err) {
-                onsole.error(`Fetch error for telemetry ${driver}/${year}/${round}:`, err.message)
+                console.error(`Fetch error for telemetry ${driverCode}/${year}/${round}:`, err.message)
                 setError(err.message)
-                setData(null)
+                setData({ distance: null, corners: null })
             } finally {
                 setLoading(false)
             }
@@ -60,7 +76,7 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
         );
     }
 
-    if (!data || !data.telemetry.length) {
+    if (!data[view] || !data[view].chartData.length) {
         return (
             <div className="p-6 text-center">
                 <h2 className="text-lg font-semibold text-gray-800">Qualifying Speed Trace</h2>
@@ -75,32 +91,68 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
             <h1 className='text-center font-semibold text-xl'>Qualifying Speed Trace for {driverCode}</h1>
 
             <ResponsiveContainer width="100%" height={500}>
-                <LineChart data={data.chartData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
+                <LineChart data={data[view].chartData} margin={{ top: 20, right: 30, left: 0, bottom: 50 }}>
                     <XAxis
-                        dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
-                        tickFormatter={value => Math.round(value)}
+                        dataKey={view === "distance" ? "distance" : "corner"}
+                        label={{
+                            value: view === "distance" ? "Distance (m)" : "Corner",
+                            position: "insideBottom",
+                            offset: -5
+                        }}
+                        tickFormatter={value => view === "distance" ? Math.round(value) : value}
+                        interval={view === "distance" ? 50 : 0}
+                        minTickGap={view === "distance" ? 40 : undefined}
+                        tick={view === "corners" ? { fontSize: 12 } : { fontSize: 12 }}
                     />
                     <YAxis
                         label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }}
-                        domain={['auto', 'auto']}
+                        domain={['auto', data => Math.ceil(data / 10) * 10 + 20]}
                     />
                     <Tooltip
                         formatter={(value) => `${value.toFixed(1)} km/h`}
-                        labelFormatter={distance => `Distance: ${distance.toFixed(1)} m`}
+                        labelFormatter={label => view === "distance" ? `Distance: ${label.toFixed(1)} m` : `Corner: ${label}`}
+                        content={({ active, payload, label }) => {
+                            if (active && payload && payload.length) {
+                                return (
+                                    <div className="bg-white p-2 border border-gray-300 shadow">
+                                        <p>{view === "distance" ? `Distance: ${label.toFixed(1)} m` : `Corner: ${label}`}</p>
+                                        <p>{`Speed: ${payload[0].value.toFixed(1)} km/h`}</p>
+                                        {view === "corners" && <p>{`Distance: ${payload[0].payload.distance.toFixed(1)} m`}</p>}
+                                    </div>
+                                )
+                            }
+                            return null
+                        }}
                     />
                     <Legend />
+                    {view === "corners" && data.corners.chartData.map(point => (
+                        <ReferenceLine
+                            key={point.corner}
+                            x={point.corner}
+                            stroke="grey"
+                            strokeDasharray="3 3"
+                            strokeOpacity={0.5}
+                        />
+                    ))}
                     <Line
                         type="monotone"
                         dataKey="speed"
-                        stroke={data.teamColor}
+                        stroke={data[view].teamColor}
                         strokeWidth={2}
-                        dot={false}
-                        activeDot={{ r: 5 }}
-                        name={data.driverCode}
+                        dot={view === "corners" ? { r: 4 } : false}
+                        activeDot={{ r: 6 }}
+                        name={data[view].driverCode}
                     />
                 </LineChart>
             </ResponsiveContainer>
+
+            <Toggle
+                pressed={view === "corners"}
+                onPressedChange={() => setView(view === "distance" ? "corners" : "distance")}
+                className="bg-gray-200 text-gray-800 font-semibold data-[state=on]:bg-gray-800 data-[state=on]:text-white px-4 py-2 rounded-md"
+            >
+                {view === "distance" ? "Show Corners" : "Show Distance"}
+            </Toggle>
 
         </div>
     )

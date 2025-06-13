@@ -82,12 +82,18 @@ function RaceAnalysisSelectors() {
     // get selected race details
     const selectedRaceData = races.find(race => `${race.season}-${race.round}` === selectedRace)
 
+    // handle year change
+    const handleYearChange = (year) => {
+        setYear(year)
+        setSelectedRace("")
+    }
+
     return (
         <div className='p-10'>
 
             <div className='flex space-x-10'>
                 <div>
-                    <Select onValueChange={setYear} value={year}>
+                    <Select onValueChange={handleYearChange} value={year}>
                         <SelectTrigger>
                             <SelectValue placeholder="Select Year" />
                         </SelectTrigger>

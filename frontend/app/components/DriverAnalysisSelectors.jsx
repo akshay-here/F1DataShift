@@ -105,12 +105,25 @@ function DriverAnalysisSelectors() {
     const selectedRaceData = races.find(race => `${race.season}-${race.round}` === selectedRace)
     const selectedDriverData = drivers.find(driver => driver.driverId === selectedDriver)
 
+    // handle year change
+    const handleYearChange = (year) => {
+        setYear(year)
+        setSelectedRace("")
+        setSelectedDriver("")
+    }
+
+    // handle race change
+    const handleRaceChange = (selectedRace) => {
+        setSelectedRace(selectedRace)
+        setSelectedDriver("")
+    }
+
     return (
         <div className='p-10'>
 
             <div className='flex space-x-10'>
                 <div>
-                    <Select onValueChange={setYear} value={year}>
+                    <Select onValueChange={handleYearChange} value={year}>
                         <SelectTrigger>
                             <SelectValue placeholder="Select Year" />
                         </SelectTrigger>
@@ -125,7 +138,7 @@ function DriverAnalysisSelectors() {
                 </div>
 
                 <div>
-                    <Select onValueChange={setSelectedRace} value={selectedRace} disabled={!year || loading || races.length === 0}>
+                    <Select onValueChange={handleRaceChange} value={selectedRace} disabled={!year || loading || races.length === 0}>
                         <SelectTrigger>
                             <SelectValue placeholder={year ? "Select Race" : "Select a year first"} />
                         </SelectTrigger>

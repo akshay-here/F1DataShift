@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -10,24 +12,59 @@ import {
 } from "@/components/ui/table"
 import Link from 'next/link'
 
-async function DriverStats({ driverId }) {
+function DriverStats({ driverId }) {
 
-    const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/stats`)
-    if (driverRes.status === 500) {
-        return (
-            <div>
-                <h1 className='text-center font-bold text-xl'>No Data found for driver {driverId}</h1>
-            </div>
-        )
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchDriverStats() {
+            setLoading(true)
+            try {
+                const response = await fetch(`http://localhost:8000/drivers/${driverId}/stats`)
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                const standings = await response.json()
+                setData(standings)
+                setError(null)
+            } catch (err) {
+                console.error('Fetch error:', err.message);
+                setError(err.message);
+                setData(null);
+            } finally {
+                setLoading(false)
+            }
+        }
+        if (driverId) {
+            fetchDriverStats()
+        }
+    }, [driverId])
+
+
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Driver Statistics...</div>;
     }
-    if (driverRes.status === 429) {
+
+    if (error) {
         return (
-            <div className='p-10'>
-                <h1 className='text-center font-bold text-xl'>Too Many Requests Being Sent. Please Try Again Later</h1>
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Driver Statistics</h2>
+                <p className="text-gray-600 text-center">Too many Requests being sent. Try again after a few minutes!</p>
             </div>
-        )
+        );
     }
-    const data = await driverRes.json()
+
+    if (!data) {
+        return (
+            <div className="p1-0">
+                <h2 className="text-xl font-bold text-center">Driver Statistics</h2>
+                <p className="text-gray-600">No data available</p>
+            </div>
+        );
+    }
 
     return (
         <div>

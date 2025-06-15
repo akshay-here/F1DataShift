@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -9,17 +11,86 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-async function TeamQualifyingsInSeason({ constructorId, year }) {
+function TeamQualifyingsInSeason({ constructorId, year }) {
 
-    const teamRes = await fetch(`http://localhost:8000/teams/${constructorId}/qualifying/${year}`)
-    if (teamRes.status === 500) {
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [pre1994, setPre1994] = useState(false)
+
+    useEffect(() => {
+        async function fetchTeamQualifyingInSeason() {
+            setLoading(true)
+            setError(null)
+            setData(null)
+
+            try {
+                const response = await fetch(`http://localhost:8000/teams/${constructorId}/qualifying/${year}`)
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`)
+                }
+
+                const results = await response.json()
+                if (results.length === 0) {
+                    setData(null)
+                } else {
+                    setData(results)
+                }
+                setError(null)
+            } catch (err) {
+                console.error("Fetch error: ", err.message)
+                setError(err.message)
+                setData(null)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        if (year && constructorId) {
+            if (year < 1994) {
+                setPre1994(true)
+                setLoading(false)
+                setError(null)
+                setData(null)
+            } else {
+                setPre1994(false)
+                fetchTeamQualifyingInSeason()
+            }
+        }
+    }, [year, constructorId])
+
+    if (pre1994) {
         return (
-            <div className='p-10'>
-                <h1 className='text-center font-bold text-xl'>No Qualifying Data found in {year}</h1>
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Qualifying Results in {year}</h2>
+                <p className="text-gray-600 mt-2">
+                    Qualifying Data available only from 1994 onwards.
+                </p>
             </div>
         )
     }
-    const data = await teamRes.json()
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Qualifying Results in {year}...</div>
+    }
+
+    if (error) {
+        return (
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Qualifying Results in {year}</h2>
+                <p className="text-red-500 mt-2">Error: {error}</p>
+            </div>
+        )
+    }
+
+    if (!data) {
+        return (
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Qualifying Results in {year}</h2>
+                <p className="text-gray-600 mt-2">No data available.</p>
+            </div>
+        )
+    }
 
     return (
         <div>

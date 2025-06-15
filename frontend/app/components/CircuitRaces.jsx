@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -8,18 +10,60 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Link from 'next/link'
 
-async function CircuitRaces({ circuitId }) {
+function CircuitRaces({ circuitId }) {
 
-    const circuitRacesRes = await fetch(`http://localhost:8000/circuits/${circuitId}/races`)
-    if (circuitRacesRes.status === 500) {
-        return (
-            <div>
-                <h1 className='text-center font-bold text-xl'>No Race data found for this circuit</h1>
-            </div>
-        )
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        async function fetchCircuitRaces() {
+            setLoading(true)
+            try {
+                const response = await fetch(`http://localhost:8000/circuits/${circuitId}/races`)
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                const results = await response.json()
+                setData(results)
+                setError(null)
+            } catch (err) {
+                console.error("Fetch error: ", err.message)
+                setError(err.message)
+                setData(null)
+            } finally {
+                setLoading(false)
+            }
+        }
+        if (circuitId) {
+            fetchCircuitRaces()
+        }
+    }, [circuitId])
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Circuit Races...</div>;
     }
-    const data = await circuitRacesRes.json()
+
+    if (error) {
+        return (
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Circuit Races</h2>
+                <p className="text-red-500">Error: {error}</p>
+            </div>
+        );
+    }
+
+    if (!data) {
+        return (
+            <div className="p1-0">
+                <h2 className="text-xl font-bold text-center">Circuit Races</h2>
+                <p className="text-gray-600">No data available</p>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -50,7 +94,11 @@ async function CircuitRaces({ circuitId }) {
                         return (
                             <TableRow key={`${race.season}-${winner?.Driver?.familyName}`}>
                                 <TableCell>{race.round}</TableCell>
-                                <TableCell>{race.season} {race.raceName}</TableCell>
+                                <TableCell>
+                                    <Link href={`/races/${race.season}/${race.round}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                        {race.season} {race.raceName}
+                                    </Link>
+                                </TableCell>
                                 <TableCell>{winner?.Driver?.familyName || 'N/A'}</TableCell>
                                 <TableCell>{podium}</TableCell>
                                 <TableCell>{winner?.laps || 'N/A'}</TableCell>

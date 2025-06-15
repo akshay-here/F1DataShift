@@ -1,16 +1,60 @@
-import React from 'react'
+"use client"
 
-async function TeamProfile({ constructorId }) {
+import React, { useState, useEffect } from 'react'
 
-    const teamRes = await fetch(`http://localhost:8000/teams/${constructorId}/profile`)
-    if (teamRes.status === 500) {
-        return (
-            <div>
-                <h1 className='text-center font-bold text-xl'>No Data found for team {constructorId}</h1>
-            </div>
-        )
+function TeamProfile({ constructorId }) {
+
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchTeamProfile() {
+            setLoading(true)
+            try {
+                const response = await fetch(`http://localhost:8000/teams/${constructorId}/profile`)
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                const standings = await response.json()
+                setData(standings)
+                setError(null)
+            } catch (err) {
+                console.error('Fetch error:', err.message);
+                setError(err.message);
+                setData(null);
+            } finally {
+                setLoading(false)
+            }
+        }
+        if (constructorId) {
+            fetchTeamProfile()
+        }
+    }, [constructorId])
+
+
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Constructor Profile...</div>;
     }
-    const data = await teamRes.json()
+
+    if (error) {
+        return (
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Constructor Profile</h2>
+                <p className="text-red-500">Error: {error}</p>
+            </div>
+        );
+    }
+
+    if (!data) {
+        return (
+            <div className="p1-0">
+                <h2 className="text-xl font-bold text-center">Constructor Profile</h2>
+                <p className="text-gray-600">No data available</p>
+            </div>
+        );
+    }
 
     return (
         <div>

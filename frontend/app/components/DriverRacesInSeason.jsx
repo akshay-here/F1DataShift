@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -9,17 +11,58 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-async function DriverRacesInSeason({ driverId, year }) {
+function DriverRacesInSeason({ driverId, year }) {
 
-    const driverRes = await fetch(`http://localhost:8000/drivers/${driverId}/races/${year}`)
-    if (driverRes.status === 500) {
-        return (
-            <div>
-                <h1 className='text-center font-bold text-xl'>No Race Data found in {year}</h1>
-            </div>
-        )
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        async function fetchDriverRacesInSeason() {
+            setLoading(true)
+            try {
+                const response = await fetch(`http://localhost:8000/drivers/${driverId}/races/${year}`)
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                const results = await response.json()
+                setData(results)
+                setError(null)
+            } catch (err) {
+                console.error("Fetch error: ", err.message)
+                setError(err.message)
+                setData(null)
+            } finally {
+                setLoading(false)
+            }
+        }
+        if (driverId && year) {
+            fetchDriverRacesInSeason()
+        }
+    }, [driverId, year])
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Race Results in {year}...</div>;
     }
-    const data = await driverRes.json()
+
+    if (error) {
+        return (
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Race Results in {year}</h2>
+                <p className="text-red-500">Error: {error}</p>
+            </div>
+        );
+    }
+
+    if (!data) {
+        return (
+            <div className="p1-0">
+                <h2 className="text-xl font-bold text-center">Race Results in {year}</h2>
+                <p className="text-gray-600">No data available</p>
+            </div>
+        );
+    }
 
     return (
         <div>

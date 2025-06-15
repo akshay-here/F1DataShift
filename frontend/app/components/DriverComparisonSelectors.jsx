@@ -8,6 +8,7 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select"
+import { Button } from '@/components/ui/button'
 
 import ComparisonQualifyingSpeedTrace from './ComparisonQualifyingSpeedTrace'
 import QualifyingTelemetryPlots from './QualifyingTelemetryPlots'
@@ -129,6 +130,11 @@ function DriverComparisonSelectors({ onSelect }) {
         setCurrentDriver("") // Reset dropdown after selection
     }
 
+    // Handle driver removal
+    const handleRemoveDriver = (driverCode) => {
+        setSelectedDriverCodes(selectedDriverCodes.filter(code => code !== driverCode))
+    }
+
     // Get selected race and driver details
     const selectedRaceData = races.find(race => `${race.season}-${race.round}` === selectedRace)
     const selectedDriversData = selectedDriverCodes.map(code =>
@@ -218,9 +224,14 @@ function DriverComparisonSelectors({ onSelect }) {
                     <h1 className="text-xl font-bold">Selected Drivers:</h1>
                     <div className="pt-2">
                         {selectedDriversData.map(driver => (
-                            <p key={driver.driverId}>
-                                {driver.givenName} {driver.familyName} ({driver.code || driver.driverId})
-                            </p>
+                            <div key={driver.driverId} className="flex items-center space-x-10">
+                                <p>
+                                    {driver.givenName} {driver.familyName} ({driver.code || driver.driverId})
+                                </p>
+                                <p onClick={() => handleRemoveDriver(driver.code || driver.driverId)} className='hover:cursor-pointer'>
+                                    ✖️
+                                </p>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -236,7 +247,7 @@ function DriverComparisonSelectors({ onSelect }) {
 
             {/* to display the race pace plot along with telemetry plots for the selected laps */}
             {selectedDriversData.length > 0 && (
-                <div>
+                <div className='pt-20'>
                     <RacePacePlot driverCodes={selectedDriverCodes} year={year} round={selectedRaceData.round} />
                 </div>
             )}

@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -9,29 +11,88 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-async function Sprintresult({ year, round }) {
+function Sprintresult({ year, round }) {
 
-    const res = await fetch(`http:localhost:8000/races/sprint/result/${year}/${round}`)
-    if (res.status == 500) {
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [pre2021, setPre2021] = useState(false)
 
-        if (year < 2021) {
-            return (
-                <div className='p-10'>
-                    <h1 className='font-bold text-center text-xl'>Sprints Introduced only from 2021!</h1>
-                </div>
-            )
+    useEffect(() => {
+        async function fetchSprintResult() {
+            setLoading(true)
+            setError(null)
+            setData(null)
+
+            try {
+                const response = await fetch(`http://localhost:8000/races/sprint/result/${year}/${round}`)
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`)
+                }
+
+                const results = await response.json()
+                if (results.length === 0) {
+                    setData(null)
+                } else {
+                    setData(results)
+                }
+                setError(null)
+            } catch (err) {
+                console.error("Fetch error: ", err.message)
+                setError(err.message)
+                setData(null)
+            } finally {
+                setLoading(false)
+            }
         }
-        else {
-            return (
-                <div className='p-10'>
-                    <h1 className='font-bold text-center text-xl'>Not a Sprint Weekend!</h1>
-                </div>
-            )
-        }
 
+        if (year && round) {
+            if (year < 2021) {
+                setPre2021(true)
+                setLoading(false)
+                setError(null)
+                setData(null)
+            } else {
+                setPre2021(false)
+                fetchSprintResult()
+            }
+        }
+    }, [year, round])
+
+    if (pre2021) {
+        return (
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Sprint Result</h2>
+                <p className="text-gray-600 mt-2">
+                    Sprint races were introduced in 2021. Please select a year from 2021 onward.
+                </p>
+            </div>
+        )
     }
-    const data = await res.json()
-    console.log(res.status)
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Sprint Result...</div>
+    }
+
+    if (error) {
+        return (
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Sprint Result</h2>
+                <p className="text-gray-600 mt-2">
+                    Not a Sprint Weekend.
+                </p>
+            </div>
+        )
+    }
+
+    if (!data) {
+        return (
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Sprint Result</h2>
+                <p className="text-gray-600 mt-2">This race is not a sprint weekend.</p>
+            </div>
+        )
+    }
 
 
     return (

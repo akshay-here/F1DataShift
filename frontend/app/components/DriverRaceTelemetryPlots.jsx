@@ -131,7 +131,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             </h2>
 
             {/* Speed Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -166,7 +166,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             </ResponsiveContainer>
 
             {/* Throttle Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -201,7 +201,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             </ResponsiveContainer>
 
             {/* Brake Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -237,7 +237,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             </ResponsiveContainer>
 
             {/* RPM Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -272,7 +272,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             </ResponsiveContainer>
 
             {/* Gear Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -307,7 +307,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             </ResponsiveContainer>
 
             {/* DRS Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis

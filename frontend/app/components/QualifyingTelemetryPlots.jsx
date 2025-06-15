@@ -127,7 +127,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             </h2>
 
             {/* Throttle Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -162,7 +162,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             </ResponsiveContainer>
 
             {/* Brake Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -198,7 +198,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             </ResponsiveContainer>
 
             {/* RPM Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -233,7 +233,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             </ResponsiveContainer>
 
             {/* Gear Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -268,7 +268,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             </ResponsiveContainer>
 
             {/* DRS Plot */}
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis

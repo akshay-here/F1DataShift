@@ -18,8 +18,6 @@ async function RaceDetailsPage({ params }) {
     return (
         <div>
 
-            <h1 className='font-bold text-center text-xl'>Race Results after Round {round}</h1>
-
             <div className='p-10'>
                 <RaceResult year={yearInt} round={roundInt} />
             </div>

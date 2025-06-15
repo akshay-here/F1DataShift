@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -10,17 +12,58 @@ import {
 } from "@/components/ui/table"
 import Link from 'next/link'
 
-async function RaceSchedule({ year }) {
+function RaceSchedule({ year }) {
 
-    const res = await fetch(`http://localhost:8000/races/schedule/${year}`)
-    if (res.status === 500) {
-        return (
-            <div className='p-10'>
-                <h1 className='font-bold text-center text-xl'>No Race Schedule found for the year {year}!</h1>
-            </div>
-        )
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        async function fetchRaceSchedule() {
+            setLoading(true)
+            try {
+                const response = await fetch(`http://localhost:8000/races/schedule/${year}`)
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                const schedule = await response.json()
+                setData(schedule)
+                setError(null)
+            } catch (err) {
+                console.error('Fetch error:', err.message);
+                setError(err.message);
+                setData(null);
+            } finally {
+                setLoading(false)
+            }
+        }
+        if (year) {
+            fetchRaceSchedule()
+        }
+    }, [year])
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Race Schedule...</div>;
     }
-    const data = await res.json()
+
+    if (error) {
+        return (
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">{year} Race Schedule</h2>
+                <p className="text-red-500">Error: {error}</p>
+            </div>
+        );
+    }
+
+    if (!data) {
+        return (
+            <div className="p1-0">
+                <h2 className="text-xl font-bold text-center">{year} Race Schedule</h2>
+                <p className="text-gray-600">No data available</p>
+            </div>
+        );
+    }
 
     return (
         <div>

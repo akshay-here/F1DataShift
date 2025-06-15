@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -9,17 +11,86 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-async function PitstopList({ year, round }) {
+function PitstopList({ year, round }) {
 
-    const res = await fetch(`http://localhost:8000/races/pitstops/${year}/${round}`)
-    if (res.status == 500) {
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [pre2011, setPre2011] = useState(false)
+
+    useEffect(() => {
+        async function fetchPitstopList() {
+            setLoading(true)
+            setError(null)
+            setData(null)
+
+            try {
+                const response = await fetch(`http://localhost:8000/races/pitstops/${year}/${round}`)
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`)
+                }
+
+                const results = await response.json()
+                if (results.length === 0) {
+                    setData(null)
+                } else {
+                    setData(results)
+                }
+                setError(null)
+            } catch (err) {
+                console.error("Fetch error: ", err.message)
+                setError(err.message)
+                setData(null)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        if (year && round) {
+            if (year < 2011) {
+                setPre2011(true)
+                setLoading(false)
+                setError(null)
+                setData(null)
+            } else {
+                setPre2011(false)
+                fetchPitstopList()
+            }
+        }
+    }, [year, round])
+
+    if (pre2011) {
         return (
-            <div className='text-center font-bold text-xl'>
-                <h1>No PitStop Data Available!</h1>
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Pitstop List</h2>
+                <p className="text-gray-600 mt-2">
+                    Pitstop Data available only from 2011 onwards.
+                </p>
             </div>
         )
     }
-    const data = await res.json()
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Pitstop List...</div>
+    }
+
+    if (error) {
+        return (
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Pitstop List</h2>
+                <p className="text-red-500 mt-2">Error: {error}</p>
+            </div>
+        )
+    }
+
+    if (!data) {
+        return (
+            <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Pitstop List</h2>
+                <p className="text-gray-600 mt-2">No data available.</p>
+            </div>
+        )
+    }
 
     return (
         <div>

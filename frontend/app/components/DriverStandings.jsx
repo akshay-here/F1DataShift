@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -9,21 +11,63 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-async function DriverStandings({ year, round }) {
+function DriverStandings({ year, round }) {
 
-    const endpoint = round === null
-        ? `http://localhost:8000/standings/drivers/${year}`
-        : `http://localhost:8000/standings/drivers/${year}/${round}`
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const res = await fetch(endpoint)
-    if (res.status === 500) {
-        return (
-            <div className='p-10'>
-                <h1 className='font-bold text-center text-xl'>No Driver Standings Available for {year} and {round}!</h1>
-            </div>
-        )
+    useEffect(() => {
+        async function fetchDriverStandings() {
+            setLoading(true)
+            try {
+                const endpoint = round === null
+                    ? `http://localhost:8000/standings/drivers/${year}`
+                    : `http://localhost:8000/standings/drivers/${year}/${round}`
+
+                const response = await fetch(endpoint)
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                const standings = await response.json()
+                setData(standings)
+                setError(null)
+            } catch (err) {
+                console.error('Fetch error:', err.message);
+                setError(err.message);
+                setData(null);
+            } finally {
+                setLoading(false)
+            }
+        }
+        if (year) {
+            fetchDriverStandings()
+        }
+    }, [year])
+
+
+
+    if (loading) {
+        return <div className="text-center p-10 text-font-bold text-xl">Loading Driver Standings...</div>;
     }
-    const data = await res.json()
+
+    if (error) {
+        return (
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">{year} Driver Standings</h2>
+                <p className="text-red-500">Error: {error}</p>
+            </div>
+        );
+    }
+
+    if (!data) {
+        return (
+            <div className="p1-0">
+                <h2 className="text-xl font-bold text-center">{year} Driver Standings</h2>
+                <p className="text-gray-600">No data available</p>
+            </div>
+        );
+    }
 
     return (
         <div>

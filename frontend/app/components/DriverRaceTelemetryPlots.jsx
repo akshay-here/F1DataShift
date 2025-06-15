@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     const [data, setData] = useState(null)
@@ -98,10 +98,10 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                         return (
                             <p key={index} style={{ color: entry.color }}>
                                 {`${driverCode}: ${entry.value !== null
-                                        ? isStepMetric
-                                            ? entry.value.toFixed(0)
-                                            : entry.value.toFixed(1)
-                                        : 'N/A'
+                                    ? isStepMetric
+                                        ? entry.value.toFixed(0)
+                                        : entry.value.toFixed(1)
+                                    : 'N/A'
                                     }${entry.name.startsWith('speed_') ? ' km/h' : entry.name.startsWith('throttle_') ? ' %' : ''}`}
                             </p>
                         )
@@ -133,6 +133,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             {/* Speed Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -167,6 +168,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             {/* Throttle Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -201,6 +203,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             {/* Brake Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -236,6 +239,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             {/* RPM Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -270,6 +274,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             {/* Gear Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -304,6 +309,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             {/* DRS Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}

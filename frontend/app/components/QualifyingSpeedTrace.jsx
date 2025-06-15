@@ -2,7 +2,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine, CartesianGrid } from 'recharts'
 import { Toggle } from "@/components/ui/toggle"
 
 function QualifyingSpeedTrace({ driverCode, year, round }) {
@@ -90,8 +90,9 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
 
             <h1 className='text-center font-semibold text-xl'>Qualifying Speed Trace for {driverCode}</h1>
 
-            <ResponsiveContainer width="100%" height={500}>
+            <ResponsiveContainer width="100%" height={800}>
                 <LineChart data={data[view].chartData} margin={{ top: 20, right: 30, left: 0, bottom: 50 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey={view === "distance" ? "distance" : "corner"}
                         label={{

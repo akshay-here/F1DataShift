@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
     const [data, setData] = useState(null)
@@ -94,8 +94,9 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
             <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
                 Qualifying Speed Traces (Year {year}, Round {round})
             </h2>
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={800}>
                 <LineChart data={data.combinedData} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}

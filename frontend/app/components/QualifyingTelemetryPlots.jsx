@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 function QualifyingTelemetryPlots({ driverCodes, year, round }) {
     const [data, setData] = useState(null)
@@ -126,43 +126,10 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
                 Qualifying Telemetry Plots (Year {year}, Round {round})
             </h2>
 
-            {/* Speed Plot */}
-            <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
-                    <XAxis
-                        dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
-                        tickFormatter={value => Math.round(value)}
-                        interval={50}
-                        minTickGap={40}
-                        tick={{ fontSize: 12 }}
-                    />
-                    <YAxis
-                        label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }}
-                        domain={['auto', 'auto']}
-                        tickFormatter={value => value.toFixed(0)}
-                        tick={{ fontSize: 12 }}
-                    />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend />
-                    {strokeStyles.map(style => (
-                        <Line
-                            key={`speed_${style.driverCode}`}
-                            type="monotone"
-                            dataKey={`speed_${style.driverCode}`}
-                            stroke={style.teamColor}
-                            strokeWidth={2}
-                            strokeDasharray={style.strokeDasharray}
-                            dot={false}
-                            name={style.driverCode}
-                        />
-                    ))}
-                </LineChart>
-            </ResponsiveContainer>
-
             {/* Throttle Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -197,6 +164,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             {/* Brake Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -232,6 +200,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             {/* RPM Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -266,6 +235,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             {/* Gear Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
@@ -300,6 +270,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
             {/* DRS Plot */}
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data.combinedData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
                         label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}

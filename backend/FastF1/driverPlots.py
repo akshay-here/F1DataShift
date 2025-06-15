@@ -9,55 +9,57 @@ import pandas as pd
 
 
 # this is the function to get the data for the qualifying speed trace vs Distance of a driver in a given year and round
-async def get_qualifying_speed_trace(driverCode: str, year: int, round: int): 
+async def get_qualifying_speed_trace(driverCode: str, year: int, round: int):
     try:
         session = fastf1.get_session(year, round, 'Q')
-        session.load(telemetry=True, laps=True, weather=False)
-
-        # get the fastest lap of that driver
-        driver_lap = session.laps.pick_drivers(driverCode).pick_fastest()
-        if driver_lap is None or driver_lap.empty:
-            raise HTTPException(status_code=404, detail=f"No fastest lap data for driver {driverCode} in {year} round {round}.")
+        session.load(telemetry=True, laps=True)
+        laps = session.laps.pick_drivers(driverCode).pick_quicklaps().reset_index()
+        if laps.empty:
+            raise HTTPException(status_code=404, detail=f"No quick laps data for driver {driverCode} in {year} round {round}.")
         
-        # get the telemetry for that lap
-        driver_tel = driver_lap.get_car_data().add_distance()
-        if driver_tel.empty:
+        # Get fastest lap telemetry
+        fastest_lap = laps.loc[laps['LapTime'].idxmin()]
+        telemetry = fastest_lap.get_telemetry()
+        if telemetry.empty:
             raise HTTPException(status_code=404, detail=f"No telemetry data for driver {driverCode} in {year} round {round}.")
         
-        team_color = fastf1.plotting.get_team_color(driver_lap['Team'], session=session)
+        # Get circuit length from max telemetry distance
+        circuit_length = float(telemetry['Distance'].max())
         
-        # Extract full telemetry
+        # Normalize telemetry to 1000 points
+        distance = np.linspace(0, circuit_length, 1000)
+        
+        # Interpolate telemetry channels
+        telemetry_channels = ['Speed', 'Throttle', 'Brake', 'RPM', 'DRS', 'nGear']
+        interpolated_data = {}
+        for channel in telemetry_channels:
+            # Convert to float for interpolation
+            data = telemetry[channel].astype(float)
+            interpolated_data[channel] = np.interp(distance, telemetry['Distance'], data)
+        
+        # Build telemetry data
         telemetry_data = [
             {
-                "distance": float(dist),
-                "speed": float(speed),
-                "throttle": float(throttle),
-                "brake": float(brake),
-                "rpm": float(rpm),
-                "gear": float(gear),
-                "drs": float(drs)
+                "distance": float(d),
+                "speed": float(interpolated_data['Speed'][i]),
+                "throttle": float(interpolated_data['Throttle'][i]),
+                "brake": float(interpolated_data['Brake'][i]),
+                "rpm": float(interpolated_data['RPM'][i]),
+                "drs": float(interpolated_data['DRS'][i]),
+                "gear": float(interpolated_data['nGear'][i])
             }
-            for dist, speed, throttle, brake, rpm, gear, drs in zip(
-                driver_tel['Distance'],
-                driver_tel['Speed'],
-                driver_tel['Throttle'],
-                driver_tel['Brake'],
-                driver_tel['RPM'],
-                driver_tel['nGear'],
-                driver_tel['DRS']
-            )
-            if not any(np.isnan(x) for x in [dist, speed, throttle, brake, rpm, gear, drs])
+            for i, d in enumerate(distance)
         ]
-
-        if not telemetry_data:
-            raise HTTPException(status_code=404, detail=f"No valid telemetry points for driver {driverCode} in {year} round {round}.")
-
+        
+        team_color = fastf1.plotting.get_team_color(laps['Team'].iloc[0], session=session)
+        
         result = {
             "driverCode": driverCode,
             "teamColor": team_color,
-            "telemetry": telemetry_data
+            "telemetry": telemetry_data,
+            "circuitLength": circuit_length
         }
-
+        
         return result
     
     except Exception as e:
@@ -162,7 +164,7 @@ async def get_race_pace_plot(driverCode: str, year: int, round: int):
     
 
 # function to send the telemetry data like speed, throttle, brake, rpm ,gear, drs for a given driver, year, round and Lap
-async def get_driver_race_telemetry_data(driverCode: str, year: int, round: int, lapNumber: int): 
+async def get_driver_race_telemetry_data(driverCode: str, year: int, round: int, lapNumber: int):
     try:
         session = fastf1.get_session(year, round, "R")
         session.load(telemetry=True, laps=True, weather=False)
@@ -178,32 +180,43 @@ async def get_driver_race_telemetry_data(driverCode: str, year: int, round: int,
         if telemetry.empty:
             raise HTTPException(status_code=404, detail=f"No telemetry data for lap {lapNumber} of driver {driverCode} in {year} round {round}.")
 
-        team_color = fastf1.plotting.get_team_color(lap['Team'].iloc[0], session=session)
+        # Get circuit length from max telemetry distance
+        circuit_length = float(telemetry['Distance'].max())
 
-        # Extract telemetry data
+        # Normalize telemetry to 1000 points
+        distance = np.linspace(0, circuit_length, 1000)
+
+        # Interpolate telemetry channels
+        telemetry_channels = ['Speed', 'Throttle', 'Brake', 'RPM', 'DRS', 'nGear']
+        interpolated_data = {}
+        for channel in telemetry_channels:
+            # Convert to float and handle NaN
+            data = telemetry[channel].astype(float).fillna(0)
+            interpolated_data[channel] = np.interp(distance, telemetry['Distance'], data)
+
+        # Build telemetry data
         telemetry_data = [
             {
-                "distance": float(row['Distance']),
-                "speed": float(row['Speed']) if pd.notna(row['Speed']) else None,
-                "throttle": float(row['Throttle']) if pd.notna(row['Throttle']) else None,
-                "brake": float(row['Brake']) if pd.notna(row['Brake']) else None,
-                "rpm": float(row['RPM']) if pd.notna(row['RPM']) else None,
-                "gear": int(row['nGear']) if pd.notna(row['nGear']) else None,
-                "drs": int(row['DRS']) if pd.notna(row['DRS']) else None
+                "distance": float(d),
+                "speed": float(interpolated_data['Speed'][i]),
+                "throttle": float(interpolated_data['Throttle'][i]),
+                "brake": float(interpolated_data['Brake'][i]),
+                "rpm": float(interpolated_data['RPM'][i]),
+                "drs": float(interpolated_data['DRS'][i]),
+                "gear": float(interpolated_data['nGear'][i])
             }
-            for _, row in telemetry.iterrows()
-            if pd.notna(row['Distance'])
+            for i, d in enumerate(distance)
         ]
 
-        if not telemetry_data:
-            raise HTTPException(status_code=404, detail=f"No valid telemetry points for lap {lapNumber} of driver {driverCode} in {year} round {round}.")
+        team_color = fastf1.plotting.get_team_color(lap['Team'].iloc[0], session=session)
 
         result = {
             "driverCode": driverCode,
             "teamColor": team_color,
             "lapNumber": lapNumber,
             "telemetry": telemetry_data,
-            "totalPoints": len(telemetry_data)
+            "totalPoints": len(telemetry_data),
+            "circuitLength": circuit_length
         }
 
         return result

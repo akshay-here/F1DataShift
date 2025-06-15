@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine, CartesianGrid } from 'recharts'
 import { Button } from '@/components/ui/button'
 import DriverRaceTelemetryPlots from './DriverRaceTelemetryPlots'
 
@@ -31,7 +31,7 @@ function RacePacePlot({ driverCodes, year, round }) {
                 console.log('Driver Data:', driverData)
 
                 // Determine total race laps (use actualLaps from first driver, assume consistent)
-                const actualLaps = driverData[0]?.actualLaps || Math.max(...driverData.flatMap(driver => 
+                const actualLaps = driverData[0]?.actualLaps || Math.max(...driverData.flatMap(driver =>
                     driver.lapData.map(lap => Number(lap.lapNumber))
                 ))
                 console.log('Actual Laps:', actualLaps)
@@ -119,7 +119,7 @@ function RacePacePlot({ driverCodes, year, round }) {
         )
     }
 
-    const lapTimes = data.combinedData.flatMap(point => 
+    const lapTimes = data.combinedData.flatMap(point =>
         Object.values(point).filter(v => typeof v === 'number' && v !== point.lapNumber)
     )
     const minLapTime = Math.min(...lapTimes)
@@ -148,6 +148,7 @@ function RacePacePlot({ driverCodes, year, round }) {
                     margin={{ top: 20, right: 30, left: 0, bottom: 50 }}
                     onClick={handleLapClick}
                 >
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="lapNumber"
                         label={{ value: 'Lap Number', position: 'insideBottom', offset: -5 }}

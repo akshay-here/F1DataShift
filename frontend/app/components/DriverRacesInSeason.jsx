@@ -74,16 +74,16 @@ function DriverRacesInSeason({ driverId, year }) {
                     <TableCaption>{driverId} Race Results in {year}</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="font-bold text-lg">Round</TableHead>
-                            <TableHead className="font-bold text-lg">Race</TableHead>
-                            <TableHead className="font-bold text-lg">Circuit</TableHead>
-                            <TableHead className="font-bold text-lg">Position</TableHead>
-                            <TableHead className="font-bold text-lg">Status</TableHead>
-                            <TableHead className="font-bold text-lg">Points</TableHead>
-                            <TableHead className="font-bold text-lg">Grid</TableHead>
-                            <TableHead className="font-bold text-lg">Laps</TableHead>
-                            <TableHead className="font-bold text-lg">Constructor</TableHead>
-                            <TableHead className="font-bold text-lg">Date</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Round</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Race</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Circuit</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Position</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Status</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Points</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Grid</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Laps</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Constructor</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Date</TableHead>
                         </TableRow>
                     </TableHeader>
 

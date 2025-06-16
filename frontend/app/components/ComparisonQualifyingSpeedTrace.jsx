@@ -90,8 +90,8 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
     })
 
     return (
-        <div className="p-6 bg-white shadow-md mt-6">
-            <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
+        <div className="p-6 shadow-md mt-6">
+            <h2 className="text-lg font-semibold text-center mb-4">
                 Qualifying Speed Traces (Year {year}, Round {round})
             </h2>
             <ResponsiveContainer width="100%" height={800}>
@@ -99,20 +99,23 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
                 <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
                         interval={100}
-                        tick={{ fontSize: 12 }}
+                        tick={{ fontSize: 12, fill: "white" }}
                     />
                     <YAxis
-                        label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={['auto', 'auto']}
                         tickFormatter={value => value.toFixed(0)}
-                        tick={{ fontSize: 12 }}
+                        tick={{ fontSize: 12, fill: "white" }}
                     />
                     <Tooltip
                         formatter={(value, name) => [`${value.toFixed(1)} km/h`, name.replace('speed_', '')]}
                         labelFormatter={value => `Distance: ${value.toFixed(1)} m`}
+                        wrapperStyle={{ backgroundColor: 'black', border: '1px solid white' }}
+                        contentStyle={{ backgroundColor: 'black', color: 'white', border: 'none' }}
+                        labelStyle={{ color: 'white' }}
                     />
                     <Legend />
                     {strokeStyles.map(style => (

@@ -92,22 +92,24 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
 
             <ResponsiveContainer width="100%" height={800}>
                 <LineChart data={data[view].chartData} margin={{ top: 20, right: 30, left: 0, bottom: 50 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid stroke="white" strokeDasharray="3 3" />
                     <XAxis
                         dataKey={view === "distance" ? "distance" : "corner"}
                         label={{
                             value: view === "distance" ? "Distance (m)" : "Corner",
                             position: "insideBottom",
-                            offset: -5
+                            offset: -5, 
+                            fill: "white"
                         }}
                         tickFormatter={value => view === "distance" ? Math.round(value) : value}
                         interval={view === "distance" ? 50 : 0}
                         minTickGap={view === "distance" ? 40 : undefined}
-                        tick={view === "corners" ? { fontSize: 12 } : { fontSize: 12 }}
+                        tick={view === "corners" ? { fontSize: 12, fill: "white" } : { fontSize: 12, fill: "white" }}
                     />
                     <YAxis
-                        label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={['auto', data => Math.ceil(data / 10) * 10 + 20]}
+                        tick={{ fontSize: 12, fill: "white" }}
                     />
                     <Tooltip
                         formatter={(value) => `${value.toFixed(1)} km/h`}
@@ -115,7 +117,7 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
                         content={({ active, payload, label }) => {
                             if (active && payload && payload.length) {
                                 return (
-                                    <div className="bg-white p-2 border border-gray-300 shadow">
+                                    <div className="p-2 border border-gray-300 shadow">
                                         <p>{view === "distance" ? `Distance: ${label.toFixed(1)} m` : `Corner: ${label}`}</p>
                                         <p>{`Speed: ${payload[0].value.toFixed(1)} km/h`}</p>
                                         {view === "corners" && <p>{`Distance: ${payload[0].payload.distance.toFixed(1)} m`}</p>}

@@ -72,11 +72,11 @@ function DriversList({ year }) {
                 <TableCaption>Drivers in {year}</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Driver</TableHead>
-                        <TableHead className="font-bold text-lg">Code</TableHead>
-                        <TableHead className="font-bold text-lg">Number</TableHead>
-                        <TableHead className="font-bold text-lg">Nationality</TableHead>
-                        <TableHead className="font-bold text-lg">DOB</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Driver</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Code</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Number</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Nationality</TableHead>
+                        <TableHead className="text-white font-bold text-lg">DOB</TableHead>
                     </TableRow>
                 </TableHeader>
 

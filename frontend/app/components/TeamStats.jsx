@@ -89,11 +89,11 @@ function TeamStats({ constructorId }) {
                     <TableCaption>Team Seasons</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="font-bold text-lg">Year</TableHead>
-                            <TableHead className="font-bold text-lg">Championshoip Position</TableHead>
-                            <TableHead className="font-bold text-lg">Points</TableHead>
-                            <TableHead className="font-bold text-lg">Wins</TableHead>
-                            <TableHead className="font-bold text-lg">Rounds</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Year</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Championshoip Position</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Points</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Wins</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Rounds</TableHead>
                         </TableRow>
                     </TableHeader>
 

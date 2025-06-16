@@ -67,7 +67,7 @@ function DriverStandingsHeatmap({ year }) {
                 <img
                     src={imageSrc}
                     alt={`Driver Standings Heatmap ${year}`}
-                    className="w-full h-auto rounded shadow-md"
+                    className="w-full h-auto rounded-xl shadow-md"
                 />
             </div>
         </div>

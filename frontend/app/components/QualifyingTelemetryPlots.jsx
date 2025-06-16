@@ -86,7 +86,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
-                <div className="bg-white p-2 border border-gray-300 shadow">
+                <div className="p-2 border border-gray-300 shadow">
                     <p>{`Distance: ${label.toFixed(1)} m`}</p>
                     {payload.map((entry, index) => {
                         const driverCode = entry.name.replace(/^(speed|throttle|brake|rpm|gear|drs)_/, '')
@@ -121,8 +121,8 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
     })
 
     return (
-        <div className="p-6 bg-white shadow-md mt-6 space-y-4">
-            <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
+        <div className="p-6 shadow-md mt-6 space-y-4">
+            <h2 className="text-lg font-semibold text-center mb-4">
                 Qualifying Telemetry Plots (Year {year}, Round {round})
             </h2>
 

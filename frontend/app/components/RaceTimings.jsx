@@ -73,14 +73,14 @@ function RaceTimings({ year, round }) {
                 <TableCaption>Race Schedule</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Round</TableHead>
-                        <TableHead className="font-bold text-lg">Race</TableHead>
-                        <TableHead className="font-bold text-lg">Circuit</TableHead>
-                        <TableHead className="font-bold text-lg">Race</TableHead>
-                        <TableHead className="font-bold text-lg">Qualifying</TableHead>
-                        <TableHead className="font-bold text-lg">FP1</TableHead>
-                        <TableHead className="font-bold text-lg">FP2</TableHead>
-                        <TableHead className="font-bold text-lg">FP3</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Round</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Race</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Circuit</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Race</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Qualifying</TableHead>
+                        <TableHead className="text-white font-bold text-lg">FP1</TableHead>
+                        <TableHead className="text-white font-bold text-lg">FP2</TableHead>
+                        <TableHead className="text-white font-bold text-lg">FP3</TableHead>
                     </TableRow>
                 </TableHeader>
 

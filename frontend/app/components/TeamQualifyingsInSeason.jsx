@@ -102,15 +102,15 @@ function TeamQualifyingsInSeason({ constructorId, year }) {
                     <TableCaption>{constructorId} Qualifying Results in {year}</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="font-bold text-lg">Round</TableHead>
-                            <TableHead className="font-bold text-lg">Race</TableHead>
-                            <TableHead className="font-bold text-lg">Circuit</TableHead>
-                            <TableHead className="font-bold text-lg">Drivers</TableHead>
-                            <TableHead className="font-bold text-lg">Position</TableHead>
-                            <TableHead className="font-bold text-lg">Q1</TableHead>
-                            <TableHead className="font-bold text-lg">Q2</TableHead>
-                            <TableHead className="font-bold text-lg">Q3</TableHead>
-                            <TableHead className="font-bold text-lg">Date</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Round</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Race</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Circuit</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Drivers</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Position</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Q1</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Q2</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Q3</TableHead>
+                            <TableHead className="text-white font-bold text-lg">Date</TableHead>
                         </TableRow>
                     </TableHeader>
 

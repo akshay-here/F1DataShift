@@ -102,12 +102,12 @@ function QualifyingResult({ year, round }) {
                 <TableCaption>Qualifying Results</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Position</TableHead>
-                        <TableHead className="font-bold text-lg">Driver</TableHead>
-                        <TableHead className="font-bold text-lg">Constructor</TableHead>
-                        <TableHead className="font-bold text-lg">Q1</TableHead>
-                        <TableHead className="font-bold text-lg">Q2</TableHead>
-                        <TableHead className="font-bold text-lg">Q3</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Position</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Driver</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Constructor</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Q1</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Q2</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Q3</TableHead>
                     </TableRow>
                 </TableHeader>
 

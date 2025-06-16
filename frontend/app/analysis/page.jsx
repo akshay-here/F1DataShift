@@ -11,7 +11,7 @@ function AnalysisHomePage() {
                 <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
                     See Driver and Constructor Heatmap
                     <Link href={"/analysis/heatmaps/2025"}>
-                        <Button variant="outline">Go To Heatmaps</Button>
+                        <Button variant="outline" className="bg-black">Go To Heatmaps</Button>
                     </Link>
                 </div>
 
@@ -26,7 +26,7 @@ function AnalysisHomePage() {
                         <li>Driver Laptimes Distribution</li>
                     </ul>
                     <Link href={"/analysis/race/"}>
-                        <Button variant="outline">Go To Race Analysis</Button>
+                        <Button variant="outline" className="bg-black">Go To Race Analysis</Button>
                     </Link>
                 </div>
 
@@ -38,7 +38,7 @@ function AnalysisHomePage() {
                         <li>Driver Race Pace (Laptime vs Laps)</li>
                     </ul>
                     <Link href={"/analysis/driver/"}>
-                        <Button variant="outline">Go To Driver Analysis</Button>
+                        <Button variant="outline" className="bg-black">Go To Driver Analysis</Button>
                     </Link>
                 </div>
 
@@ -49,7 +49,7 @@ function AnalysisHomePage() {
                         <li>Driver Race Pace Comparison</li>
                     </ul>
                     <Link href={"/analysis/comparison/"}>
-                        <Button variant="outline">Go To Driver Comparison</Button>
+                        <Button variant="outline" className="bg-black">Go To Driver Comparison</Button>
                     </Link>
                 </div>
 

@@ -22,9 +22,9 @@ async function CircuitsList() {
                 <TableCaption>Circuits in F{1}</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Circuit Name</TableHead>
-                        <TableHead className="font-bold text-lg">Locality</TableHead>
-                        <TableHead className="font-bold text-lg">Country</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Circuit Name</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Locality</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Country</TableHead>
                     </TableRow>
                 </TableHeader>
 

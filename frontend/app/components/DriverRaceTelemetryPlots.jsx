@@ -90,7 +90,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
-                <div className="bg-white p-2 border border-gray-300 shadow">
+                <div className="p-2 border border-gray-300 shadow">
                     <p>{`Distance: ${label.toFixed(1)} m`}</p>
                     {payload.map((entry, index) => {
                         const driverCode = entry.name.replace(/^(speed|throttle|brake|rpm|gear|drs)_/, '')
@@ -125,8 +125,8 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     })
 
     return (
-        <div className="p-6 bg-white shadow-md mt-6 space-y-4">
-            <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
+        <div className="p-5 shadow-md mt-5 space-y-5">
+            <h2 className="text-lg font-semibold text-center mb-4">
                 Race Telemetry Plots - Lap {lapNumber} (Year {year}, Round {round})
             </h2>
 
@@ -136,14 +136,14 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
                         interval={50}
                         minTickGap={40}
                         tick={{ fontSize: 12 }}
                     />
                     <YAxis
-                        label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={['auto', 'auto']}
                         tickFormatter={value => value.toFixed(0)}
                         tick={{ fontSize: 12 }}
@@ -171,14 +171,14 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
                         interval={50}
                         minTickGap={40}
                         tick={{ fontSize: 12 }}
                     />
                     <YAxis
-                        label={{ value: 'Throttle (%)', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'Throttle (%)', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={[0, 100]}
                         tickFormatter={value => value.toFixed(0)}
                         tick={{ fontSize: 12 }}
@@ -206,14 +206,14 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
                         interval={50}
                         minTickGap={40}
                         tick={{ fontSize: 12 }}
                     />
                     <YAxis
-                        label={{ value: 'Brake', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'Brake', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={[0, 1]}
                         ticks={[0, 1]}
                         tickFormatter={value => value.toFixed(0)}
@@ -242,14 +242,14 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
                         interval={50}
                         minTickGap={40}
                         tick={{ fontSize: 12 }}
                     />
                     <YAxis
-                        label={{ value: 'RPM', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'RPM', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={['auto', 'auto']}
                         tickFormatter={value => value.toFixed(0)}
                         tick={{ fontSize: 12 }}
@@ -277,14 +277,14 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
                         interval={50}
                         minTickGap={40}
                         tick={{ fontSize: 12 }}
                     />
                     <YAxis
-                        label={{ value: 'Gear', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'Gear', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={[1, 8]}
                         tickFormatter={value => Math.round(value)}
                         tick={{ fontSize: 12 }}
@@ -312,14 +312,14 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="distance"
-                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
                         interval={50}
                         minTickGap={40}
                         tick={{ fontSize: 12 }}
                     />
                     <YAxis
-                        label={{ value: 'DRS', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'DRS', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={[0, 1]}
                         ticks={[0, 1]}
                         tickFormatter={value => value.toFixed(0)}

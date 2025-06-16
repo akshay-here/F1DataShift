@@ -104,13 +104,13 @@ function Sprintresult({ year, round }) {
                 <TableCaption>Sprint Results</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Position</TableHead>
-                        <TableHead className="font-bold text-lg">Driver</TableHead>
-                        <TableHead className="font-bold text-lg">Constructor</TableHead>
-                        <TableHead className="font-bold text-lg">Time</TableHead>
-                        <TableHead className="font-bold text-lg">Grid</TableHead>
-                        <TableHead className="font-bold text-lg">Laps</TableHead>
-                        <TableHead className="font-bold text-lg">Points</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Position</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Driver</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Constructor</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Time</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Grid</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Laps</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Points</TableHead>
                     </TableRow>
                 </TableHeader>
 

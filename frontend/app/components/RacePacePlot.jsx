@@ -138,8 +138,8 @@ function RacePacePlot({ driverCodes, year, round }) {
     })
 
     return (
-        <div className="p-6 bg-white shadow-md mt-6">
-            <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
+        <div className="p-6 shadow-md mt-6">
+            <h2 className="text-lg font-semibold text-center mb-4">
                 Race Pace Plot (Year {year}, Round {round})
             </h2>
             <ResponsiveContainer width="100%" height={500}>
@@ -151,21 +151,24 @@ function RacePacePlot({ driverCodes, year, round }) {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="lapNumber"
-                        label={{ value: 'Lap Number', position: 'insideBottom', offset: -5 }}
+                        label={{ value: 'Lap Number', position: 'insideBottom', offset: -5, fill: "white" }}
                         tickFormatter={value => Math.round(value)}
-                        tick={{ fontSize: 12 }}
+                        tick={{ fontSize: 12, fill: "white" }}
                         domain={[1, 'dataMax']}
                         interval="preserveStartEnd"
                         tickCount={10}
                     />
                     <YAxis
-                        label={{ value: 'Lap Time (s)', angle: -90, position: 'insideLeft' }}
+                        label={{ value: 'Lap Time (s)', angle: -90, position: 'insideLeft', fill: "white" }}
                         domain={[minLapTime - 0.5, maxLapTime + 0.5]}
                         tickFormatter={value => value.toFixed(2)}
                         tickCount={10}
-                        tick={{ fontSize: 12 }}
+                        tick={{ fontSize: 12, fill: "white" }}
                     />
                     <Tooltip
+                        wrapperStyle={{ backgroundColor: 'black', border: '1px solid white' }}
+                        contentStyle={{ backgroundColor: 'black', color: 'white', border: 'none' }}
+                        labelStyle={{ color: 'white' }}
                         formatter={(value, name) => [`${value ? value.toFixed(3) : 'N/A'} s`, name.replace('lapTime_', '')]}
                         labelFormatter={lap => `Lap: ${lap}`}
                     />

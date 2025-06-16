@@ -72,12 +72,12 @@ function RaceSchedule({ year }) {
                 <TableCaption>Race Schedule</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Round</TableHead>
-                        <TableHead className="font-bold text-lg">Race</TableHead>
-                        <TableHead className="font-bold text-lg">Circuit</TableHead>
-                        <TableHead className="font-bold text-lg">Date</TableHead>
-                        <TableHead className="font-bold text-lg">Locality</TableHead>
-                        <TableHead className="font-bold text-lg">Country</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Round</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Race</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Circuit</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Date</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Locality</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Country</TableHead>
                     </TableRow>
                 </TableHeader>
 

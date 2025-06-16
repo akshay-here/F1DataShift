@@ -74,12 +74,12 @@ function CircuitRaces({ circuitId }) {
                 <TableCaption>All Races</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Round</TableHead>
-                        <TableHead className="font-bold text-lg">Race</TableHead>
-                        <TableHead className="font-bold text-lg">Winner</TableHead>
-                        <TableHead className="font-bold text-lg">Podium</TableHead>
-                        <TableHead className="font-bold text-lg">Laps</TableHead>
-                        <TableHead className="font-bold text-lg">Date</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Round</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Race</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Winner</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Podium</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Laps</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Date</TableHead>
                     </TableRow>
                 </TableHeader>
 

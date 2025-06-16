@@ -81,10 +81,10 @@ function ConstructorStandings({ year, round }) {
                 <TableCaption>{round == null ? <h1>Cosntructor Standings {year}</h1> : <h1>Constructor Standings after Round {round}</h1>}</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Position</TableHead>
-                        <TableHead className="font-bold text-lg">Constructor</TableHead>
-                        <TableHead className="font-bold text-lg">Wins</TableHead>
-                        <TableHead className="font-bold text-lg">Points</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Position</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Constructor</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Wins</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Points</TableHead>
                     </TableRow>
                 </TableHeader>
 

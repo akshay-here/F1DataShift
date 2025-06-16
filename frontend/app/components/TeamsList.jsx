@@ -72,8 +72,8 @@ function TeamsList({ year }) {
                 <TableCaption>Teams in {year}</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="font-bold text-lg">Team Name</TableHead>
-                        <TableHead className="font-bold text-lg">Nationality</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Team Name</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Nationality</TableHead>
                     </TableRow>
                 </TableHeader>
 

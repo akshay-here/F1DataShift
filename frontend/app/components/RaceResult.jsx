@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function RaceResult({ year, round }) {
 
@@ -50,16 +51,16 @@ function RaceResult({ year, round }) {
         return (
             <div className="p-10">
                 <h2 className="text-xl font-bold text-center">Race Result</h2>
-                <p className="text-red-500">Error: {error}</p>
+                <p className="text-gray-600 text-center">Error: {error}</p>
             </div>
         );
     }
 
     if (!data) {
         return (
-            <div className="p1-0">
+            <div className="p-10">
                 <h2 className="text-xl font-bold text-center">Race Result</h2>
-                <p className="text-gray-600">No data available</p>
+                <p className="text-gray-600 text-center">No data available</p>
             </div>
         );
     }
@@ -67,7 +68,9 @@ function RaceResult({ year, round }) {
     return (
         <div>
 
-            <h1 className='text-xl text-center font-bold p-10'>Race Results</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Race Results</GradientText>
+            </div>
 
             <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Race Results</TableCaption>

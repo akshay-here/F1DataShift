@@ -30,11 +30,11 @@ function Navbar() {
         <Link href="/analysis" className="hover:text-purple-500 transition-colors">Analysis</Link>
       </div>
 
-      <div>
+      {/* <div>
         <Button variant="outline" className="text-white bg-black border-purple-500 hover:bg-purple-500 hover:text-black border-white transition-colors">
           Register
         </Button>
-      </div>
+      </div> */}
     </nav>
   )
 }

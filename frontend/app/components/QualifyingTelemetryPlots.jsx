@@ -69,7 +69,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
         return (
             <div className="p-6 text-center">
                 <h2 className="text-lg font-semibold text-gray-800">Qualifying Telemetry Plots</h2>
-                <p className="text-red-500">{error}</p>
+                <p className="text-gray-600 text-center">{error}</p>
             </div>
         )
     }
@@ -78,7 +78,7 @@ function QualifyingTelemetryPlots({ driverCodes, year, round }) {
         return (
             <div className="p-6 text-center">
                 <h2 className="text-lg font-semibold text-gray-800">Qualifying Telemetry Plots</h2>
-                <p className="text-gray-600">Select drivers to view telemetry</p>
+                <p className="text-gray-600 text-center">Select drivers to view telemetry</p>
             </div>
         )
     }

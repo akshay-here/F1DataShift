@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function DriverSprintsInSeason({ driverId, year }) {
 
@@ -61,9 +62,9 @@ function DriverSprintsInSeason({ driverId, year }) {
 
     if (pre2021) {
         return (
-            <div className="p-10 text-center">
-                <h2 className="text-xl font-bold">Sprint Results in {year}</h2>
-                <p className="text-gray-600 mt-2">
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Sprint Results in {year}</h2>
+                <p className="text-gray-600 text-center">
                     Sprint races were introduced in 2021. Please select a year from 2021 onward.
                 </p>
             </div>
@@ -76,9 +77,9 @@ function DriverSprintsInSeason({ driverId, year }) {
 
     if (error) {
         return (
-            <div className="p-10 text-center">
-                <h2 className="text-xl font-bold">Sprint Results in {year}</h2>
-                <p className="text-gray-600 mt-2">
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Sprint Results in {year}</h2>
+                <p className="text-gray-600 text-center">
                     Not a Sprint Weekend.
                 </p>
             </div>
@@ -87,9 +88,9 @@ function DriverSprintsInSeason({ driverId, year }) {
 
     if (!data) {
         return (
-            <div className="p-10 text-center">
-                <h2 className="text-xl font-bold">Sprint Results in {year}</h2>
-                <p className="text-gray-600 mt-2">This race is not a sprint weekend.</p>
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Sprint Results in {year}</h2>
+                <p className="text-gray-600 text-center">This race is not a sprint weekend.</p>
             </div>
         )
     }
@@ -97,7 +98,9 @@ function DriverSprintsInSeason({ driverId, year }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl'>{driverId.toUpperCase()} Sprint Results in {year} season</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >{driverId.toUpperCase()} Sprint Results in {year} season</GradientText>
+            </div>
 
             <div className='p-10'>
                 <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">

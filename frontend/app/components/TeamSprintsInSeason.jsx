@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function TeamSprintsInSeason({ constructorId, year }) {
 
@@ -97,7 +98,9 @@ function TeamSprintsInSeason({ constructorId, year }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl'>{constructorId.toUpperCase()} Sprint Results in {year} season</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >{constructorId.toUpperCase()} Sprint Results in {year} season</GradientText>
+            </div>
 
             <div className='p-10'>
                 <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">

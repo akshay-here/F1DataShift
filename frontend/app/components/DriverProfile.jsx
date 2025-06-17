@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
+import GradientText from '../StyleComponents/GradientText/GradientText';
 
 function DriverProfile({ driverId }) {
 
@@ -42,7 +43,7 @@ function DriverProfile({ driverId }) {
         return (
             <div className="p-10">
                 <h2 className="text-xl font-bold text-center">Driver Profile</h2>
-                <p className="text-red-500">Error: {error}</p>
+                <p className="text-gray-600 text-center">Error: {error}</p>
             </div>
         );
     }
@@ -51,7 +52,7 @@ function DriverProfile({ driverId }) {
         return (
             <div className="p1-0">
                 <h2 className="text-xl font-bold text-center">Driver Profile</h2>
-                <p className="text-gray-600">No data available</p>
+                <p className="text-gray-600 text-center">No data available</p>
             </div>
         );
     }
@@ -59,7 +60,9 @@ function DriverProfile({ driverId }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl pb-5'>Driver Profile</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Driver Profile</GradientText>
+            </div>
 
             <div className='flex items-center justify-between p-10 text-xl border-5 border-purple-500 rounded'>
                 <h1>Driver: {data.givenName} {data.familyName}</h1>

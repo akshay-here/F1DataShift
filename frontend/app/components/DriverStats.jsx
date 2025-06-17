@@ -11,6 +11,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import Link from 'next/link'
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function DriverStats({ driverId }) {
 
@@ -59,9 +60,9 @@ function DriverStats({ driverId }) {
 
     if (!data) {
         return (
-            <div className="p1-0">
+            <div className="p-10">
                 <h2 className="text-xl font-bold text-center">Driver Statistics</h2>
-                <p className="text-gray-600">No data available</p>
+                <p className="text-gray-600 text-center">No data available</p>
             </div>
         );
     }
@@ -70,7 +71,9 @@ function DriverStats({ driverId }) {
         <div>
 
             <div className='p-10 text-xl font-extrabold'>
-                <h1 className='text-center font-bold text-xl pb-5'>Driver Stats</h1>
+                <div className='p-10 text-2xl'>
+                    <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Driver Stats</GradientText>
+                </div>
                 <h1>Season Driven: {data.careerStats.seasonsDriven}</h1>
                 <h2>Championships: {data.careerStats.championships}</h2>
                 <h2>Wins: {data.careerStats.wins}</h2>
@@ -85,7 +88,9 @@ function DriverStats({ driverId }) {
             </div>
 
             <div className='p-10'>
-                <h1 className='text-center font-bold text-xl pb-5'>Driver Seasons</h1>
+                <div className='p-10 text-2xl'>
+                    <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Driver Seasons</GradientText>
+                </div>
 
                 <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                     <TableCaption>Driver Seasons</TableCaption>

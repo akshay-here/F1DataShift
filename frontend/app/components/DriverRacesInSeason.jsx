@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function DriverRacesInSeason({ driverId, year }) {
 
@@ -50,7 +51,7 @@ function DriverRacesInSeason({ driverId, year }) {
         return (
             <div className="p-10">
                 <h2 className="text-xl font-bold text-center">Race Results in {year}</h2>
-                <p className="text-red-500">Error: {error}</p>
+                <p className="text-gray-600 text-center">Error: {error}</p>
             </div>
         );
     }
@@ -59,7 +60,7 @@ function DriverRacesInSeason({ driverId, year }) {
         return (
             <div className="p1-0">
                 <h2 className="text-xl font-bold text-center">Race Results in {year}</h2>
-                <p className="text-gray-600">No data available</p>
+                <p className="text-gray-600 text-center">No data available</p>
             </div>
         );
     }
@@ -67,7 +68,9 @@ function DriverRacesInSeason({ driverId, year }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl'>{driverId.toUpperCase()} Race Results in {year} season</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >{driverId.toUpperCase()} Race Results in {year} season</GradientText>
+            </div>
 
             <div className='p-10'>
                 <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">

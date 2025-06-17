@@ -51,7 +51,7 @@ function DriversList({ year }) {
         return (
             <div className="p-10">
                 <h2 className="text-xl font-bold text-center">Drivers</h2>
-                <p className="text-red-500">Error: {error}</p>
+                <p className="text-gray-600 text-center">Error: {error}</p>
             </div>
         );
     }
@@ -60,7 +60,7 @@ function DriversList({ year }) {
         return (
             <div className="p1-0">
                 <h2 className="text-xl font-bold text-center">Drivers</h2>
-                <p className="text-gray-600">No data available</p>
+                <p className="text-gray-600 text-center">No data available</p>
             </div>
         );
     }

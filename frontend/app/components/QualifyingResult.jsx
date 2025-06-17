@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function QualifyingResult({ year, round }) {
 
@@ -76,18 +77,18 @@ function QualifyingResult({ year, round }) {
 
     if (error) {
         return (
-            <div className="p-10 text-center">
+            <div className="p-10">
                 <h2 className="text-xl font-bold">Qualifying Results</h2>
-                <p className="text-red-500 mt-2">Error: {error}</p>
+                <p className="text-gray-600 text-center">Error: {error}</p>
             </div>
         )
     }
 
     if (!data) {
         return (
-            <div className="p-10 text-center">
+            <div className="p-10">
                 <h2 className="text-xl font-bold">Qualifying Results</h2>
-                <p className="text-gray-600 mt-2">No data available.</p>
+                <p className="text-gray-600 text-center">No data available.</p>
             </div>
         )
     }
@@ -96,7 +97,9 @@ function QualifyingResult({ year, round }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl p-10'>Qualifying Result for Round {round}</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Qualifying Results</GradientText>
+            </div>
 
             <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Qualifying Results</TableCaption>
@@ -117,7 +120,7 @@ function QualifyingResult({ year, round }) {
                             <TableCell>{driver.position}</TableCell>
                             <TableCell>{driver.Driver.givenName} {driver.Driver.familyName}</TableCell>
                             <TableCell>{driver.Constructor.name}</TableCell>
-                            <TableCell>{driver.Q1}</TableCell>
+                            <TableCell>{driver.Q1 || "-"}</TableCell>
                             <TableCell>{driver.Q2 || "-"}</TableCell>
                             <TableCell>{driver.Q3 || "-"}</TableCell>
                         </TableRow>

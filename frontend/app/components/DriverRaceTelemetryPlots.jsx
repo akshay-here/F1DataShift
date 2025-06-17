@@ -73,7 +73,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
         return (
             <div className="p-6 text-center">
                 <h2 className="text-lg font-semibold text-gray-800">Race Telemetry Plots</h2>
-                <p className="text-red-500">{error}</p>
+                <p className="text-gray-600 text-center">{error}</p>
             </div>
         )
     }
@@ -82,7 +82,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
         return (
             <div className="p-6 text-center">
                 <h2 className="text-lg font-semibold text-gray-800">Race Telemetry Plots</h2>
-                <p className="text-gray-600">No telemetry data available</p>
+                <p className="text-gray-600 text-center">No telemetry data available</p>
             </div>
         )
     }

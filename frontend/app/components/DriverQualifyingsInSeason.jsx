@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function DriverQualifyingsInSeason({ driverId, year }) {
 
@@ -61,9 +62,9 @@ function DriverQualifyingsInSeason({ driverId, year }) {
 
     if (pre1994) {
         return (
-            <div className="p-10 text-center">
-                <h2 className="text-xl font-bold">Qualifying Results in {year}</h2>
-                <p className="text-gray-600 mt-2">
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Qualifying Results in {year}</h2>
+                <p className="text-gray-600 text-center">
                     Qualifying Data available only from 1994 onwards.
                 </p>
             </div>
@@ -76,18 +77,18 @@ function DriverQualifyingsInSeason({ driverId, year }) {
 
     if (error) {
         return (
-            <div className="p-10 text-center">
-                <h2 className="text-xl font-bold">Qualifying Results in {year}</h2>
-                <p className="text-red-500 mt-2">Error: {error}</p>
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Qualifying Results in {year}</h2>
+                <p className="text-gray-600 text-center">Error: {error}</p>
             </div>
         )
     }
 
     if (!data) {
         return (
-            <div className="p-10 text-center">
-                <h2 className="text-xl font-bold">Qualifying Results in {year}</h2>
-                <p className="text-gray-600 mt-2">No data available.</p>
+            <div className="p-10">
+                <h2 className="text-xl font-bold text-center">Qualifying Results in {year}</h2>
+                <p className="text-gray-600 text-center">No data available.</p>
             </div>
         )
     }
@@ -95,7 +96,9 @@ function DriverQualifyingsInSeason({ driverId, year }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl'>{driverId.toUpperCase()} Qualifying Results in {year} season</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >{driverId.toUpperCase()} Qualifying Results in {year} season</GradientText>
+            </div>
 
             <div className='p-10'>
                 <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">

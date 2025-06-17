@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function ConstructorStandings({ year, round }) {
 
@@ -55,7 +56,7 @@ function ConstructorStandings({ year, round }) {
         return (
             <div className="p-10">
                 <h2 className="text-xl font-bold text-center">{year} Constructor Standings</h2>
-                <p className="text-red-500">Error: {error}</p>
+                <p className="text-gray-600 text-center">Error: {error}</p>
             </div>
         );
     }
@@ -64,7 +65,7 @@ function ConstructorStandings({ year, round }) {
         return (
             <div className="p1-0">
                 <h2 className="text-xl font-bold text-center">{year} Constructor Standings</h2>
-                <p className="text-gray-600">No data available</p>
+                <p className="text-gray-600 text-center">No data available</p>
             </div>
         );
     }
@@ -73,8 +74,12 @@ function ConstructorStandings({ year, round }) {
         <div>
 
             {round == null
-                ? <h1 className='text-center font-bold text-xl p-10'>Constructor Standings {year}</h1>
-                : <h1 className='text-center font-bold text-xl p-10'>Constructor Standings after Round {round}</h1>
+                ? <div className='p-10 text-2xl'>
+                    <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Constructor Standings {year}</GradientText>
+                </div>
+                : <div className='p-10 text-2xl'>
+                    <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Constructor Standings after round {round}</GradientText>
+                </div>
             }
 
             <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-xl">

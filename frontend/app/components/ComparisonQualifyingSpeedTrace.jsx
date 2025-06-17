@@ -64,7 +64,7 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
         return (
             <div className="p-6 text-center">
                 <h2 className="text-lg font-semibold text-gray-800">Qualifying Speed Traces</h2>
-                <p className="text-red-500">{error}</p>
+                <p className="text-gray-600 text-center">{error}</p>
             </div>
         )
     }
@@ -73,7 +73,7 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
         return (
             <div className="p-6 text-center">
                 <h2 className="text-lg font-semibold text-gray-800">Qualifying Speed Traces</h2>
-                <p className="text-gray-600">Select drivers to view speed traces</p>
+                <p className="text-gray-600 text-center">Select drivers to view speed traces</p>
             </div>
         )
     }

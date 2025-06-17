@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function Sprintresult({ year, round }) {
 
@@ -83,9 +84,9 @@ function Sprintresult({ year, round }) {
 
     if (error) {
         return (
-            <div className="p-10 text-center">
+            <div className="p-10">
                 <h2 className="text-xl font-bold">Sprint Result</h2>
-                <p className="text-gray-600 mt-2">
+                <p className="text-gray-600 text-center">
                     Not a Sprint Weekend.
                 </p>
             </div>
@@ -94,9 +95,9 @@ function Sprintresult({ year, round }) {
 
     if (!data) {
         return (
-            <div className="p-10 text-center">
+            <div className="p-10">
                 <h2 className="text-xl font-bold">Sprint Result</h2>
-                <p className="text-gray-600 mt-2">This race is not a sprint weekend.</p>
+                <p className="text-gray-600 text-center">This race is not a sprint weekend.</p>
             </div>
         )
     }
@@ -105,7 +106,9 @@ function Sprintresult({ year, round }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl p-10'>Sprint Result for Round {round}</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Sprint Results</GradientText>
+            </div>
 
             <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Sprint Results</TableCaption>

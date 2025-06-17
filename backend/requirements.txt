@@ -6,6 +6,7 @@ fastapi
 httpx
 uvicorn
 gunicorn
+kaleido
 asyncio
 plotly
 seaborn

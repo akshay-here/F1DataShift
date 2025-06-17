@@ -1,6 +1,7 @@
 import YearSelect from "@/app/components/YearSelect";
 import DriverStandingsHeatmap from "@/app/components/DriverStandingsHeatmap";
 import ConstructorStandingsHeatmap from "@/app/components/ConstructorStandingsHeatmap";
+import ShinyText from "@/app/StyleComponents/ShinyText/ShinyText";
 
 
 import React from 'react'
@@ -13,7 +14,9 @@ async function StandingsHeatmapYearPage({ params }) {
     return (
         <div>
 
-            <h1 className="font-bold text-center text-xl">Standings Heatmap for the {year} F1 Season</h1>
+            <div className='text-center text-4xl pt-10'>
+                <ShinyText text={`Standings Heatmap for the ${year} F1 Season`} disabled={false} speed={4} className='custom-class' />
+            </div>
 
             <div className="p-10">
                 <YearSelect currentYear={yearInt} endpoint={"analysis/heatmaps"}/>

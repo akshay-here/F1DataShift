@@ -5,6 +5,8 @@ import React, { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine, CartesianGrid } from 'recharts'
 import { Toggle } from "@/components/ui/toggle"
 
+import GradientText from '../StyleComponents/GradientText/GradientText'
+
 function QualifyingSpeedTrace({ driverCode, year, round }) {
 
     const [view, setView] = useState("distance") // "distance" or "corners"
@@ -88,7 +90,9 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
     return (
         <div className='pt-20'>
 
-            <h1 className='text-center font-semibold text-xl'>Qualifying Speed Trace for {driverCode}</h1>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Qualifying Speed Trace for {driverCode}</GradientText>
+            </div>
 
             <ResponsiveContainer width="100%" height={800}>
                 <LineChart data={data[view].chartData} margin={{ top: 20, right: 30, left: 0, bottom: 50 }}>
@@ -98,7 +102,7 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
                         label={{
                             value: view === "distance" ? "Distance (m)" : "Corner",
                             position: "insideBottom",
-                            offset: -5, 
+                            offset: -5,
                             fill: "white"
                         }}
                         tickFormatter={value => view === "distance" ? Math.round(value) : value}

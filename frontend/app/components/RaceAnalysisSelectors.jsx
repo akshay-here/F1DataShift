@@ -18,6 +18,9 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 
+import ShinyText from '../StyleComponents/ShinyText/ShinyText';
+import GradientText from '../StyleComponents/GradientText/GradientText';
+
 import CircuitLayout from './CircuitLayout';
 import CircuitSpeedLayout from './CircuitSpeedLayout';
 import CircuitGearShiftsLayout from './CircuitGearShiftsLayout';
@@ -95,7 +98,7 @@ function RaceAnalysisSelectors() {
                 <div>
                     <Select onValueChange={handleYearChange} value={year}>
                         <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
-                            <SelectValue placeholder="Select Year"/>
+                            <SelectValue placeholder="Select Year" />
                         </SelectTrigger>
                         <SelectContent className="bg-black text-white border-white">
                             {years.map(y => (
@@ -126,7 +129,9 @@ function RaceAnalysisSelectors() {
             {/* To display the selected race */}
             {selectedRace && selectedRaceData && (
                 <div className="pt-10">
-                    <h1 className='text-xl font-bold'>Selected Race: {selectedRaceData.raceName} (Round {selectedRaceData.round})</h1>
+                    <div className='text-center text-4xl p-10'>
+                        <ShinyText text={`Selected Race: ${selectedRaceData.raceName} (Round ${selectedRaceData.round})`} disabled={false} speed={4} className='custom-class' />
+                    </div>
                 </div>
             )}
 
@@ -134,7 +139,9 @@ function RaceAnalysisSelectors() {
             {selectedRace && selectedRaceData && (
                 <div>
 
-                    <h1 className='pt-20 text-xl'>Circuit Layouts and Visualizations: </h1>
+                    <div className='p-10 text-2xl'>
+                        <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Circuit Layouts and Visualizations: </GradientText>
+                    </div>
 
                     <Carousel className="w-full max-w-2xl mx-auto pt-10" opts={{ align: "start", loop: true }}>
                         <CarouselContent>
@@ -157,8 +164,8 @@ function RaceAnalysisSelectors() {
                                 </div>
                             </CarouselItem>
                         </CarouselContent>
-                        <CarouselPrevious className="bg-black text-white"/>
-                        <CarouselNext className="bg-black text-white"/>
+                        <CarouselPrevious className="bg-black text-white" />
+                        <CarouselNext className="bg-black text-white" />
                     </Carousel>
                 </div>
             )}
@@ -167,7 +174,9 @@ function RaceAnalysisSelectors() {
             {selectedRace && selectedRaceData && (
                 <div>
 
-                    <h1 className='pt-20 text-xl'>Race Analysis: </h1>
+                    <div className='p-10 text-2xl'>
+                        <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Race Analysis:</GradientText>
+                    </div>
 
                     <Carousel className="w-full max-w-2xl mx-auto pt-10" opts={{ align: "start", loop: true }}>
                         <CarouselContent>
@@ -202,8 +211,8 @@ function RaceAnalysisSelectors() {
                                 </div>
                             </CarouselItem>
                         </CarouselContent>
-                        <CarouselPrevious className="bg-black text-white"/>
-                        <CarouselNext className="bg-black text-white"/>
+                        <CarouselPrevious className="bg-black text-white" />
+                        <CarouselNext className="bg-black text-white" />
                     </Carousel>
                 </div>
             )}

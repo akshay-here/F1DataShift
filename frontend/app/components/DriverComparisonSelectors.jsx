@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import ComparisonQualifyingSpeedTrace from './ComparisonQualifyingSpeedTrace'
 import QualifyingTelemetryPlots from './QualifyingTelemetryPlots'
 import RacePacePlot from './RacePacePlot'
+import ShinyText from '../StyleComponents/ShinyText/ShinyText'
 
 function DriverComparisonSelectors({ onSelect }) {
     const [year, setYear] = useState("")
@@ -143,7 +144,7 @@ function DriverComparisonSelectors({ onSelect }) {
 
     return (
         <div className="p-10">
-            <div className="flex space-x-10">
+            <div className="flex flex-col space-y-5">
                 <div>
                     <Select onValueChange={handleYearChange} value={year}>
                         <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
@@ -214,21 +215,23 @@ function DriverComparisonSelectors({ onSelect }) {
 
             {selectedRace && selectedRaceData && (
                 <div className="pt-10">
-                    <h1 className="text-xl font-bold">
-                        Selected Race: {selectedRaceData.raceName} (Round {selectedRaceData.round})
-                    </h1>
+                    <div className='text-2xl'>
+                        <ShinyText text={`Selected Race: ${selectedRaceData.raceName} (Round ${selectedRaceData.round})`} disabled={false} speed={4} className='custom-class' />
+                    </div>
                 </div>
             )}
 
             {selectedDriversData.length > 0 && (
                 <div className="pt-5">
-                    <h1 className="text-xl font-bold">Selected Drivers:</h1>
+                    <div className='text-2xl'>
+                        <ShinyText text={`Selected Drivers: `} disabled={false} speed={4} className='custom-class' />
+                    </div>
                     <div className="pt-2">
                         {selectedDriversData.map(driver => (
                             <div key={driver.driverId} className="flex items-center space-x-10">
-                                <p>
-                                    {driver.givenName} {driver.familyName} ({driver.code || driver.driverId})
-                                </p>
+                                <div className='text-xl'>
+                                    <ShinyText text={`${driver.givenName} ${driver.familyName} (${driver.code || driver.driverId})`} disabled={false} speed={4} className='custom-class' />
+                                </div>
                                 <p onClick={() => handleRemoveDriver(driver.code || driver.driverId)} className='hover:cursor-pointer'>
                                     ✖️
                                 </p>

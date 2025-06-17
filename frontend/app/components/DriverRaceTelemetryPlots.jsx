@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts'
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
     const [data, setData] = useState(null)
@@ -126,9 +127,10 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
 
     return (
         <div className="p-5 shadow-md mt-5 space-y-5">
-            <h2 className="text-lg font-semibold text-center mb-4">
-                Race Telemetry Plots - Lap {lapNumber} (Year {year}, Round {round})
-            </h2>
+
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Race Telemetry Plots - Lap {lapNumber} (Year {year}, Round {round})</GradientText>
+            </div>
 
             {/* Speed Plot */}
             <ResponsiveContainer width="100%" height={300}>

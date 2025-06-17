@@ -10,6 +10,9 @@ import {
     SelectValue
 } from "@/components/ui/select";
 
+import ShinyText from '../StyleComponents/ShinyText/ShinyText';
+import GradientText from '../StyleComponents/GradientText/GradientText';
+
 import QualifyingSpeedTrace from './QualifyingSpeedTrace';
 import RacePacePlot from './RacePacePlot';
 
@@ -122,7 +125,7 @@ function DriverAnalysisSelectors() {
     return (
         <div className='p-10'>
 
-            <div className='flex space-x-10'>
+            <div className='flex flex-col space-y-5'>
                 <div>
                     <Select onValueChange={handleYearChange} value={year}>
                         <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
@@ -172,14 +175,18 @@ function DriverAnalysisSelectors() {
             {/* To display the selected race */}
             {selectedRace && selectedRaceData && (
                 <div className="pt-10">
-                    <h1 className='text-xl font-bold'>Selected Race: {selectedRaceData.raceName} (Round {selectedRaceData.round})</h1>
+                    <div className='text-2xl'>
+                        <ShinyText text={`Selected Race: ${selectedRaceData.raceName} (Round ${selectedRaceData.round})`} disabled={false} speed={4} className='custom-class' />
+                    </div>
                 </div>
             )}
 
             {/* To display the selected driver */}
             {selectedDriver && selectedDriverData && (
                 <div className="pt-5">
-                    <h1 className="text-xl font-bold">Selected Driver: {selectedDriverData.givenName} {selectedDriverData.familyName} ({selectedDriverData.code || selectedDriverData.driverId})</h1>
+                    <div className='text-2xl'>
+                        <ShinyText text={`Selected Driver: ${selectedDriverData.givenName} ${selectedDriverData.familyName} (${selectedDriverData.code || selectedDriverData.driverId})`} disabled={false} speed={4} className='custom-class' />
+                    </div>
                 </div>
             )}
 

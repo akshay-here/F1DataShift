@@ -7,8 +7,8 @@ import GradientText from '../StyleComponents/GradientText/GradientText';
 
 function Navbar() {
   return (
-    <nav className='flex items-center justify-between m-10 p-5 bg-black border-2 border-purple-500 rounded-[1.5rem]'>
-      <div className='text-center text-3xl font-extrabold'>
+    <nav className='flex flex-col md:flex-row items-center justify-between m-4 md:m-10 p-3 md:p-5 bg-black border-2 border-purple-500 rounded-xl md:rounded-[1.5rem]'>
+      <div className='text-center text-2xl md:text-3xl font-extrabold mb-4 md:mb-0'>
         <Link href="/">
           <GradientText
             colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]}
@@ -21,7 +21,7 @@ function Navbar() {
         </Link>
       </div>
 
-      <div className='flex items-center space-x-20 text-white text-xl'>
+      <div className='flex flex-wrap justify-center items-center gap-6 md:gap-20 text-white text-lg md:text-xl'>
         <Link href="/standings" className="hover:text-purple-500 transition-colors">Standings</Link>
         <Link href="/races" className="hover:text-purple-500 transition-colors">Races</Link>
         <Link href="/drivers" className="hover:text-purple-500 transition-colors">Drivers</Link>
@@ -30,11 +30,6 @@ function Navbar() {
         <Link href="/analysis" className="hover:text-purple-500 transition-colors">Analysis</Link>
       </div>
 
-      {/* <div>
-        <Button variant="outline" className="text-white bg-black border-purple-500 hover:bg-purple-500 hover:text-black border-white transition-colors">
-          Register
-        </Button>
-      </div> */}
     </nav>
   )
 }

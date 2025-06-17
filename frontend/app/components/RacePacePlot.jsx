@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ReferenceLine, CartesianGrid } from 'recharts'
 import { Button } from '@/components/ui/button'
 import DriverRaceTelemetryPlots from './DriverRaceTelemetryPlots'
+import GradientText from '../StyleComponents/GradientText/GradientText'
 
 function RacePacePlot({ driverCodes, year, round }) {
     const [data, setData] = useState(null)
@@ -139,9 +140,11 @@ function RacePacePlot({ driverCodes, year, round }) {
 
     return (
         <div className="p-6 shadow-md mt-6">
-            <h2 className="text-lg font-semibold text-center mb-4">
-                Race Pace Plot (Year {year}, Round {round})
-            </h2>
+
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Race Pace Plot (Year {year}, Round {round})</GradientText>
+            </div>
+
             <ResponsiveContainer width="100%" height={500}>
                 <LineChart
                     data={data.combinedData}

@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import GradientText from '../StyleComponents/GradientText/GradientText';
 
 function DriverStandingsHeatmap({ year }) {
 
@@ -62,7 +63,9 @@ function DriverStandingsHeatmap({ year }) {
 
     return (
         <div className="p-10">
-            <h2 className="text-xl font-bold text-center">Driver Standings Heatmap {year}</h2>
+            <div className='p-10 text-2xl'>
+                <GradientText colors={["#aa3dd9", "#4078ff", "#40ffaa", "#dea5e8"]} animationSpeed={2} showBorder={false} className="custom-class" >Driver Standings Heatmap {year}</GradientText>
+            </div>
             <div className="w-full max-w-4xl mx-auto">
                 <img
                     src={imageSrc}

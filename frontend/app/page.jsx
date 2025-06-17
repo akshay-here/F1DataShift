@@ -2,6 +2,7 @@ import React from 'react'
 import DriverStandings from './components/DriverStandings'
 import ConstructorStandings from './components/ConstructorStandings'
 import HyperspeedWrapper from './StyleComponents/Hyperspeed/HyperspeedWrapper'
+import SplitTextWrapper from './StyleComponents/SplitText/SplitTextWrapper'
 
 function page() {
 
@@ -10,9 +11,9 @@ function page() {
   const hyperspeedOptions = {
     distortion: 'turbulentDistortion',
     length: 400,
-    roadWidth: 10,
-    islandWidth: 2,
-    lanesPerRoad: 4,
+    roadWidth: 20,
+    islandWidth: 5,
+    lanesPerRoad: 2,
     fov: 90,
     fovSpeedUp: 150,
     speedUp: 2,
@@ -45,7 +46,24 @@ function page() {
 
   return (
     <div>
-      <div className="mt-10">
+
+      <div className='mx-10'>
+        <SplitTextWrapper
+          text={"Welcome to F1DataShift!"}
+          className="text-4xl font-extrabold text-center text-white"
+          delay={50}
+          duration={2.0}
+          ease="power4.out"
+          splitType="chars"
+          from={{ opacity: 0, y: 50 }}
+          to={{ opacity: 1, y: 0 }}
+          threshold={0.1}
+          rootMargin="-150px"
+          textAlign="center"
+        />
+      </div>
+
+      <div className="my-10">
         <HyperspeedWrapper effectOptions={hyperspeedOptions} width="100%" height="40rem" />
       </div>
 

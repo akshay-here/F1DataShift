@@ -5,6 +5,7 @@ matplotlib
 fastapi
 httpx
 uvicorn
+gunicorn
 asyncio
 plotly
 seaborn

@@ -20,7 +20,7 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
             setError(null)
             try {
                 // Fetch distance-based data
-                const distanceRes = await fetch(`http://localhost:8000/driverplots/qualifyingspeedtrace/${driverCode}/${year}/${round}`, {
+                const distanceRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/driverplots/qualifyingspeedtrace/${driverCode}/${year}/${round}`, {
                     headers: { 'Accept': 'application/json' },
                 })
                 if (!distanceRes.ok) {
@@ -33,7 +33,7 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
                 }))
 
                 // Fetch corner-based data
-                const cornersRes = await fetch(`http://localhost:8000/driverplots/qualifyingspeedtrace/corners/${driverCode}/${year}/${round}`, {
+                const cornersRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/driverplots/qualifyingspeedtrace/corners/${driverCode}/${year}/${round}`, {
                     headers: { 'Accept': 'application/json' },
                 })
                 if (!cornersRes.ok) {

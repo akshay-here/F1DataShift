@@ -22,7 +22,7 @@ function RaceSchedule({ year }) {
         async function fetchRaceSchedule() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/races/schedule/${year}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/races/schedule/${year}`)
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);

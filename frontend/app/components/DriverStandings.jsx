@@ -23,8 +23,8 @@ function DriverStandings({ year, round }) {
             setLoading(true)
             try {
                 const endpoint = round === null
-                    ? `http://localhost:8000/standings/drivers/${year}`
-                    : `http://localhost:8000/standings/drivers/${year}/${round}`
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/standings/drivers/${year}`
+                    : `${process.env.NEXT_PUBLIC_BACKEND_URL}/standings/drivers/${year}/${round}`
 
                 const response = await fetch(endpoint)
                 if (!response.ok) {

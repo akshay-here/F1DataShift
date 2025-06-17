@@ -13,7 +13,7 @@ function TyreStratsPlot({ year, round }) {
         async function fetchTyreStratsInRace() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/raceplots/tyrestrats/${year}/${round}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/raceplots/tyrestrats/${year}/${round}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

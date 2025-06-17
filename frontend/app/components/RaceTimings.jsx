@@ -22,7 +22,7 @@ function RaceTimings({ year, round }) {
         async function fetchRaceTimings() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/races/schedule/${year}/${round}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/races/schedule/${year}/${round}`)
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);

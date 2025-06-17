@@ -54,7 +54,7 @@ function RaceAnalysisSelectors() {
             setSelectedRace("")
 
             try {
-                const raceRes = await fetch(`http://localhost:8000/races/schedule/${year}`, {
+                const raceRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/races/schedule/${year}`, {
                     headers: { "Accept": "application/json" },
                 })
                 if (!raceRes.ok) {

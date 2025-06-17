@@ -23,8 +23,8 @@ function ConstructorStandings({ year, round }) {
             setLoading(true)
             try {
                 const endpoint = round === null
-                    ? `http://localhost:8000/standings/constructors/${year}`
-                    : `http://localhost:8000/standings/constructors/${year}/${round}`
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/standings/constructors/${year}`
+                    : `${process.env.NEXT_PUBLIC_BACKEND_URL}/standings/constructors/${year}/${round}`
 
                 const response = await fetch(endpoint)
                 if (!response.ok) {

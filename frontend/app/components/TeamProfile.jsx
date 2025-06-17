@@ -13,7 +13,7 @@ function TeamProfile({ constructorId }) {
         async function fetchTeamProfile() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/teams/${constructorId}/profile`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/teams/${constructorId}/profile`)
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);
                 }

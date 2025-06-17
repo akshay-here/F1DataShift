@@ -13,7 +13,7 @@ function DriverProfile({ driverId }) {
         async function fetchDriverProfile() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/drivers/${driverId}/profile`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/drivers/${driverId}/profile`)
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);
                 }

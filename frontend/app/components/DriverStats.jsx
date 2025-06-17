@@ -23,7 +23,7 @@ function DriverStats({ driverId }) {
         async function fetchDriverStats() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/drivers/${driverId}/stats`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/drivers/${driverId}/stats`)
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);
                 }

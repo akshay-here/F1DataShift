@@ -23,7 +23,7 @@ function CircuitRaces({ circuitId }) {
         async function fetchCircuitRaces() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/circuits/${circuitId}/races`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/circuits/${circuitId}/races`)
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);

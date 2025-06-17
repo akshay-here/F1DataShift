@@ -13,7 +13,7 @@ function PositionChangesPlot({ year, round }) {
         async function fetchPositionchangesInRace() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/raceplots/positionchanges/${year}/${round}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/raceplots/positionchanges/${year}/${round}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

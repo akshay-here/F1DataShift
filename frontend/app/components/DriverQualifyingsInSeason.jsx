@@ -26,7 +26,7 @@ function DriverQualifyingsInSeason({ driverId, year }) {
             setData(null)
 
             try {
-                const response = await fetch(`http://localhost:8000/drivers/${driverId}/qualifying/${year}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/drivers/${driverId}/qualifying/${year}`)
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`)
                 }

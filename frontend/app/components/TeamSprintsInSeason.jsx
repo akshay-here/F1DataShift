@@ -26,7 +26,7 @@ function TeamSprintsInSeason({ constructorId, year }) {
             setData(null)
 
             try {
-                const response = await fetch(`http://localhost:8000/teams/${constructorId}/sprints/${year}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/teams/${constructorId}/sprints/${year}`)
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`)
                 }

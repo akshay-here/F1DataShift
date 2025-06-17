@@ -12,7 +12,7 @@ import Link from 'next/link'
 
 async function CircuitsList() {
 
-    const res = await fetch(`http://localhost:8000/circuits/all`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/circuits/all`)
     const data = await res.json()
 
     return (

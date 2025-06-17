@@ -13,7 +13,7 @@ function LapTimesDistribPlot({ year, round }) {
         async function fetchLaptimeDistribution() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/raceplots/laptimedistrib/${year}/${round}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/raceplots/laptimedistrib/${year}/${round}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

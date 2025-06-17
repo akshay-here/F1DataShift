@@ -13,7 +13,7 @@ function CircuitLayout({ year, round }) {
         async function fetchCircuitLayout() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/circuits/layout/${year}/${round}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/circuits/layout/${year}/${round}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

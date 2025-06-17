@@ -13,7 +13,7 @@ function CircuitGearShiftsLayout({ year, round }) {
         async function fetchCircuitGearShiftsLayout() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/circuits/gearshiftslayout/${year}/${round}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/circuits/gearshiftslayout/${year}/${round}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

@@ -16,7 +16,7 @@ function DriverRaceTelemetryPlots({ driverCodes, year, round, lapNumber }) {
             try {
                 const driverData = await Promise.all(
                     driverCodes.map(async (code) => {
-                        const response = await fetch(`http://localhost:8000/driverplots/racetelemetry/${code}/${year}/${round}/${lapNumber}`, {
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/driverplots/racetelemetry/${code}/${year}/${round}/${lapNumber}`, {
                             headers: { 'Accept': 'application/json' },
                         })
                         if (!response.ok) {

@@ -22,7 +22,7 @@ function TeamsList({ year }) {
         async function fetchTeamList() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/teams/${year}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/teams/${year}`)
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);

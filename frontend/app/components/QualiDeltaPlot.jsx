@@ -13,7 +13,7 @@ function QualiDeltaPlot({ year, round }) {
         async function fetchQualiDelta() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/raceplots/qualidelta/${year}/${round}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/raceplots/qualidelta/${year}/${round}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

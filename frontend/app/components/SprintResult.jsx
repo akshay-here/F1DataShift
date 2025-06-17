@@ -26,7 +26,7 @@ function Sprintresult({ year, round }) {
             setData(null)
 
             try {
-                const response = await fetch(`http://localhost:8000/races/sprint/result/${year}/${round}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/races/sprint/result/${year}/${round}`)
                 if (!response.ok) {
                     return (
                         <div className="p-10 text-center">

@@ -22,7 +22,7 @@ function DriversList({ year }) {
         async function fetchDriverList() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/drivers/${year}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/drivers/${year}`)
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);

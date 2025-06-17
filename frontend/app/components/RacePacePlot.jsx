@@ -19,7 +19,7 @@ function RacePacePlot({ driverCodes, year, round }) {
             try {
                 const driverData = await Promise.all(
                     driverCodes.map(async (code) => {
-                        const response = await fetch(`http://localhost:8000/driverplots/racepace/${code}/${year}/${round}`, {
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/driverplots/racepace/${code}/${year}/${round}`, {
                             headers: { 'Accept': 'application/json' },
                         })
                         if (!response.ok) {

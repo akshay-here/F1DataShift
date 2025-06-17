@@ -13,7 +13,7 @@ function CircuitSpeedLayout({ year, round }) {
         async function fetchCircuitSpeedLayout() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/circuits/speedlayout/${year}/${round}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/circuits/speedlayout/${year}/${round}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

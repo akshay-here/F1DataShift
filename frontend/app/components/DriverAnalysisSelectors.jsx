@@ -43,7 +43,7 @@ function DriverAnalysisSelectors() {
             setSelectedDriver("")
 
             try {
-                const raceRes = await fetch(`http://localhost:8000/races/schedule/${year}`, {
+                const raceRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/races/schedule/${year}`, {
                     headers: { "Accept": "application/json" },
                 })
                 if (!raceRes.ok) {
@@ -81,7 +81,7 @@ function DriverAnalysisSelectors() {
 
             try {
                 const [season, round] = selectedRace.split('-')
-                const driverRes = await fetch(`http://localhost:8000/drivers/${year}`, {
+                const driverRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/drivers/${year}`, {
                     headers: { "Accept": "application/json" },
                 })
                 if (!driverRes.ok) {

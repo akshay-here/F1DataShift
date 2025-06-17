@@ -22,7 +22,7 @@ function DriverRacesInSeason({ driverId, year }) {
         async function fetchDriverRacesInSeason() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/drivers/${driverId}/races/${year}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/drivers/${driverId}/races/${year}`)
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);

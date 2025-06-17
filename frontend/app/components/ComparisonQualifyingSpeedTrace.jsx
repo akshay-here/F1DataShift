@@ -16,7 +16,7 @@ function ComparisonQualifyingSpeedTrace({ driverCodes, year, round }) {
             try {
                 const driverData = await Promise.all(
                     driverCodes.map(async (code) => {
-                        const response = await fetch(`http://localhost:8000/driverplots/qualifyingspeedtrace/${code}/${year}/${round}`, {
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/driverplots/qualifyingspeedtrace/${code}/${year}/${round}`, {
                             headers: { 'Accept': 'application/json' }
                         })
                         if (!response.ok) {

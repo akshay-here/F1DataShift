@@ -14,7 +14,7 @@ function ConstructorStandingsHeatmap({ year }) {
         async function fetchHeatmapImage() {
             setLoading(true);
             try {
-                const response = await fetch(`http://localhost:8000/heatmap/constructors/${year}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/heatmap/constructors/${year}`, {
                     headers: { 'Accept': 'image/png' },
                     // cache: 'force-cache',
                 });

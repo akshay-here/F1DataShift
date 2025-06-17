@@ -22,7 +22,7 @@ function RaceResult({ year, round }) {
         async function fetchRaceResult() {
             setLoading(true)
             try {
-                const response = await fetch(`http://localhost:8000/races/result/${year}/${round}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/races/result/${year}/${round}`)
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${await response.text()}`);

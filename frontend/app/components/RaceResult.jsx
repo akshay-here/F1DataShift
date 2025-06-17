@@ -67,7 +67,7 @@ function RaceResult({ year, round }) {
     return (
         <div>
 
-            <h1 className='text-xl text-center font-bold pb-10'>Race Results</h1>
+            <h1 className='text-xl text-center font-bold p-10'>Race Results</h1>
 
             <Table className="w-full border">
                 <TableCaption>Race Results</TableCaption>

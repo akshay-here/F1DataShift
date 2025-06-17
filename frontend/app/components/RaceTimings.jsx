@@ -89,11 +89,11 @@ function RaceTimings({ year, round }) {
                         <TableCell>{data.round}</TableCell>
                         <TableCell>{data.season} {data.raceName}</TableCell>
                         <TableCell>{data.Circuit.circuitName}</TableCell>
-                        <TableCell>{data.date}, {data.time || ""}</TableCell>
-                        <TableCell>{data.Qualifying?.date || ""}, {data.Qualifying?.time || ""}</TableCell>
-                        <TableCell>{data.FirstPractice?.date || ""}, {data.FirstPractice?.time || ""}</TableCell>
-                        <TableCell>{data.SecondPractice?.date || ""}, {data.SecondPractice?.time || ""}</TableCell>
-                        <TableCell>{data.ThirdPractice?.date || ""}, {data.ThirdPractice?.time || ""}</TableCell>
+                        <TableCell>{data.date} {data.time || ""}</TableCell>
+                        <TableCell>{data.Qualifying?.date || ""} {data.Qualifying?.time || ""}</TableCell>
+                        <TableCell>{data.FirstPractice?.date || ""} {data.FirstPractice?.time || ""}</TableCell>
+                        <TableCell>{data.SecondPractice?.date || ""} {data.SecondPractice?.time || ""}</TableCell>
+                        <TableCell>{data.ThirdPractice?.date || ""} {data.ThirdPractice?.time || ""}</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>

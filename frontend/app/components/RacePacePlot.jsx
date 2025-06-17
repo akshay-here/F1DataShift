@@ -166,7 +166,7 @@ function RacePacePlot({ driverCodes, year, round }) {
                         tick={{ fontSize: 12, fill: "white" }}
                     />
                     <Tooltip
-                        wrapperStyle={{ backgroundColor: 'black', border: '1px solid white' }}
+                        wrapperStyle={{ backgroundColor: 'black', border: '2px solid white' }}
                         contentStyle={{ backgroundColor: 'black', color: 'white', border: 'none' }}
                         labelStyle={{ color: 'white' }}
                         formatter={(value, name) => [`${value ? value.toFixed(3) : 'N/A'} s`, name.replace('lapTime_', '')]}

@@ -69,7 +69,7 @@ function RaceResult({ year, round }) {
 
             <h1 className='text-xl text-center font-bold p-10'>Race Results</h1>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Race Results</TableCaption>
                 <TableHeader>
                     <TableRow>

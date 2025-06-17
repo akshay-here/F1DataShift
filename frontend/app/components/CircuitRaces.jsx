@@ -70,7 +70,7 @@ function CircuitRaces({ circuitId }) {
 
             <h1 className='text-center font-bold text-xl p-10'>All races in {data[0].Circuit.circuitName}</h1>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>All Races</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -95,7 +95,7 @@ function CircuitRaces({ circuitId }) {
                             <TableRow key={`${race.season}-${winner?.Driver?.familyName}`}>
                                 <TableCell>{race.round}</TableCell>
                                 <TableCell>
-                                    <Link href={`/races/${race.season}/${race.round}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                    <Link href={`/races/${race.season}/${race.round}`} className='text-white hover:text-blue-700 hover:underline'>
                                         {race.season} {race.raceName}
                                     </Link>
                                 </TableCell>

@@ -117,7 +117,7 @@ function QualifyingSpeedTrace({ driverCode, year, round }) {
                         content={({ active, payload, label }) => {
                             if (active && payload && payload.length) {
                                 return (
-                                    <div className="p-2 border border-gray-300 shadow">
+                                    <div className="p-2 border-2 border-white shadow">
                                         <p>{view === "distance" ? `Distance: ${label.toFixed(1)} m` : `Corner: ${label}`}</p>
                                         <p>{`Speed: ${payload[0].value.toFixed(1)} km/h`}</p>
                                         {view === "corners" && <p>{`Distance: ${payload[0].payload.distance.toFixed(1)} m`}</p>}

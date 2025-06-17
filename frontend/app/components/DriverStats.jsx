@@ -69,7 +69,7 @@ function DriverStats({ driverId }) {
     return (
         <div>
 
-            <div className='p-10'>
+            <div className='p-10 text-xl font-extrabold'>
                 <h1 className='text-center font-bold text-xl pb-5'>Driver Stats</h1>
                 <h1>Season Driven: {data.careerStats.seasonsDriven}</h1>
                 <h2>Championships: {data.careerStats.championships}</h2>
@@ -87,7 +87,7 @@ function DriverStats({ driverId }) {
             <div className='p-10'>
                 <h1 className='text-center font-bold text-xl pb-5'>Driver Seasons</h1>
 
-                <Table className="w-full border">
+                <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                     <TableCaption>Driver Seasons</TableCaption>
                     <TableHeader>
                         <TableRow>
@@ -104,7 +104,7 @@ function DriverStats({ driverId }) {
                         {data.yearlyStandings.map((year => (
                             <TableRow key={year.year}>
                                 <TableCell>
-                                    <Link href={`/driver/${driverId}/${year.year}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                    <Link href={`/driver/${driverId}/${year.year}`} className='text-white hover:text-blue-700 hover:underline'>
                                         {year.year}
                                     </Link>
                                 </TableCell>

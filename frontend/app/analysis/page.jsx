@@ -1,21 +1,24 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import ShinyText from '../StyleComponents/ShinyText/ShinyText'
 
 function AnalysisHomePage() {
     return (
         <div>
-            <h1 className='text-center font-bold text-3xl p-10'>Analysis & Driver Comparison (2018+)</h1>
+            <div className='text-center text-4xl pt-10'>
+                <ShinyText text="Analysis & Driver Comparison (2018+)" disabled={false} speed={4} className='custom-class' />
+            </div>
 
             <div className='p-10 space-y-10'>
-                <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
+                <div className='border border-purple-500 p-10 rounded-xl shadow text-xl flex justify-between'>
                     See Driver and Constructor Heatmap
                     <Link href={"/analysis/heatmaps/2025"}>
-                        <Button variant="outline" className="bg-black">Go To Heatmaps</Button>
+                        <Button variant="outline" className="text-white bg-black border-purple-500 hover:bg-purple-500 hover:text-black border-white transition-colors">Go To Heatmaps</Button>
                     </Link>
                 </div>
 
-                <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
+                <div className='border border-purple-500 p-10 rounded-xl shadow text-xl flex justify-between'>
                     <ul>
                         <li className='font-bold'>Perform Race analysis: </li>
                         <li>Circuit Info</li>
@@ -26,11 +29,11 @@ function AnalysisHomePage() {
                         <li>Driver Laptimes Distribution</li>
                     </ul>
                     <Link href={"/analysis/race/"}>
-                        <Button variant="outline" className="bg-black">Go To Race Analysis</Button>
+                        <Button variant="outline" className="text-white bg-black border-purple-500 hover:bg-purple-500 hover:text-black border-white transition-colors">Go To Race Analysis</Button>
                     </Link>
                 </div>
 
-                <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
+                <div className='border border-purple-500 p-10 rounded-xl shadow text-xl flex justify-between'>
                     <ul>
                         <li className='font-bold'>Perform analysis on Driver Performance in a race like: </li>
                         <li>Driver Qualifying (Speed vs Distance or Laps)</li>
@@ -38,18 +41,18 @@ function AnalysisHomePage() {
                         <li>Driver Race Pace (Laptime vs Laps)</li>
                     </ul>
                     <Link href={"/analysis/driver/"}>
-                        <Button variant="outline" className="bg-black">Go To Driver Analysis</Button>
+                        <Button variant="outline" className="text-white bg-black border-purple-500 hover:bg-purple-500 hover:text-black border-white transition-colors">Go To Driver Analysis</Button>
                     </Link>
                 </div>
 
-                <div className='border p-10 rounded-xl shadow text-xl flex justify-between'>
+                <div className='border border-purple-500 p-10 rounded-xl shadow text-xl flex justify-between'>
                     <ul>
                         <li className='font-bold'>Pick 2 or  more drivers and compare their Performance:</li>
                         <li>Overlaying Speed Traces - Pick any lap and Compare their telemetry data</li>
                         <li>Driver Race Pace Comparison</li>
                     </ul>
                     <Link href={"/analysis/comparison/"}>
-                        <Button variant="outline" className="bg-black">Go To Driver Comparison</Button>
+                        <Button variant="outline" className="text-white bg-black border-purple-500 hover:bg-purple-500 hover:text-black border-white transition-colors">Go To Driver Comparison</Button>
                     </Link>
                 </div>
 

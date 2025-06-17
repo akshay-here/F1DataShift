@@ -68,7 +68,7 @@ function DriversList({ year }) {
     return (
         <div>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Drivers in {year}</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -84,7 +84,7 @@ function DriversList({ year }) {
                     {data.map((driver => (
                         <TableRow key={driver.driverId}>
                             <TableCell>
-                                <Link href={`/driver/${driver.driverId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                <Link href={`/driver/${driver.driverId}`} className='text-white hover:text-blue-700 hover:underline'>
                                     {driver.givenName} {driver.familyName}
                                 </Link>
                             </TableCell>

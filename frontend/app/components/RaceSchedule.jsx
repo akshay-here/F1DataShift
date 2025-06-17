@@ -68,7 +68,7 @@ function RaceSchedule({ year }) {
     return (
         <div>
 
-            <Table className="w-full border mx-auto">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Race Schedule</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -86,7 +86,7 @@ function RaceSchedule({ year }) {
                         <TableRow key={race.round}>
                             <TableCell>{race.round}</TableCell>
                             <TableCell>
-                                <Link href={`/races/${year}/${race.round}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                <Link href={`/races/${year}/${race.round}`} className='text-white hover:text-blue-700 hover:underline'>
                                     {race.season} {race.raceName}
                                 </Link>
                             </TableCell>

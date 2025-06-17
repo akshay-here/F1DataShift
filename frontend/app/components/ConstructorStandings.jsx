@@ -77,12 +77,13 @@ function ConstructorStandings({ year, round }) {
                 : <h1 className='text-center font-bold text-xl p-10'>Constructor Standings after Round {round}</h1>
             }
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-xl">
                 <TableCaption>{round == null ? <h1>Cosntructor Standings {year}</h1> : <h1>Constructor Standings after Round {round}</h1>}</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="text-white font-bold text-lg">Position</TableHead>
                         <TableHead className="text-white font-bold text-lg">Constructor</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Nationality</TableHead>
                         <TableHead className="text-white font-bold text-lg">Wins</TableHead>
                         <TableHead className="text-white font-bold text-lg">Points</TableHead>
                     </TableRow>
@@ -91,8 +92,9 @@ function ConstructorStandings({ year, round }) {
                 <TableBody>
                     {data.map((constructor => (
                         <TableRow key={constructor.Constructor.constructorId}>
-                            <TableCell>{constructor.position}</TableCell>
+                            <TableCell>{constructor.position || "-"}</TableCell>
                             <TableCell>{constructor.Constructor.name}</TableCell>
+                            <TableCell>{constructor.Constructor.nationality}</TableCell>
                             <TableCell>{constructor.wins}</TableCell>
                             <TableCell>{constructor.points}</TableCell>
                         </TableRow>

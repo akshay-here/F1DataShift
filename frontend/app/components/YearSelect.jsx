@@ -22,12 +22,12 @@ function YearSelect({ currentYear, endpoint }) {
 
     return (
         <Select defaultValue={currentYear.toString()} onValueChange={handleYearChange}>
-            <SelectTrigger className="w-fit">
+            <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                 <SelectValue placeholder="Select Year" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-black text-white border-white">
                 {years.map((year) => (
-                    <SelectItem key={year} value={year.toString()}>
+                    <SelectItem key={year} value={year.toString()} className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black">
                         {year}
                     </SelectItem>
                 ))}

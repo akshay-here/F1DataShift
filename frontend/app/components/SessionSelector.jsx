@@ -34,7 +34,7 @@ function SessionSelector({ year, round }) {
 
             <div className="flex justify-center">
                 <Select value={selectedSession} onValueChange={setSelectedSession} className="w-[300px]">
-                    <SelectTrigger className="bg-black text-white border-white hover:bg-green-500 hover:text-black focus:ring-green-500 rounded-md shadow-md">
+                    <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                         <SelectValue placeholder="Select a session" />
                     </SelectTrigger>
                     <SelectContent className="bg-black text-white border-white">
@@ -42,7 +42,7 @@ function SessionSelector({ year, round }) {
                             <SelectItem
                                 key={choice.session}
                                 value={choice.session}
-                                className="hover:bg-green-500 hover:text-black focus:bg-green-500 focus:text-black"
+                                className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black"
                             >
                                 {choice.label}
                             </SelectItem>

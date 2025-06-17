@@ -3,6 +3,7 @@ import DriverStandings from './components/DriverStandings'
 import ConstructorStandings from './components/ConstructorStandings'
 import HyperspeedWrapper from './StyleComponents/Hyperspeed/HyperspeedWrapper'
 import SplitTextWrapper from './StyleComponents/SplitText/SplitTextWrapper'
+import ShinyText from './StyleComponents/ShinyText/ShinyText'
 
 function page() {
 
@@ -47,10 +48,10 @@ function page() {
   return (
     <div>
 
-      <div className='mx-10'>
+      <div className='text-center'>
         <SplitTextWrapper
           text={"Welcome to F1DataShift!"}
-          className="text-4xl font-extrabold text-center text-white"
+          className="text-6xl font-extrabold text-center text-white"
           delay={50}
           duration={2.0}
           ease="power4.out"
@@ -61,13 +62,28 @@ function page() {
           rootMargin="-150px"
           textAlign="center"
         />
+        <SplitTextWrapper
+          text={"Your One Stop To All F1 Data and Analysis."}
+          className="text-2xl font-bold text-center text-white"
+          delay={50}
+          duration={0.5}
+          ease="power4.out"
+          splitType="chars"
+          from={{ opacity: 0, y: 50 }}
+          to={{ opacity: 1, y: 0 }}
+          threshold={0.1}
+          rootMargin="-150px"
+          textAlign="center"
+        />
       </div>
 
-      <div className="my-10">
-        <HyperspeedWrapper effectOptions={hyperspeedOptions} width="100%" height="40rem" />
+      <div className="mb-50">
+        <HyperspeedWrapper effectOptions={hyperspeedOptions} width="100%" height="50rem" />
       </div>
 
-      <h1 className='font-bold text-center text-xl'>F1 {currYear} Season</h1>
+      <div className='text-center text-4xl'>
+        <ShinyText text={`F1 ${currYear} Season `} disabled={false} speed={4} className='custom-class' />
+      </div>
 
       <div className='p-10 space-y-10'>
         <DriverStandings year={currYear} round={null} />

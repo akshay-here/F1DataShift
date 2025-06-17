@@ -98,7 +98,7 @@ function TeamQualifyingsInSeason({ constructorId, year }) {
             <h1 className='text-center font-bold text-xl'>{constructorId.toUpperCase()} Qualifying Results in {year} season</h1>
 
             <div className='p-10'>
-                <Table className="w-full border">
+                <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                     <TableCaption>{constructorId} Qualifying Results in {year}</TableCaption>
                     <TableHeader>
                         <TableRow>

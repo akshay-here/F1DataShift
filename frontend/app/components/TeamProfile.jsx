@@ -61,7 +61,7 @@ function TeamProfile({ constructorId }) {
 
             <h1 className='text-center font-bold text-xl pb-5'>Team Profile</h1>
 
-            <div className='flex items-center justify-between p-10 border-5 rounded'>
+            <div className='flex items-center justify-between p-10 text-xl border-5 border-purple-500 rounded'>
                 <h1>Team: {data.name}</h1>
                 <h2>Nationality: {data.nationality}</h2>
                 <h2>Wiki: {data.url}</h2>

@@ -125,12 +125,12 @@ function DriverAnalysisSelectors() {
             <div className='flex space-x-10'>
                 <div>
                     <Select onValueChange={handleYearChange} value={year}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                             <SelectValue placeholder="Select Year" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-black text-white border-white">
                             {years.map(y => (
-                                <SelectItem key={y} value={y.toString()}>
+                                <SelectItem key={y} value={y.toString()} className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black">
                                     {y}
                                 </SelectItem>
                             ))}
@@ -140,12 +140,12 @@ function DriverAnalysisSelectors() {
 
                 <div>
                     <Select onValueChange={handleRaceChange} value={selectedRace} disabled={!year || loading || races.length === 0}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                             <SelectValue placeholder={year ? "Select Race" : "Select a year first"} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-black text-white border-white">
                             {races.map(race => (
-                                <SelectItem key={`${race.season}-${race.round}`} value={`${race.season}-${race.round}`}>
+                                <SelectItem key={`${race.season}-${race.round}`} value={`${race.season}-${race.round}`} className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black">
                                     {race.raceName} (Round {race.round})
                                 </SelectItem>
                             ))}
@@ -155,12 +155,12 @@ function DriverAnalysisSelectors() {
 
                 <div>
                     <Select onValueChange={setSelectedDriver} value={selectedDriver} disabled={!selectedRace || loading || drivers.length === 0}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                             <SelectValue placeholder={selectedRace ? "Select Driver" : "Select a Race first"} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-black text-white border-white">
                             {drivers.map(driver => (
-                                <SelectItem key={driver.driverId} value={driver.driverId}>
+                                <SelectItem key={driver.driverId} value={driver.driverId} className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black">
                                     {driver.givenName} {driver.familyName} ({driver.code || driver.driverId})
                                 </SelectItem>
                             ))}

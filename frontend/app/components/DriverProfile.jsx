@@ -61,7 +61,7 @@ function DriverProfile({ driverId }) {
 
             <h1 className='text-center font-bold text-xl pb-5'>Driver Profile</h1>
 
-            <div className='flex items-center justify-between p-10 border-5 rounded'>
+            <div className='flex items-center justify-between p-10 text-xl border-5 border-purple-500 rounded'>
                 <h1>Driver: {data.givenName} {data.familyName}</h1>
                 <h2>Driver Number: {data.permanentNumber || "N/A"}</h2>
                 <h2>Date of Birth: {data.dateOfBirth}</h2>

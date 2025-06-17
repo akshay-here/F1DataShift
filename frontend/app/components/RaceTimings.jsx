@@ -67,9 +67,9 @@ function RaceTimings({ year, round }) {
     return (
         <div>
 
-            <h1 className='text-center font-bold text-xl'>Schedule for the {year} Season, Round {round}</h1>
+            <h1 className='text-center font-bold text-xl pb-10'>Schedule for the {year} Season, Round {round}</h1>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900">
                 <TableCaption>Race Schedule</TableCaption>
                 <TableHeader>
                     <TableRow>

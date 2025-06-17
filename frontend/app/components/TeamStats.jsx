@@ -69,7 +69,7 @@ function TeamStats({ constructorId }) {
     return (
         <div>
 
-            <div className='p-10'>
+            <div className='p-10 text-xl font-extrabold'>
                 <h1 className='text-center font-bold text-xl pb-5'>Team Stats</h1>
                 <h1>Years Raced: {data.careerStats.yearsRaced}</h1>
                 <h2>Championships: {data.careerStats.championships}</h2>
@@ -85,7 +85,7 @@ function TeamStats({ constructorId }) {
             <div className='p-10'>
                 <h1 className='text-center font-bold text-xl pb-5'>Team Seasons</h1>
 
-                <Table className="w-full border">
+                <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                     <TableCaption>Team Seasons</TableCaption>
                     <TableHeader>
                         <TableRow>

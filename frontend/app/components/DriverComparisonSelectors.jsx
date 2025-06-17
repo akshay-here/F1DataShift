@@ -146,12 +146,12 @@ function DriverComparisonSelectors({ onSelect }) {
             <div className="flex space-x-10">
                 <div>
                     <Select onValueChange={handleYearChange} value={year}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                             <SelectValue placeholder="Select Year" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-black text-white border-white">
                             {years.map(y => (
-                                <SelectItem key={y} value={y.toString()}>
+                                <SelectItem key={y} value={y.toString()} className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black">
                                     {y}
                                 </SelectItem>
                             ))}
@@ -165,12 +165,12 @@ function DriverComparisonSelectors({ onSelect }) {
                         value={selectedRace}
                         disabled={!year || loading || races.length === 0}
                     >
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                             <SelectValue placeholder={year ? "Select Race" : "Select a year first"} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-black text-white border-white">
                             {races.map(race => (
-                                <SelectItem key={`${race.season}-${race.round}`} value={`${race.season}-${race.round}`}>
+                                <SelectItem key={`${race.season}-${race.round}`} value={`${race.season}-${race.round}`} className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black">
                                     {race.raceName} (Round {race.round})
                                 </SelectItem>
                             ))}
@@ -184,10 +184,10 @@ function DriverComparisonSelectors({ onSelect }) {
                         value={currentDriver}
                         disabled={!selectedRace || loading || drivers.length === 0 || selectedDriverCodes.length >= 5}
                     >
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-black text-white border-white hover:bg-purple-500 hover:text-black focus:ring-purple-500 rounded-md shadow-md">
                             <SelectValue placeholder={selectedRace ? "Select Driver" : "Select a race first"} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-black text-white border-white">
                             {drivers.map(driver => {
                                 const driverCode = driver.code || driver.driverId
                                 return (
@@ -195,6 +195,7 @@ function DriverComparisonSelectors({ onSelect }) {
                                         key={driver.driverId}
                                         value={driverCode}
                                         disabled={selectedDriverCodes.includes(driverCode)}
+                                        className="hover:bg-purple-500 hover:text-black focus:bg-purple-500 focus:text-black"
                                     >
                                         {driver.givenName} {driver.familyName} ({driverCode})
                                     </SelectItem>

@@ -98,7 +98,7 @@ function QualifyingResult({ year, round }) {
 
             <h1 className='text-center font-bold text-xl p-10'>Qualifying Result for Round {round}</h1>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Qualifying Results</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -118,8 +118,8 @@ function QualifyingResult({ year, round }) {
                             <TableCell>{driver.Driver.givenName} {driver.Driver.familyName}</TableCell>
                             <TableCell>{driver.Constructor.name}</TableCell>
                             <TableCell>{driver.Q1}</TableCell>
-                            <TableCell>{driver.Q2 || ""}</TableCell>
-                            <TableCell>{driver.Q3 || ""}</TableCell>
+                            <TableCell>{driver.Q2 || "-"}</TableCell>
+                            <TableCell>{driver.Q3 || "-"}</TableCell>
                         </TableRow>
                     )))}
                 </TableBody>

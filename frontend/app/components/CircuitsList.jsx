@@ -18,7 +18,7 @@ async function CircuitsList() {
     return (
         <div>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Circuits in F{1}</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -32,7 +32,7 @@ async function CircuitsList() {
                     {data.map((circuit => (
                         <TableRow key={circuit.circuitId}>
                             <TableCell>
-                                <Link href={`/circuits/${circuit.circuitId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                <Link href={`/circuits/${circuit.circuitId}`} className='text-white hover:text-blue-700 hover:underline'>
                                     {circuit.circuitName}
                                 </Link>
                             </TableCell>

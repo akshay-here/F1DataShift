@@ -68,7 +68,7 @@ function TeamsList({ year }) {
     return (
         <div>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Teams in {year}</TableCaption>
                 <TableHeader>
                     <TableRow>
@@ -81,7 +81,7 @@ function TeamsList({ year }) {
                     {data.map((team => (
                         <TableRow key={team.constructorId}>
                             <TableCell>
-                                <Link href={`/team/${team.constructorId}`} className='text-blue-500 hover:text-blue-700 hover:underline'>
+                                <Link href={`/team/${team.constructorId}`} className='text-white hover:text-blue-700 hover:underline'>
                                     {team.name}
                                 </Link>
                             </TableCell>

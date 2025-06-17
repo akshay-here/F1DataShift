@@ -27,7 +27,14 @@ function Sprintresult({ year, round }) {
             try {
                 const response = await fetch(`http://localhost:8000/races/sprint/result/${year}/${round}`)
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${await response.text()}`)
+                    return (
+                        <div className="p-10 text-center">
+                            <h2 className="text-xl font-bold">Sprint Result</h2>
+                            <p className="text-gray-600 mt-2">
+                                Not a Sprint Weekend.
+                            </p>
+                        </div>
+                    )
                 }
 
                 const results = await response.json()
@@ -100,7 +107,7 @@ function Sprintresult({ year, round }) {
 
             <h1 className='text-center font-bold text-xl p-10'>Sprint Result for Round {round}</h1>
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>Sprint Results</TableCaption>
                 <TableHeader>
                     <TableRow>

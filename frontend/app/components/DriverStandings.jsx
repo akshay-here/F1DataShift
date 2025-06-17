@@ -76,12 +76,13 @@ function DriverStandings({ year, round }) {
                 : <h1 className='text-center font-bold text-xl p-10'>Driver Standings after Round {round}</h1>
             }
 
-            <Table className="w-full border">
+            <Table className="w-full border bg-gradient-to-r from-purple-900 via-teal-900 to-blue-900 text-lg">
                 <TableCaption>{round == null ? <h1>Driver Standings {year}</h1> : <h1>Driver Standings after Round {round}</h1>}</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="text-white font-bold text-lg">Position</TableHead>
                         <TableHead className="text-white font-bold text-lg">Driver</TableHead>
+                        <TableHead className="text-white font-bold text-lg">Nationality</TableHead>
                         <TableHead className="text-white font-bold text-lg">Constructor</TableHead>
                         <TableHead className="text-white font-bold text-lg">Wins</TableHead>
                         <TableHead className="text-white font-bold text-lg">Points</TableHead>
@@ -91,8 +92,9 @@ function DriverStandings({ year, round }) {
                 <TableBody>
                     {data.map((driver => (
                         <TableRow key={driver.Driver.driverId}>
-                            <TableCell>{driver.position}</TableCell>
+                            <TableCell>{driver.position || "-"}</TableCell>
                             <TableCell>{driver.Driver.givenName} {driver.Driver.familyName}</TableCell>
+                            <TableCell>{driver.Driver.nationality}</TableCell>
                             <TableCell>{driver.Constructors[0]?.name}</TableCell>
                             <TableCell>{driver.wins}</TableCell>
                             <TableCell>{driver.points}</TableCell>
